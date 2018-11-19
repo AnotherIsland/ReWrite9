@@ -31,7 +31,7 @@
                 <div class="row ">
                     <div class="col s2 l2 m2 xl2 offset-l10 offset-xl10 offset-s8 offset-m9">
                         <h5>
-                            <a href="${pageContext.request.contextPath}/Login.jsp" class="waves-effect waves-light light-blue btn">Inicia Sesión</a>
+                            <a href="${pageContext.request.contextPath}/jsp/Login.jsp" class="waves-effect waves-light light-blue btn">Inicia Sesión</a>
                         </h5>
                     </div>
                 </div>
