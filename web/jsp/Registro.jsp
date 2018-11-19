@@ -9,18 +9,18 @@
 <html>
     <head>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <link type="text/css" rel="stylesheet" href="../css/materialize.css"  media="screen,projection"/>
+        <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/materialize.css"  media="screen,projection"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>ReWrite - Registro</title>
-        <link rel="shortcut icon" type="image/x-icon" href="../favicon.ico"/>
+        <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/favicon.ico"/>
     </head>
     <body class="grey darken-1">
         <nav>
             <div class="nav-wrapper white">
                 <div class="row">
                     <div class="col s2 l2 m2 xl2 offset-l5 offset-xl5 offset-s4 offset-m4">
-                        <a href="../index.jsp" class="brand-logo"><img class="responsive-img center-align" style="padding: 10px" src="../img/logo.png"/></a>
+                        <a href="${pageContext.request.contextPath}/index.jsp" class="brand-logo"><img class="responsive-img center-align" style="padding: 10px" src="../img/logo.png"/></a>
                     </div>
                 </div>
             </div>
@@ -31,7 +31,7 @@
                 <div class="row ">
                     <div class="col s2 l2 m2 xl2 offset-l10 offset-xl10 offset-s8 offset-m9">
                         <h5>
-                            <a href="Login.jsp" class="waves-effect waves-light light-blue btn">Inicia Sesión</a>
+                            <a href="${pageContext.request.contextPath}/Login.jsp" class="waves-effect waves-light light-blue btn">Inicia Sesión</a>
                         </h5>
                     </div>
                 </div>
@@ -44,20 +44,20 @@
                             <div class="carousel-item blue1" href="#one!">
                                 <h2>Bienvenido a ReWrite</h2>
                                 <p class="white-text"></p>
-                                <img src="../img/writing.jpg" class=" responsive-img" alt="imagen"/>
+                                <img src="${pageContext.request.contextPath}/img/writing.jpg" class=" responsive-img" alt="imagen"/>
                             </div>
                             <div class="carousel-item white-text blue2" href="#two!">
                                 <h2>Crea tus propias obras literarias, es fácil comenzar.</h2>
                                 <p class="white-text"></p>
-                                <img src="../img/writing2.jpg" class=" responsive-img" alt="imagen"/>
+                                <img src="${pageContext.request.contextPath}/img/writing2.jpg" class=" responsive-img" alt="imagen"/>
                             </div>
                             <div class="carousel-item white-text blue3" href="#three!">
                                 <h2></h2>
                                 <p class="white-text">Recibe ayuda, consejos y un seguimiento a tus avances en escritura.</p>
-                                <img src="../img/writing3.jpg" class=" responsive-img" alt="imagen"/>
+                                <img src="${pageContext.request.contextPath}/img/writing3.jpg" class=" responsive-img" alt="imagen"/>
                             </div>
                             <div class="carousel-item white-text blue3" href="#four!">
-                                <img src="../img/imgHome.png" class="responsive-img" alt="imagen"/>
+                                <img src="${pageContext.request.contextPath}/img/imgHome.png" class="responsive-img" alt="imagen"/>
                             </div>
                         </div>
 
@@ -66,7 +66,7 @@
                     <div class="col s5 l5 m5 xl5 ">
                         <div class="">
                             <h3>Registro</h3>
-                            <form method="post" action="../Registroo"  id="formR" name="formR">
+                            <form method="post" action="${pageContext.request.contextPath}/Registroo"  id="formR" name="formR">
                                 <div class="row">
                                     <div class="input-field col s12">
                                         <input id="email" type="email" name="email" class="validate" onkeypress="valCorreo();">
@@ -102,7 +102,7 @@
         </div>
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-        <script type="text/javascript" src="../js/materialize.min.js"></script>
-        <script type="text/javascript" src="../js/init.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/js/materialize.min.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/js/init.js"></script>
     </body>
 </html>
