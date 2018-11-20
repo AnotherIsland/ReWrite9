@@ -49,15 +49,16 @@
           <div class="row">
             <h5 class="white-text">Obras realizadas</h5><hr class="blue lighten-1">
             <div class="col s12 m12 l12 xl12 " >
+                <div class="center"><img class="responsive-img" src="../../img/graph1.png"></div>
             </div>
           </div>
           <div class="row">
             <h5 class="white-text">Correciones</h5><hr class="blue lighten-1">
             <div class="col s12 m12 l12 xl12 " >
+                <div class="center"><img src="../../img/graph2.png"></div>
             </div>
           </div>
-        </div>
-  
+  </div><br><br>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script type="text/javascript" src="../../js/materialize.min.js"></script>

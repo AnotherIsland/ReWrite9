@@ -11,11 +11,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <link rel="shortcut icon" type="image/x-icon" href="../../favicon.ico"/>
-  <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+  <!--<script type="text/javascript" src="/socket.io/socket.io.js"></script>-->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link type="text/css" rel="stylesheet" href="/src/css/materialize.css"  media="screen,projection"/>
-  <link rel="stylesheet" type="text/css" href="/src/css/style.css">
-  <script type="text/javascript" src="/src/js/main.js"></script>
+  <link type="text/css" rel="stylesheet" href="../../css/materialize.css"  media="screen,projection"/>
+  <link rel="stylesheet" type="text/css" href="../../css/style.css">
+  <script type="text/javascript" src="../../js/main.js"></script>
   <title>ReWrite - Lienzo</title>
 </head>
 <body >
@@ -86,7 +86,8 @@
           <i class="material-icons">person_add</i>
         </button><label class="white-text" for="compartir">&nbsp;&nbsp;Compartir Obra</label>
         <div class="" style="overflow: hidden;" id="share" name="share" hidden ><!--aparece sólo cuando se da clic en compartir-->
-          <a class="truncate" href="https://material.io/tools/color/?fbclid=IwAR0W6Dplr3J4E2x6bGo_lqiLd-kJJJijRuk5t9iEXBO4FblTc51Y9mNjaoY#!/?view.left=1&view.right=0&primary.color=212121&secondary.color=64B5F6">https://material.io/tools/color/?fbclid=IwAR0W6Dplr3J4E2x6bGo_lqiLd-kJJJijRuk5t9iEXBO4FblTc51Y9mNjaoY#!/?view.left=1&view.right=0&primary.color=212121&secondary.color=64B5F6
+          <a class="truncate white-text" href="http://127.0.0.1:8084/ReWrite8/jsp/CREAR/Lienzo.jsp">
+              http://127.0.0.1:8084/ReWrite8/jsp/CREAR/Lienzo.jsp
           </a>
         </div>
       </div>
@@ -141,7 +142,7 @@
   </div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-<script type="text/javascript" src="/src/js/materialize.min.js"></script>
-<script type="text/javascript" src="/src/js/init.js"></script>
+<script type="text/javascript" src="../../js/materialize.min.js"></script>
+<script type="text/javascript" src="../../js/init.js"></script>
 </body>
 </html>
