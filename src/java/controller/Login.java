@@ -14,6 +14,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -77,18 +78,20 @@ public class Login extends HttpServlet {
         String usuario = request.getParameter("username");
         String contrasena = request.getParameter("password");
         String Usu = "";
+        HttpSession sesi = request.getSession();
         try{
             db.connect();
             ResultSet rs = db.query("Select * from usuario where correo = '"+usuario+"' and contraseña = '"+contrasena+"';");
             response.setContentType("text/html;charset=UTF-8");
             if (rs.next()){
+                sesi.setAttribute("idUsuario", rs.getInt("idUsuario"));//Aqui se trae el parametro y lo añade a la sesi+on
                  try (PrintWriter out = response.getWriter()) {
-           out.print("<META HTTP-EQUIV='REFRESH' CONTENT='0.00000001;URL=http://localhost:8084/ReWrite/jsp/MISOBRAS/MisObras.jsp'>");
+           out.print("<META HTTP-EQUIV='REFRESH' CONTENT='0.00000001;URL=http://localhost:8084/ReWrite8/jsp/MISOBRAS/MisObras.jsp'>");
             }
             }
             else{
                  try (PrintWriter out = response.getWriter()) {
-                        out.print("<META HTTP-EQUIV='REFRESH' CONTENT='0.00000001;URL=http://localhost:8084/ReWrite/jsp/Login.jsp'>");
+                        out.print("<META HTTP-EQUIV='REFRESH' CONTENT='0.00000001;URL=http://localhost:8084/ReWrite8/jsp/Login.jsp'>");
                  }
         }
         }
