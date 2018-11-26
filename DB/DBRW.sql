@@ -108,12 +108,14 @@ UNLOCK TABLES;
 
 CREATE TABLE `ensayo` (
   `idEnsayo` int(11) NOT NULL AUTO_INCREMENT,
-  `idRelObraTipoobra` int(11) DEFAULT NULL,
+  `idUsuario` int(11) DEFAULT NULL,
   `intro` mediumtext,
   `desarrollo` mediumtext,
   `conclusion` mediumtext,
+  `titulo` varchar(45) DEFAULT NULL,
+  `sello` varchar(300) DEFAULT NULL,
   PRIMARY KEY (`idEnsayo`),
-  FOREIGN KEY (`idRelObraTipoobra`) REFERENCES `relObraTipoobra` (`idRelObraTipoobra`)
+  FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 LOCK TABLES `ensayo` WRITE;
 /*!40000 ALTER TABLE `ensayo` DISABLE KEYS */;

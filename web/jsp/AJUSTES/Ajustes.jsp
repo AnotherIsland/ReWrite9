@@ -9,10 +9,10 @@
 <html>
 <head>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link type="text/css" rel="stylesheet" href="../../css/materialize.css"  media="screen,projection"/>
+  <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/materialize.css"  media="screen,projection"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <link rel="shortcut icon" type="image/x-icon" href="../../favicon.ico"/>
+  <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/favicon.ico"/>
   <title>ReWrite - Ajustes</title>
 </head>
 <body>
@@ -23,21 +23,21 @@
 <div class="" name="header">
   <nav>
     <div class="nav-wrapper ">
-      <a href="../../index.jsp" class="brand-logo"><img class="responsive-img center-align" style="padding: 10px" src="../../img/logoT.png"></a>
+      <a href="${pageContext.request.contextPath}/index.jsp" class="brand-logo"><img class="responsive-img center-align" style="padding: 10px" src="${pageContext.request.contextPath}/img/logoT.png"></a>
       <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
       <ul class="right hide-on-med-and-down">
-        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/index.jsp">Cerrar Sesión</a></li>
-        <li><a class=" text-accent-4" href="../MISOBRAS/MisObras.jsp">Mis Obras</a></li>
-        <li><a class=" text-accent-4" href="../CREAR/Crear.jsp">Crear</a></li>
-        <li><a class=" text-accent-4" href="../AJUSTES/Ajustes.jsp">Ajustes</a></li>
-        <li><a class=" text-accent-4" href="../EVOLUCION/Evolucion.jsp">Evolución</a></li>
+        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/index.jsp">Cerrar Sesión</a></li>
+        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/MISOBRAS/MisObras.jsp">Mis Obras</a></li>
+        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/CREAR/Crear.jsp">Crear</a></li>
+        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/AJUSTES/Ajustes.jsp">Ajustes</a></li>
+        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/EVOLUCION/Evolucion.jsp">Evolución</a></li>
       </ul>
       <ul class="sidenav" id="mobile-demo">
-        <li><a class=" text-accent-4" href="../Login.jsp">Cerrar Sesión</a></li>
-        <li><a class=" text-accent-4" href="../MISOBRAS/MisObras.jsp">Mis Obras</a></li>
-        <li><a class=" text-accent-4" href="../CREAR/Crear.jsp">Crear</a></li>
-        <li><a class=" text-accent-4" href="../AJUSTES/Ajustes.jsp">Ajustes</a></li>
-        <li><a class=" text-accent-4" href="../EVOLUCION/Evolucion.jsp">Evolución</a></li>
+        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/Login.jsp">Cerrar Sesión</a></li>
+        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/MISOBRAS/MisObras.jsp">Mis Obras</a></li>
+        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/CREAR/Crear.jsp">Crear</a></li>
+        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/AJUSTES/Ajustes.jsp">Ajustes</a></li>
+        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/EVOLUCION/Evolucion.jsp">Evolución</a></li>
       </ul>
     </div>
   </nav>
@@ -53,9 +53,9 @@
       <li>
         <div class="collapsible-header"><i class="material-icons">account_circle</i>Usuario: <!--Aquí va el nombre actual del usuario --></div>
         <div class="collapsible-body row">
-            <form action="" method="" ><!--Form para cambiar nombre de usuario e imagen-->
+            <form action="${pageContext.request.contextPath}/Ajustes" method="POST"><!--Form para cambiar nombre de usuario e imagen-->
             <div class="col s4 m4 l5 xl5">
-              <img src="../../img/user.png" class="responsive-img">
+              <img src="${pageContext.request.contextPath}/img/user.png" class="responsive-img">
               <input type="button" class="waves-effect waves-lights" name="cambiaImagen" value="Escoger imagen...">
             </div>
             <div class=" col s8 m8 l7 xl7">
@@ -69,7 +69,7 @@
       <li>
         <div class="collapsible-header"><i class="material-icons">email</i>Correo:</div>
         <div class="collapsible-body">
-          <form><!--Form para cambiar email-->
+          <form action="${pageContext.request.contextPath}/Ajustes" method="POST"><!--Form para cambiar email-->
             <div class="input-field">
               <label for="correo">Ingresa el nuevo correo:</label>
               <input type="text" class="" name="correo" id="correo">
@@ -81,7 +81,7 @@
       <li>
         <div class="collapsible-header"><i class="material-icons">lock</i>Contraseña</div>
         <div class="collapsible-body">
-          <form><!--Form para cambiar contraseña-->
+            <form action="${pageContext.request.contextPath}/Ajustes" method="POST"><!--Form para cambiar contraseña-->
             <div class="input-field">
               <label for="contraVieja"> Ingresa tu actual contraseña:</label>
               <input type="password" class="validate" name="contraVieja" id="contraVieja"><br>
@@ -102,8 +102,8 @@
   </div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-<script type="text/javascript" src="../../js/materialize.min.js"></script>
-<script type="text/javascript" src="../../js/init.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/materialize.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/init.js"></script>
 <% } 
     else {
     RequestDispatcher rd = request.getRequestDispatcher("../Login.jsp");

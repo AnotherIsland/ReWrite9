@@ -6,7 +6,7 @@
 package controller;
 
 import Database.DataBase;
-import Generarr.Exception_Exception;
+import generar.Exception_Exception;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
@@ -20,35 +20,11 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author victor
+ * @author axolotech
  */
 public class Login extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Login</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Login at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
+   
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -62,7 +38,7 @@ public class Login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
     }
 
     /**
@@ -78,19 +54,27 @@ public class Login extends HttpServlet {
             throws ServletException, IOException {
                 DataBase db = new DataBase();
         String usuario = request.getParameter("username");
-        String contrasena = request.getParameter("password");
+        String contrasena = cifrado(request.getParameter("password"));
         String Usu = "";
         HttpSession sesi = request.getSession();
         try{
             db.connect();
-            ResultSet rs = db.query("Select * from usuario where correo = '"+usuario+"' and contraseña = '"+contrasena+"';");
+            ResultSet rs = db.query("Select * from usuario where (correo = '"+usuario+"' or usuario='"+usuario+"') and contraseña = '"+contrasena+"';");
             response.setContentType("text/html;charset=UTF-8");
             if (rs.next()){
+                String username = rs.getString("usuario");
+                String correo = rs.getString("correo");
+                String id = rs.getString("idUsuario");
+                String date = Long.toString(sesi.getLastAccessedTime());
+                
+               sesi.setAttribute("Email", usuario);
                 try{
                      Login l = new Login();
-                sesi.setAttribute("ID", l.generar(contrasena));
+                sesi.setAttribute("ID", l.generar(correo,id,username, date));
                 sesi.setAttribute("Email", usuario);
+                sesi.setAttribute("username", username);
                     System.out.println("id: " + sesi.getAttribute("ID").toString());
+                    System.out.println("usuario: " + sesi.getAttribute("username").toString());
                 }
                 catch (Exception e){
                     System.out.println(e);
@@ -106,7 +90,7 @@ public class Login extends HttpServlet {
         catch (SQLException e){
             e.printStackTrace();
         }
-        processRequest(request, response);
+
     }
 
     /**
@@ -119,11 +103,25 @@ public class Login extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    
 
-    private static String generar(java.lang.String name) throws Exception_Exception {
-        Generarr.Generar_Service service = new Generarr.Generar_Service();
-        Generarr.Generar port = service.getGenerarPort();
-        return port.generar(name);
+    
+
+    private static String generar(java.lang.String correo, java.lang.String id, java.lang.String username, java.lang.String hora) throws Exception_Exception {
+        generar.Generar_Service service = new generar.Generar_Service();
+        generar.Generar port = service.getGenerarPort();
+        return port.generar(correo, id, username, hora);
     }
+
+    private static String cifrado(java.lang.String contra) {
+        paquete.Servicio_Service service = new paquete.Servicio_Service();
+        paquete.Servicio port = service.getServicioPort();
+        return port.cifrado(contra);
+    }
+
+
+
+    
+
 
 }

@@ -8,7 +8,7 @@
 <%@page import="javax.servlet.http.HttpSession"%>
 <%
     HttpSession sesi = request.getSession();
-  sesi.invalidate();
+  //sesi.invalidate();
   response.sendRedirect("jsp/Registro.jsp");
   
 %>

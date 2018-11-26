@@ -11,6 +11,10 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
+<%
+        HttpSession sesi = request.getSession();
+        if (sesi.getAttribute("ID") != null) {
+        %>
 <html>
 <head>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -21,14 +25,10 @@ and open the template in the editor.
   <title>ReWrite - Mis Obras</title>
 </head>
 <body>
-        <%
-        HttpSession sesi = request.getSession();
-        if (sesi.getAttribute("ID") != null) {
-        %>
 <div class="" name="header">
   <nav>
     <div class="nav-wrapper ">
-      <a href="${pageContext.request.contextPath}/index.jsp" class="brand-logo"><img class="responsive-img center-align" style="padding: 10px" src="../../img/logoT.png"></a>
+      <a href="${pageContext.request.contextPath}/index.jsp" class="brand-logo"><img class="responsive-img center-align" style="padding: 10px" src="${pageContext.request.contextPath}/img/logoT.png"></a>
       <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
       <ul class="right hide-on-med-and-down">
         <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/index.jsp">Cerrar Sesión</a></li>
@@ -51,7 +51,11 @@ and open the template in the editor.
   <div class="row">
     <div class="col s12 m12 l12 xl12">
       <h3 class="section white z-depth-3">Mis Obras</h3>
+        <form action="${pageContext.request.contextPath}/jsp/VerificaSello.jsp">
+            <input type="submit" class="btn waves-button-input black-text z-depth-3" value="Verificador de sellos" name="aceptar">
+        </form>
       <div class="col s7 m7 l8 xl8 " >
+          
         <div class="section grey z-depth-3">
           <div class="row">
             <h5 class="white-text">Recientes</h5><hr class="blue lighten-1">
@@ -180,10 +184,10 @@ and open the template in the editor.
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/materialize.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/init.js"></script>
+</body>
+</html>
 <% } 
     else {
     RequestDispatcher rd = request.getRequestDispatcher("../Login.jsp");
                 rd.forward(request, response);
 }%>
-</body>
-</html>

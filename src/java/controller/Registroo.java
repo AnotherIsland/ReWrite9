@@ -24,19 +24,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class Registroo extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -64,30 +51,23 @@ public class Registroo extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-                 DataBase db = new DataBase();
-        ResultSet rs;
-        String password = request.getParameter("password");
+        
+        
+                 String password = request.getParameter("password");
         String emai = request.getParameter("email");
-        String usuario =emai.substring(0, 5);
+        String usuario="";
+        for (int i = 0; i < emai.length(); i++) {
+            if(!Character.toString(emai.charAt(i)).equals("@")){
+              usuario+=Character.toString(emai.charAt(i));  
+            }
+            else
+                i=emai.length();
+        }
         
         
-        System.out.println("hola");
-        try{
-            db.connect();
-            CallableStatement call = db.procedure("{call alta_usuario(?, ?, ?, ?)}");
-            call.setString(1, usuario);
-            call.setString(2, emai);
-            call.setString(3, password);
-            call.setString(4, "");
-            call.execute();
-            call.close();
-            
-            db.closeConnection();
-        }
-        catch(SQLException error){
-            System.out.println(error.toString());
-        }
-           RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+        basec(emai, usuario, password);
+        
+           RequestDispatcher rd = request.getRequestDispatcher("jsp/Login.jsp");
                 rd.forward(request, response);
     }
 
@@ -101,4 +81,13 @@ public class Registroo extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    private static String basec(java.lang.String correo, java.lang.String usuario, java.lang.String contraseña) {
+        paquete.Servicio_Service service = new paquete.Servicio_Service();
+        paquete.Servicio port = service.getServicioPort();
+        return port.basec(correo, usuario, contraseña);
+    }
+
+    
+
+  
 }

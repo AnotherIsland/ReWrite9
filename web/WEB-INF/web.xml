@@ -16,6 +16,26 @@
         <servlet-name>Login</servlet-name>
         <servlet-class>controller.Login</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GuardarObra</servlet-name>
+        <servlet-class>controller.GuardarObra</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Ajustes</servlet-name>
+        <servlet-class>controller.Ajustes</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>VerificarSello</servlet-name>
+        <servlet-class>controller.VerificarSello</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PruebaDescifraTicket</servlet-name>
+        <servlet-class>controller.PruebaDescifraTicket</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Prueba</servlet-name>
+        <servlet-class>controller.Prueba</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Inicio</servlet-name>
         <url-pattern>/ReWrite/index.jsp</url-pattern>
@@ -39,6 +59,26 @@
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GuardarObra</servlet-name>
+        <url-pattern>/GuardarObra</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VerificarSello</servlet-name>
+        <url-pattern>/VerificarSello</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PruebaDescifraTicket</servlet-name>
+        <url-pattern>/PruebaDescifraTicket</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Prueba</servlet-name>
+        <url-pattern>/Prueba</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Ajustes</servlet-name>
+        <url-pattern>/Ajustes</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

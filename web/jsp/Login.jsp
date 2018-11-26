@@ -20,7 +20,7 @@
   <div class="nav-wrapper white">
     <div class="row">
       <div class="col s2 l2 m2 xl2 offset-l5 offset-xl5 offset-s4 offset-m4">
-        <a href="${pageContext.request.contextPath}/index.jsp" class="brand-logo"><img class="responsive-img center-align" style="padding: 10px" src="../img/logo.png"/></a>
+        <a href="${pageContext.request.contextPath}/index.jsp" class="brand-logo"><img class="responsive-img center-align" style="padding: 10px" src="${pageContext.request.contextPath}/img/logo.png"/></a>
       </div>
     </div>
   </div>
