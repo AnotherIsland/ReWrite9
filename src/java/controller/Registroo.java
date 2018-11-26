@@ -68,7 +68,7 @@ public class Registroo extends HttpServlet {
         ResultSet rs;
         String password = request.getParameter("password");
         String emai = request.getParameter("email");
-        String usuario = "default";
+        String usuario =emai.substring(0, 5);
         
         
         System.out.println("hola");

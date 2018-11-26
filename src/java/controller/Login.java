@@ -6,10 +6,12 @@
 package controller;
 
 import Database.DataBase;
+import Generarr.Exception_Exception;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -84,15 +86,21 @@ public class Login extends HttpServlet {
             ResultSet rs = db.query("Select * from usuario where correo = '"+usuario+"' and contraseña = '"+contrasena+"';");
             response.setContentType("text/html;charset=UTF-8");
             if (rs.next()){
-                sesi.setAttribute("idUsuario", rs.getInt("idUsuario"));//Aqui se trae el parametro y lo añade a la sesi+on
-                 try (PrintWriter out = response.getWriter()) {
-           out.print("<META HTTP-EQUIV='REFRESH' CONTENT='0.00000001;URL=http://localhost:8084/ReWrite8/jsp/MISOBRAS/MisObras.jsp'>");
-            }
+                try{
+                     Login l = new Login();
+                sesi.setAttribute("ID", l.generar(contrasena));
+                sesi.setAttribute("Email", usuario);
+                    System.out.println("id: " + sesi.getAttribute("ID").toString());
+                }
+                catch (Exception e){
+                    System.out.println(e);
+                }
+                RequestDispatcher rd = request.getRequestDispatcher("./jsp/MISOBRAS/MisObras.jsp");
+                rd.forward(request, response);
             }
             else{
-                 try (PrintWriter out = response.getWriter()) {
-                        out.print("<META HTTP-EQUIV='REFRESH' CONTENT='0.00000001;URL=http://localhost:8084/ReWrite8/jsp/Login.jsp'>");
-                 }
+                 RequestDispatcher rd = request.getRequestDispatcher("./jsp/Login.jsp");
+                rd.forward(request, response);
         }
         }
         catch (SQLException e){
@@ -110,5 +118,12 @@ public class Login extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+
+    private static String generar(java.lang.String name) throws Exception_Exception {
+        Generarr.Generar_Service service = new Generarr.Generar_Service();
+        Generarr.Generar port = service.getGenerarPort();
+        return port.generar(name);
+    }
 
 }
