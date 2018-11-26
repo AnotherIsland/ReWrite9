@@ -21,13 +21,17 @@ and open the template in the editor.
   <title>ReWrite - Mis Obras</title>
 </head>
 <body>
+        <%
+        HttpSession sesi = request.getSession();
+        if (sesi.getAttribute("ID") != null) {
+        %>
 <div class="" name="header">
   <nav>
     <div class="nav-wrapper ">
       <a href="${pageContext.request.contextPath}/index.jsp" class="brand-logo"><img class="responsive-img center-align" style="padding: 10px" src="../../img/logoT.png"></a>
       <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
       <ul class="right hide-on-med-and-down">
-        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/Login.jsp">Cerrar Sesión</a></li>
+        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/index.jsp">Cerrar Sesión</a></li>
         <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/MISOBRAS/MisObras.jsp">Mis Obras</a></li>
         <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/CREAR/Crear.jsp">Crear</a></li>
         <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/AJUSTES/Ajustes.jsp">Ajustes</a></li>
@@ -176,5 +180,10 @@ and open the template in the editor.
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/materialize.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/init.js"></script>
+<% } 
+    else {
+    RequestDispatcher rd = request.getRequestDispatcher("../Login.jsp");
+                rd.forward(request, response);
+}%>
 </body>
 </html>
