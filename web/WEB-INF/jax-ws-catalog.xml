@@ -4,4 +4,7 @@
     <system systemId="http://localhost:8080/I3Server/generar?xsd=1" uri="wsdl/localhost_8080/I3Server/generar.xsd_1.xsd"/>
     <system systemId="http://localhost:8080/GenerarID/generar?WSDL" uri="wsdl/localhost_8080/GenerarID/generar.wsdl"/>
     <system systemId="http://localhost:8080/GenerarID/generar?xsd=1" uri="wsdl/localhost_8080/GenerarID/generar.xsd_1.xsd"/>
+    <system systemId="http://localhost:8080/GenerarID/generar?wsdl" uri="wsdl/localhost_8080/GenerarID/generar.wsdl"/>
+    <system systemId="http://localhost:8080/Servidor/Servicio?wsdl" uri="wsdl/localhost_8080/Servidor/Servicio.wsdl"/>
+    <system systemId="http://localhost:8080/Servidor/Servicio?xsd=1" uri="wsdl/localhost_8080/Servidor/Servicio.xsd_1.xsd"/>
 </catalog>

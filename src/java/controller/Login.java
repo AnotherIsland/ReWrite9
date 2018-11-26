@@ -6,7 +6,7 @@
 package controller;
 
 import Database.DataBase;
-import Generarr.Exception_Exception;
+import generar.Exception_Exception;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
@@ -119,11 +119,14 @@ public class Login extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-
     private static String generar(java.lang.String name) throws Exception_Exception {
-        Generarr.Generar_Service service = new Generarr.Generar_Service();
-        Generarr.Generar port = service.getGenerarPort();
+        generar.Generar_Service service = new generar.Generar_Service();
+        generar.Generar port = service.getGenerarPort();
         return port.generar(name);
     }
+
+   
+
+
 
 }
