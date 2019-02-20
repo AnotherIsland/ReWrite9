@@ -50,7 +50,7 @@
     <div class="section grey col s3 m3 l3 xl3"><!--Sidebar para consejos y revisiones-->
       <h2 class="white-text">Resumen</h2>
       <div class="row">
-        <br><a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">forum</i>&nbsp;Ver el chat</a>
+        
         <h6 class="white-text">Aquí tenemos unos muy buenos consejos para ti. </h6><br>
         <ul class="collapsible">
           <li>
@@ -99,16 +99,15 @@
           <i class="material-icons">person_add</i>
         </button><label class="white-text" for="compartir">&nbsp;&nbsp;Compartir Obra</label>
         <div class="" style="overflow: hidden;" id="share" name="share" hidden ><!--aparece sólo cuando se da clic en compartir-->
-          <a class="truncate" href="https://material.io/tools/color/?fbclid=IwAR0W6Dplr3J4E2x6bGo_lqiLd-kJJJijRuk5t9iEXBO4FblTc51Y9mNjaoY#!/?view.left=1&view.right=0&primary.color=212121&secondary.color=64B5F6">https://material.io/tools/color/?fbclid=IwAR0W6Dplr3J4E2x6bGo_lqiLd-kJJJijRuk5t9iEXBO4FblTc51Y9mNjaoY#!/?view.left=1&view.right=0&primary.color=212121&secondary.color=64B5F6
-          </a>
+          <a class="truncate" href="${pageContext.request.contextPath}/jsp/CREAR/Resumen.jsp">${pageContext.request.contextPath}/jsp/CREAR/Resumen.jsp</a>
         </div>
       </div>
     </div>
 
     <div class="section lienzo white col s8 m8 l8 xl8"><!--contenido principal donde se escribe-->
         <form name="form1" id="form1">
-          <input type="submit" class="btn waves-effect waves-light right" name="guardar" id="guardar" value="Guardar"><br><br>
-          <input type="text" class="input-field oculto " placeholder="Título" name="titulo" id="titulo" >
+          <input type="button" class="btn waves-effect waves-light right" name="guardar" id="guardar" value="Revisar" onclick="pClaves();"><br><br>
+          <input type="text" class="input-field oculto" placeholder="Título" name="titulo" id="titulo" >
           <label for="contenido"><h6>Contenido</h6></label>
           <input class="input-field oculto" id="contenido" name="contenido">
           </input>
@@ -162,5 +161,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script type="text/javascript" src="../../js/materialize.min.js"></script>
 <script type="text/javascript" src="../../js/init.js"></script>
+<script type="text/javascript" src="../../js/Resumen.js"></script>
 </body>
 </html>
