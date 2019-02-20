@@ -52,10 +52,32 @@ public class Registroo extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        
-                 String password = request.getParameter("password");
+         DataBase db = new DataBase();
+        ResultSet rs;
+        String password = request.getParameter("password");
         String emai = request.getParameter("email");
-        String usuario="";
+        String usuario = "";
+        
+        
+        System.out.println("hola");
+        try{
+            db.connect();
+            CallableStatement call = db.procedure("{call alta_usuario(?, ?, ?)}");
+            call.setString(1, usuario);
+            call.setString(2, emai);
+            call.setString(3, password);
+            call.execute();
+            call.close();
+            
+            db.closeConnection();
+        }
+        catch(SQLException error){
+            System.out.println(error.toString());
+        }
+           RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+                rd.forward(request, response);
+    }
+        /*
         for (int i = 0; i < emai.length(); i++) {
             if(!Character.toString(emai.charAt(i)).equals("@")){
               usuario+=Character.toString(emai.charAt(i));  
@@ -64,7 +86,7 @@ public class Registroo extends HttpServlet {
                 i=emai.length();
         }
         
-        
+      /
         basec(emai, usuario, password);
         
            RequestDispatcher rd = request.getRequestDispatcher("jsp/Login.jsp");
@@ -75,7 +97,7 @@ public class Registroo extends HttpServlet {
      * Returns a short description of the servlet.
      *
      * @return a String containing servlet description
-     */
+     
     @Override
     public String getServletInfo() {
         return "Short description";
@@ -87,7 +109,8 @@ public class Registroo extends HttpServlet {
         return port.basec(correo, usuario, contraseña);
     }
 
-    
+    */
 
   
+}
 }
