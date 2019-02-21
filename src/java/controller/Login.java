@@ -59,7 +59,7 @@ public class Login extends HttpServlet {
         HttpSession sesi = request.getSession();
         try{
             db.connect();
-            ResultSet rs = db.query("Select * from usuario where (correo = '"+usuario+"' or usuario='"+usuario+"') and contraseña = '"+contrasena+"';");
+            ResultSet rs = db.query("Select * from usuario where (correo = '"+usuario+"' or usuario='"+usuario+"') and pass = '"+contrasena+"';");
             response.setContentType("text/html;charset=UTF-8");
             if (rs.next()){
                 String username = rs.getString("usuario");
@@ -83,6 +83,7 @@ public class Login extends HttpServlet {
                 rd.forward(request, response);
             }
             else{
+                System.out.println("No esta el usuario registrado");
                  RequestDispatcher rd = request.getRequestDispatcher("./jsp/Login.jsp");
                 rd.forward(request, response);
             }
