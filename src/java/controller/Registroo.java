@@ -52,11 +52,11 @@ public class Registroo extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-         DataBase db = new DataBase();
+        DataBase db = new DataBase();
         ResultSet rs;
         String password = request.getParameter("password");
         String emai = request.getParameter("email");
-        String usuario = "";
+        String usuario = "default";
         
         for (int i = 0; i < emai.length(); i++) {
             if(!Character.toString(emai.charAt(i)).equals("@")){
