@@ -116,10 +116,10 @@
 
     <div class="section lienzo white col s8 m8 l8 xl8"><!--contenido principal donde se escribe-->
         <form name="form1" id="form1">
-          <input type="button" class="btn waves-effect waves-light right" name="revisar" id="revisar" value="Revisar" onclick="pClaves();"><br><br>
+          <input type="button" class="btn waves-effect waves-light right" name="revisar" id="revisar" value="Revisar" onclick="revResumen();"><br><br>
           <input type="text" class="input-field oculto" placeholder="Título" name="titulo" id="titulo" >
           <label for="contenido"><h6>Contenido</h6></label>
-          <input class="input-field oculto" id="contenido" name="contenido">
+          <input class="input-field oculto" id="contenido" name="contenido" onchange="revResumen();">
           </input>
           <label for="referencias"><h6>Referencias</h6></label><br>
           <div type="text" id="referencias" name="referencias" class="input-field oculto">

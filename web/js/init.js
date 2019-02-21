@@ -8,6 +8,7 @@ $(document).ready(function () {
     $('.carousel').carousel();
     $('input#input_text, textarea#textarea2').characterCounter();
 });
+
 //Funcionalidad de los módulos
 function mostrarTipoRef() {
     let btn = document.getElementById('tipoRef');
@@ -37,24 +38,140 @@ function cuentaPalabras(texto){
     let numPalabra = 0;
     let guarda = '';
     let listaP = [];
+
     //Extrae palabras del texto ya las mete en arreglo listaP
-    for(i = 0; i < texto.length; i++){        
-        if(texto.charAt(i) === ' '){
-            listaP[numPalabra] = guarda; 
-            guarda = '';
-            numPalabra++;
-        }else{
-            guarda = guarda + texto.charAt(i);
-        }
-    }
-    console.log(listaP.length);
-    console.log(listaP);
+    listaP = texto.split(' ');
+    numPalabra = listaP.length;
+
     let span = document.createElement('span');
-    span.innerHTML = numPalabra;
+    let h6 = document.getElementById('numP');
+    
+    span.innerHTML = ' '+ numPalabra;
     span.id='spanNumP';
+    console.log(numPalabra);
+    if(document.getElementById('spanNumP')){
+        h6.removeChild(document.getElementById('spanNumP'));
+        
+    }
     document.getElementById('numP').appendChild(span);
+    
+    
 }
-//REvisión por módulos
+function agregaPalabra(pal) {
+    let palabra = null;
+    let icon = null;
+    let span = null;
+    let pala = '';
+    let guarda = '';
+    let bandera = 0;
+    if (pal.value !== '') {
+        palabra = document.createElement('li');
+        icon = document.createElement('i');
+        span = document.createElement('span');
+
+        palabra.setAttribute('class', 'white-text');
+        icon.setAttribute('class', 'tiny material-icons');
+        span.setAttribute('class', 'palabra');
+
+        icon.innerHTML = 'check';
+        
+        pala = pal.value;
+        
+        for(i = 0; i < pala.length; i++){    
+            if((i === pala.length-1) && pala.charAt(pala.length-1)===' '){
+                bandera = 1;
+            }else
+                guarda = guarda + pala.charAt(i);
+        }
+        span.innerHTML = guarda;
+
+        palabra.appendChild(icon);
+        palabra.appendChild(span);
+        document.getElementById('listaClaves').appendChild(palabra);
+        pal.value = '';
+    } else {
+        return false;
+    }
+}
+function pClaves(){
+    let contenido = document.getElementById('contenido');
+    let lista = document.getElementsByClassName('palabra');
+    let lista1 = [];//Palabras clave en lista
+    let lista2 = [];//Palabras en todo texto
+    let lista3 = [];//Palabras clave en texto
+    let lista4 = [];//Palabras clave FALTANTES en texto
+    let numPalabra = 0;
+    let numPalabra1 = 0;
+    let noHay = 0;
+    let texto = '';
+    let guarda = '';
+    
+    let largo = 0;
+    
+    largo = lista4.length-1;
+    //lista4.slice(0,largo);
+    
+    console.log(lista4);
+    
+    //Extrae palabras de la lista de palabras clave
+    for(i = 0; i < lista.length; i++){ 
+        lista1[i] = lista[i].innerHTML;
+    }
+    
+    //Extrae palabras del texto y las mete en arreglo lista2
+    texto = contenido.value;
+    lista2 = texto.split(' ');
+    
+    //Comparando palabras de lista1 y lista2, agregando a lista 3 las que están, 
+    //a lista4 las que faltan
+    
+    for(i = 0; i < lista1.length; i++){ 
+        for(j = 0; j < lista2.length; j++){ 
+            if(lista1[i] === lista2[j]){
+                lista3[numPalabra] = lista1[i];
+                numPalabra++;
+                noHay = 1;
+            }
+        } 
+        if(noHay === 0){
+            
+            lista4[numPalabra1] = lista1[i];
+            numPalabra1++;
+            console.log(lista4[numPalabra1]);
+        }
+    }console.log(lista4);
+    
+    //Despliega las palabras que faltan 
+    let palabra = null;
+    let icon = null;
+    let span = null;
+    let borra = null;
+    
+    
+    borra = document.getElementsByClassName('palabraClave');
+    for(i = 0; i < borra.length;i++){
+            document.getElementById('faltanClaves').removeChild(borra[i]);
+        }
+    
+    for(i = 0; i < lista4.length;i++){
+        palabra = document.createElement('li');
+        icon = document.createElement('i');
+        span = document.createElement('span');
+
+        palabra.setAttribute('class', 'palabraClave');
+        icon.setAttribute('class', 'tiny material-icons');
+        span.setAttribute('class', 'white-text');
+        icon.innerHTML = 'priority_high';
+        
+        span.innerHTML = lista4[i];
+        
+        palabra.appendChild(icon);
+        palabra.appendChild(span);
+
+        document.getElementById('faltanClaves').appendChild(palabra);
+    }    
+}
+//Revisión por módulos
 function revEnsayo(){
     
     let intro = document.getElementById('intro');
@@ -66,6 +183,10 @@ function revEnsayo(){
     cuentaPalabras('Este es una prueba');
     //cuentaPalabras(texto);
 
+}
+function revResumen(){
+    pClaves();
+    cuentaPalabras(document.getElementById('contenido').value);
 }
 //Funcionalidad de referencias
 function newRef(ref) {
@@ -269,7 +390,6 @@ function haceReferencia(autor, anio, titulo, numRef) {//Añade la referencia con
     ref.appendChild(btn);
     document.getElementById('referencias').appendChild(ref);
 }
-
 function editaRef(btnRefEdita) {
 
     let nomRef = btnRefEdita.id;//Nombre del botón de la referencia
@@ -316,6 +436,7 @@ function editaRef(btnRefEdita) {
     inputRef.value = (numRef) + '.- ' + autor + '. (' + anio + '). <i>' + titulo + '</i>' + otros;
     pRef.appendChild(inputRef);
 }
+
 //Validaciones
 function validaAnio(num) {
     if (num.length > 4) {
