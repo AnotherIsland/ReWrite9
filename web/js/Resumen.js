@@ -7,6 +7,9 @@ function agregaPalabra(pal) {
     let palabra = null;
     let icon = null;
     let span = null;
+    let pala = '';
+    let guarda = '';
+    let bandera = 0;
     if (pal.value !== '') {
         palabra = document.createElement('li');
         icon = document.createElement('i');
@@ -17,7 +20,16 @@ function agregaPalabra(pal) {
         span.setAttribute('class', 'palabra');
 
         icon.innerHTML = 'check';
-        span.innerHTML = pal.value;
+        
+        pala = pal.value;
+        
+        for(i = 0; i < pala.length; i++){    
+            if((i === pala.length-1) && pala.charAt(pala.length-1)===' '){
+                bandera = 1;
+            }else
+                guarda = guarda + pala.charAt(i);
+        }
+        span.innerHTML = guarda;
 
         palabra.appendChild(icon);
         palabra.appendChild(span);
@@ -55,14 +67,18 @@ function pClaves(){
             guarda = guarda + texto.charAt(i);
         }
     }numPalabra = 0;
-    //Comparando palabras de lista1 y lista2
+    //Comparando palabras de lista1 y lista2, agregando a lista 3 
     for(i = 0; i < lista1.length; i++){ 
         for(j = 0; j < lista2.length; j++){ 
             if(lista1[i] === lista2[j]){
-                console.log(lista1[i] +'-'+lista2[j]);
                 lista3[numPalabra] = lista1[i];
+                numPalabra++;
+                noHay = 1;
             }
-        }   
+        } 
+        if(noHay === 0){
+            lista4[numPalabra1] = 
+        }
     }
-console.log(lista3);
+    //
 }
