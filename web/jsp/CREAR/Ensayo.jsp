@@ -31,7 +31,7 @@
                     <a href="${pageContext.request.contextPath}/index.jsp" class="brand-logo"><img class="responsive-img center-align" style="padding: 10px" src="${pageContext.request.contextPath}/img/logoT.png"></a>
                     <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                     <ul class="right hide-on-med-and-down">
-                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/index.jsp">Cerrar Sesión</a></li>
+                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/Login.jsp">Cerrar Sesión</a></li>
                         <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/MISOBRAS/MisObras.jsp">Mis Obras</a></li>
                         <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/CREAR/Crear.jsp">Crear</a></li>
                         <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/AJUSTES/Ajustes.jsp">Ajustes</a></li>
@@ -57,7 +57,7 @@
                     <div class="row"> 
                         <br>
                         <h6 class="white-text">Aquí tenemos unos muy buenos consejos para ti. </h6><br>
-                        <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">forum</i>&nbsp;Ver el chat</a>
+                        
                         <ul class="collapsible">
                             <li>
                                 <div class="collapsible-header"><i class="material-icons">assignment_turned_in</i>Ortografía y gramática</div>
@@ -101,7 +101,7 @@
                                 </div>
                             </li>
                         </ul>
-                        <h6 class="white-text">Palabras:</h6><br><!--Aquí va el conteo de número de palabras-->
+                        <h6 class="white-text" id="numP">Palabras:</h6><br><!--Aquí va el conteo de número de palabras-->
                     </div>
                     <div class="row">
                         <h6 class="white-text">Otras herramientas</h6><br>
@@ -132,10 +132,11 @@
                 <div class="section white lienzo col s8 m8 l8 xl8"><!--contenido principal donde se escribe-->
                     <div>
                         <form name="form1" id="form1" action="${pageContext.request.contextPath}/GuardarObra" method="POST">
-                            <input type="text" name="titulo" class="input-field oculto " placeholder="Título" >
-                            <input type="text" name="intro" class="input-field oculto " placeholder="Introducción" >
-                            <input type="text" name="desarrollo" class="input-field oculto " placeholder="Desarrollo" >
-                            <input type="text" name="conclusion" class="input-field oculto " placeholder="Conclusión" >
+                            <input type="button" class="btn waves-effect waves-light right" name="revisar" id="revisar" value="Revisar" onclick="revEnsayo();"><br><br>
+                            <input type="text" name="titulo" id="titulo" class="input-field oculto " placeholder="Título" >
+                            <input type="text" name="intro" id="intro" class="input-field oculto " placeholder="Introducción" >
+                            <input type="text" name="desarrollo" id="desarrollo" class="input-field oculto " placeholder="Desarrollo" >
+                            <input type="text" name="conclusion" id="conclusion" class="input-field oculto " placeholder="Conclusión" >
                             <label for="referencias"><h6>Referencias</h6></label>
                             <div type="text" id="referencias" name="referencias" class="input-field oculto">
                                 <!--Aquí se generan las referencias-->

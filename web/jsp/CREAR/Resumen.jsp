@@ -86,7 +86,7 @@
             </div>
           </li>
         </ul>
-        <h6 class="white-text">Palabras:</h6><br><!--Aquí va el conteo de número de palabras-->
+        <h6 class="white-text" id="numP">Palabras:</h6><br><!--Aquí va el conteo de número de palabras-->
       </div>
       <div class="row">
         <h6 class="white-text">Otras herramientas</h6><br>
@@ -116,7 +116,7 @@
 
     <div class="section lienzo white col s8 m8 l8 xl8"><!--contenido principal donde se escribe-->
         <form name="form1" id="form1">
-          <input type="button" class="btn waves-effect waves-light right" name="guardar" id="guardar" value="Revisar" onclick="pClaves();"><br><br>
+          <input type="button" class="btn waves-effect waves-light right" name="revisar" id="revisar" value="Revisar" onclick="pClaves();"><br><br>
           <input type="text" class="input-field oculto" placeholder="Título" name="titulo" id="titulo" >
           <label for="contenido"><h6>Contenido</h6></label>
           <input class="input-field oculto" id="contenido" name="contenido">
@@ -125,6 +125,9 @@
           <div type="text" id="referencias" name="referencias" class="input-field oculto">
             <!--Aquí se generan las referencias-->
           </div>
+          <div class="oculto" id="sello" name="sello" contenteditable>
+
+                            </div>
         </form>
     </div>
 

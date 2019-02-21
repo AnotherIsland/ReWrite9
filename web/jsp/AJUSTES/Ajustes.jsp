@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,6 +20,9 @@
     <%
         HttpSession sesi = request.getSession();
         if (sesi.getAttribute("ID") != null) {
+            
+        String email = (String) sesi.getAttribute("Email");
+        String username = (String) sesi.getAttribute("Username");
         %>
 <div class="" name="header">
   <nav>
@@ -26,7 +30,7 @@
       <a href="${pageContext.request.contextPath}/index.jsp" class="brand-logo"><img class="responsive-img center-align" style="padding: 10px" src="${pageContext.request.contextPath}/img/logoT.png"></a>
       <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
       <ul class="right hide-on-med-and-down">
-        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/index.jsp">Cerrar Sesión</a></li>
+        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/Login.jsp">Cerrar Sesión</a></li>
         <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/MISOBRAS/MisObras.jsp">Mis Obras</a></li>
         <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/CREAR/Crear.jsp">Crear</a></li>
         <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/AJUSTES/Ajustes.jsp">Ajustes</a></li>
@@ -51,7 +55,7 @@
     <span>Da clic para cambiar alguno de tus datos</span>
     <ul class="collapsible popout">
       <li>
-        <div class="collapsible-header"><i class="material-icons">account_circle</i>Usuario: <!--Aquí va el nombre actual del usuario --></div>
+        <div class="collapsible-header"><i class="material-icons">account_circle</i>Usuario: <%%></div>
         <div class="collapsible-body row">
             <form action="${pageContext.request.contextPath}/Ajustes" method="POST"><!--Form para cambiar nombre de usuario e imagen-->
             <div class="col s4 m4 l5 xl5">

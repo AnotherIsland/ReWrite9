@@ -54,7 +54,7 @@ public class Login extends HttpServlet {
             throws ServletException, IOException {
                 DataBase db = new DataBase();
         String usuario = request.getParameter("username");
-        String contrasena = cifrado(request.getParameter("password"));
+        String contrasena = request.getParameter("password");//En esta parte se quitó el método de cifrado
         String Usu = "";
         HttpSession sesi = request.getSession();
         try{

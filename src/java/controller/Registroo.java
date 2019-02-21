@@ -52,11 +52,15 @@ public class Registroo extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        
+        
         DataBase db = new DataBase();
         ResultSet rs;
         String password = request.getParameter("password");
         String emai = request.getParameter("email");
-        String usuario = "default";
+        String usuario = "";
+        
+        
         
         for (int i = 0; i < emai.length(); i++) {
             if(!Character.toString(emai.charAt(i)).equals("@")){
@@ -66,8 +70,11 @@ public class Registroo extends HttpServlet {
                 i=emai.length();
         }
         
-        
-        System.out.println("hola");
+        cEmail cmail = new cEmail();
+        cmail.mandaMAil(emai, "VERIFICA TU CUENTA EN REWRITE "+usuario+". ", "Te enviamos este mensaje para que confirmes tu registro en Litteram,\n"
+                            + "para hacerlo, ingresa al siguiente link. \n\n"
+                            + request.getServletContext()+"/Registroo?clave");
+
         try{
             db.connect();
             CallableStatement call = db.procedure("{call alta_usuario(?, ?, ?)}");

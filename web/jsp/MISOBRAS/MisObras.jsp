@@ -50,7 +50,11 @@ and open the template in the editor.
 <div class="container">
   <div class="row">
     <div class="col s12 m12 l12 xl12">
-      <h3 class="section white z-depth-3">Mis Obras</h3>
+        <div class="section white z-depth-3">
+            <h3 >Mis Obras</h3>  
+        </div>
+        
+      
         <form action="${pageContext.request.contextPath}/jsp/VerificaSello.jsp">
             <input type="submit" class="btn waves-button-input black-text z-depth-3" value="Verificador de sellos" name="aceptar">
         </form>

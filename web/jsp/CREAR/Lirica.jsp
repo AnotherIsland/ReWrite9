@@ -9,34 +9,34 @@
 <html>
     <head>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <link type="text/css" rel="stylesheet" href="../../css/materialize.css"  media="screen,projection"/>
+        <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/materialize.css"  media="screen,projection"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="shortcut icon" type="image/x-icon" href="../../favicon.ico"/>
+        <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/favicon.ico"/>
 
-        <link rel="stylesheet" type="text/css" href="../../css/style.css">
-        <!--<script type="text/javascript" src="../../js/main.js"></script>-->
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css">
+        <!--<script type="text/javascript" src="${pageContext.request.contextPath}/js/main.js"></script>-->
         <title>ReWrite - Lírica</title>
     </head>
     <body >
         <div class="" name="header">
             <nav>
                 <div class="nav-wrapper ">
-                    <a href="../../index.jsp" class="brand-logo"><img class="responsive-img center-align" style="padding: 10px" src="../../img/logoT.png"></a>
+                    <a href="${pageContext.request.contextPath}/index.jsp" class="brand-logo"><img class="responsive-img center-align" style="padding: 10px" src="${pageContext.request.contextPath}/img/logoT.png"></a>
                     <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                     <ul class="right hide-on-med-and-down">
-                        <li><a class=" text-accent-4" href="../Login.jsp">Cerrar Sesión</a></li>
-                        <li><a class=" text-accent-4" href="../MISOBRAS/MisObras.jsp">Mis Obras</a></li>
-                        <li><a class=" text-accent-4" href="../CREAR/Crear.jsp">Crear</a></li>
-                        <li><a class=" text-accent-4" href="../AJUSTES/Ajustes.jsp">Ajustes</a></li>
-                        <li><a class=" text-accent-4" href="../EVOLUCION/Evolucion.jsp">Evolución</a></li>
+                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/Login.jsp">Cerrar Sesión</a></li>
+                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/MISOBRAS/MisObras.jsp">Mis Obras</a></li>
+                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/CREAR/Crear.jsp">Crear</a></li>
+                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/AJUSTES/Ajustes.jsp">Ajustes</a></li>
+                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/EVOLUCION/Evolucion.jsp">Evolución</a></li>
                     </ul>
                     <ul class="sidenav" id="mobile-demo">
-                        <li><a class=" text-accent-4" href="../Login.jsp">Cerrar Sesión</a></li>
-                        <li><a class=" text-accent-4" href="../MISOBRAS/MisObras.jsp">Mis Obras</a></li>
-                        <li><a class=" text-accent-4" href="../CREAR/Crear.jsp">Crear</a></li>
-                        <li><a class=" text-accent-4" href="../AJUSTES/Ajustes.jsp">Ajustes</a></li>
-                        <li><a class=" text-accent-4" href="../EVOLUCION/Evolucion.jsp">Evolución</a></li>
+                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/Login.jsp">Cerrar Sesión</a></li>
+                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/MISOBRAS/MisObras.jsp">Mis Obras</a></li>
+                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/CREAR/Crear.jsp">Crear</a></li>
+                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/AJUSTES/Ajustes.jsp">Ajustes</a></li>
+                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/EVOLUCION/Evolucion.jsp">Evolución</a></li>
                     </ul>
                 </div>
             </nav>
@@ -50,7 +50,7 @@
                     <div class="row"> 
                         <br>
                         <h6 class="white-text">Aquí tenemos unos muy buenos consejos para ti. </h6><br>
-                        <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">forum</i>&nbsp;Ver el chat</a>
+                        
                         <ul class="collapsible">
                             <li>
                                 <div class="collapsible-header"><i class="material-icons">assignment_turned_in</i>Ortografía y gramática</div>
@@ -71,7 +71,7 @@
                                 </div>
                             </li>
                         </ul>
-                        <h6 class="white-text">Palabras:</h6><br><!--Aquí va el conteo de número de palabras-->
+                        <h6 class="white-text" id="numP">Palabras:</h6><br><!--Aquí va el conteo de número de palabras-->
                     </div>
                     <div class="row">
                         <h6 class="white-text">Herramientas</h6><br>
@@ -102,6 +102,7 @@
                     <form action="" method="">
                         <input type="submit" class="btn waves-effect waves-light right" name="guardar" id="guardar" value="Guardar"><br><br>
                         <div contenteditable="true" class="oculto">
+                            <input type="button" class="btn waves-effect waves-light right" name="revisar" id="revisar" value="Revisar" onclick="revEnsayo();"><br><br>
                             <p>Este es un ejemplo de un texto.
                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                                 sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -154,8 +155,8 @@
             </div>
         </div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-        <script type="text/javascript" src="../../js/materialize.min.js"></script>
-        <script type="text/javascript" src="../../js/init.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/js/materialize.min.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/js/init.js"></script>
     </body>
 </html>
 

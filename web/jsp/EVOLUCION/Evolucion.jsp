@@ -9,10 +9,10 @@
 <html>
 <head>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link type="text/css" rel="stylesheet" href="../../css/materialize.css"  media="screen,projection"/>
+  <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/materialize.css"  media="screen,projection"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <link rel="shortcut icon" type="image/x-icon" href="../../favicon.ico"/>
+  <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/favicon.ico"/>
   <title>ReWrite - Evolución</title>
 </head>
 <body>
@@ -26,18 +26,18 @@
       <a href="../../index.jsp" class="brand-logo"><img class="responsive-img center-align" style="padding: 10px" src="../../img/logoT.png"></a>
       <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
       <ul class="right hide-on-med-and-down">
-        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/index.jsp">Cerrar Sesión</a></li>
-        <li><a class=" text-accent-4" href="../MISOBRAS/MisObras.jsp">Mis Obras</a></li>
-        <li><a class=" text-accent-4" href="../CREAR/Crear.jsp">Crear</a></li>
-        <li><a class=" text-accent-4" href="../AJUSTES/Ajustes.jsp">Ajustes</a></li>
-        <li><a class=" text-accent-4" href="../EVOLUCION/Evolucion.jsp">Evolución</a></li>
+        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/Login.jsp">Cerrar Sesión</a></li>
+        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/MISOBRAS/MisObras.jsp">Mis Obras</a></li>
+        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/CREAR/Crear.jsp">Crear</a></li>
+        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/AJUSTES/Ajustes.jsp">Ajustes</a></li>
+        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/EVOLUCION/Evolucion.jsp">Evolución</a></li>
       </ul>
       <ul class="sidenav" id="mobile-demo">
-        <li><a class=" text-accent-4" href="../Login.jsp">Cerrar Sesión</a></li>
-        <li><a class=" text-accent-4" href="../MISOBRAS/MisObras.jsp">Mis Obras</a></li>
-        <li><a class=" text-accent-4" href="../CREAR/Crear.jsp">Crear</a></li>
-        <li><a class=" text-accent-4" href="../AJUSTES/Ajustes.jsp">Ajustes</a></li>
-        <li><a class=" text-accent-4" href="../EVOLUCION/Evolucion.jsp">Evolución</a></li>
+        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/Login.jsp">Cerrar Sesión</a></li>
+        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/MISOBRAS/MisObras.jsp">Mis Obras</a></li>
+        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/CREAR/Crear.jsp">Crear</a></li>
+        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/AJUSTES/Ajustes.jsp">Ajustes</a></li>
+        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/EVOLUCION/Evolucion.jsp">Evolución</a></li>
       </ul>
     </div>
   </nav>
@@ -53,20 +53,20 @@
           <div class="row">
             <h5 class="white-text">Obras realizadas</h5><hr class="blue lighten-1">
             <div class="col s12 m12 l12 xl12 " >
-                <div class="center"><img class="responsive-img" src="../../img/graph1.png"></div>
+                <div class="center"><img class="responsive-img" src="${pageContext.request.contextPath}/img/graph1.png"></div>
             </div>
           </div>
           <div class="row">
             <h5 class="white-text">Correciones</h5><hr class="blue lighten-1">
             <div class="col s12 m12 l12 xl12 " >
-                <div class="center"><img src="../../img/graph2.png"></div>
+                <div class="center"><img src="${pageContext.request.contextPath}/img/graph2.png"></div>
             </div>
           </div>
   </div><br><br>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-<script type="text/javascript" src="../../js/materialize.min.js"></script>
-<script type="text/javascript" src="../../js/init.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/materialize.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/init.js"></script>
 <% } 
     else {
     RequestDispatcher rd = request.getRequestDispatcher("../Login.jsp");

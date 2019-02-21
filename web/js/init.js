@@ -33,6 +33,40 @@ function mostrarCompartir() {
         document.getElementById('share').hidden = true;
     }
 }
+function cuentaPalabras(texto){
+    let numPalabra = 0;
+    let guarda = '';
+    let listaP = [];
+    //Extrae palabras del texto ya las mete en arreglo listaP
+    for(i = 0; i < texto.length; i++){        
+        if(texto.charAt(i) === ' '){
+            listaP[numPalabra] = guarda; 
+            guarda = '';
+            numPalabra++;
+        }else{
+            guarda = guarda + texto.charAt(i);
+        }
+    }
+    console.log(listaP.length);
+    console.log(listaP);
+    let span = document.createElement('span');
+    span.innerHTML = numPalabra;
+    span.id='spanNumP';
+    document.getElementById('numP').appendChild(span);
+}
+//REvisión por módulos
+function revEnsayo(){
+    
+    let intro = document.getElementById('intro');
+    let desa = document.getElementById('desarrollo');
+    let conclu = document.getElementById('conclusion');
+    
+    let texto = intro.value + desa.value + conclu.value;
+    
+    cuentaPalabras('Este es una prueba');
+    //cuentaPalabras(texto);
+
+}
 //Funcionalidad de referencias
 function newRef(ref) {
     let refer = null;//Div donde irán los inputs para añadir una referencia

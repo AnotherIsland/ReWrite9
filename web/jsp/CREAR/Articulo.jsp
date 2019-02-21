@@ -78,7 +78,7 @@
                                 </div>
                             </li>
                         </ul>
-                        <h6 class="white-text">Palabras:</h6><br><!--Aquí va el conteo de número de palabras-->
+                        <h6 class="white-text" id="numP">Palabras:</h6><br><!--Aquí va el conteo de número de palabras-->
                     </div>
                     <div class="row">
                         <h6 class="white-text">Otras herramientas</h6><br>
@@ -109,6 +109,7 @@
                 <div class="section lienzo white col s8 m8 l8 xl8"><!--contenido principal donde se escribe-->
                     <div>
                         <form name="form1" id="form1">
+                            <input type="button" class="btn waves-effect waves-light right" name="revisar" id="revisar" value="Revisar" onclick="revEnsayo();"><br><br>
                             <input type="text" class="input-field oculto " placeholder="Título" >
                             <input type="text" class="input-field oculto " placeholder="Introducción" >
                             <input type="text" class="input-field oculto " placeholder="Desarrollo" >
