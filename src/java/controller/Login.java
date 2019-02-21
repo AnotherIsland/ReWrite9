@@ -85,7 +85,7 @@ public class Login extends HttpServlet {
             else{
                  RequestDispatcher rd = request.getRequestDispatcher("./jsp/Login.jsp");
                 rd.forward(request, response);
-        }
+            }
         }
         catch (SQLException e){
             e.printStackTrace();

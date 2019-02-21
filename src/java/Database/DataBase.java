@@ -21,7 +21,7 @@ public class DataBase {
     public DataBase() {
         this.user = "root";
         this.password = "n0m3l0";
-        this.dbName = "rwdatabase";
+        this.dbName = "rw_database";
         this.port = "3306";
         this.host = "127.0.0.1";
         this.driverClassName = "com.mysql.jdbc.Driver";

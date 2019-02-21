@@ -28,18 +28,18 @@
           <img class="responsive-img center-align" style="padding: 10px" src="${pageContext.request.contextPath}/img/logoT.png"></a>
       <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
       <ul class="right hide-on-med-and-down">
-        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/Login.jsp">Cerrar Sesión</a></li>
-        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/MISOBRAS/MisObras.jsp">Mis Obras</a></li>
-        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/CREAR/Crear.jsp">Crear</a></li>
-        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/AJUSTES/Ajustes.jsp">Ajustes</a></li>
-        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/EVOLUCION/Evolucion.jsp">Evolución</a></li>
+        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/Login.jsp">Cerrar Sesión</a></li>
+        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/MISOBRAS/MisObras.jsp">Mis Obras</a></li>
+        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/CREAR/Crear.jsp">Crear</a></li>
+        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/AJUSTES/Ajustes.jsp">Ajustes</a></li>
+        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/EVOLUCION/Evolucion.jsp">Evolución</a></li>
       </ul>
       <ul class="sidenav" id="mobile-demo">
-        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/Login.jsp">Cerrar Sesión</a></li>
-        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/MISOBRAS/MisObras.jsp">Mis Obras</a></li>
-        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/CREAR/Crear.jsp">Crear</a></li>
-        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/AJUSTES/Ajustes.jsp">Ajustes</a></li>
-        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/EVOLUCION/Evolucion.jsp">Evolución</a></li>
+        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/Login.jsp">Cerrar Sesión</a></li>
+        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/MISOBRAS/MisObras.jsp">Mis Obras</a></li>
+        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/CREAR/Crear.jsp">Crear</a></li>
+        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/AJUSTES/Ajustes.jsp">Ajustes</a></li>
+        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/EVOLUCION/Evolucion.jsp">Evolución</a></li>
       </ul>
     </div>
   </nav>
@@ -68,12 +68,21 @@
           </li>
           <li>
             <div class="collapsible-header"><i class="material-icons">description</i>Palabras clave</div>
-            <div class="collapsible-body" name="pClave" id="pClave"><!--aquí va el consejo-->
-              <ul id="listaClaves">
-                <li class="white-text">
-                  <input type="text" onkeypress="validap();" placeholder="Añade una palabra" onblur="agregaPalabra(this);">
-                </li>
-              </ul>
+            <div class="collapsible-body"><!--aquí va el consejo-->
+                <div name="pClave" id="pClave">
+                    <ul id="listaClaves">
+                        <li class="white-text">
+                        <input type="text" class="white-text" onkeypress="validap();" placeholder="Añade una palabra" onblur="agregaPalabra(this);">
+                        </li>
+                    </ul>
+                </div>
+                <br>
+                <div name="fClave" id="fClave">
+                    <span class="white-text">Te faltan estas palabras en tu resumen:</span>
+                    <ul id="faltanClaves">
+                        
+                    </ul>
+                </div>
             </div>
           </li>
         </ul>
