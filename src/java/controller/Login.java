@@ -65,14 +65,15 @@ public class Login extends HttpServlet {
                 String username = rs.getString("usuario");
                 String correo = rs.getString("correo");
                 String id = rs.getString("idUsuario");
+                String pass = rs.getString("pass");
                 String date = Long.toString(sesi.getLastAccessedTime());
                 
-               sesi.setAttribute("Email", usuario);
                 try{
                      Login l = new Login();
                 sesi.setAttribute("ID", l.generar(correo,id,username, date));
-                sesi.setAttribute("Email", usuario);
+                sesi.setAttribute("Email", correo);
                 sesi.setAttribute("username", username);
+                sesi.setAttribute("pass", pass);
                     System.out.println("id: " + sesi.getAttribute("ID").toString());
                     System.out.println("usuario: " + sesi.getAttribute("username").toString());
                 }

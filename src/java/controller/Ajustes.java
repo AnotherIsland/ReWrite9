@@ -21,24 +21,13 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author victor
+ * @author Axolotech
  */
 public class Ajustes extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-    }
-
+    private String usuario1 = "";
+    private String pass = "";
+    private int us = 0;
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -69,9 +58,9 @@ public class Ajustes extends HttpServlet {
         DataBase db = new DataBase();
         HttpSession sesi = request.getSession();
         ResultSet rs = null;
-        String usuario1 = sesi.getAttribute("Email").toString();
-
-        int us = 0;
+        usuario1 = sesi.getAttribute("Email").toString();
+        
+        consultaUsu(usuario1);
         
         try{
             db.connect();
@@ -98,7 +87,7 @@ public class Ajustes extends HttpServlet {
         String Cvieja=request.getParameter("contraVieja");
         String Cnueva=request.getParameter("contraNueva");
         String CContra=request.getParameter("confirmacionContraseña");
-        
+         
         if(usuario!=null){
             System.out.println(actUsuario(usuario, id));
         }
@@ -131,8 +120,6 @@ public class Ajustes extends HttpServlet {
         return port.basec(correo, usuario, contraseña);
     }
 
-    
-
     private static String actContraseña(java.lang.String nuevaContra, java.lang.String viejaContra, java.lang.String id) {
         paquete.Servicio_Service service = new paquete.Servicio_Service();
         paquete.Servicio port = service.getServicioPort();
@@ -144,7 +131,6 @@ public class Ajustes extends HttpServlet {
         paquete.Servicio port = service.getServicioPort();
         return port.cifrado(contra);
     }
-
 
 
     private static String actUsuario(java.lang.String nuevoUsuario, java.lang.String id) {
@@ -159,5 +145,24 @@ public class Ajustes extends HttpServlet {
         return port.actCorreo(nuevoCorreo, id);
     }
     
+    private void consultaUsu(String usuCorreo){
+        DataBase db = new DataBase();
+        ResultSet rs = null;
+        int us = 0;
 
+        try{
+            db.connect();
+            rs = db.query("select idUsuario,usuario from usuario where usuario = '"+usuario1+"' or correo = '"+usuario1+"'");
+                
+            if(rs.next()) {
+                us = rs.getInt("idUsuario");
+                System.out.println("El usuario es: "+us);
+                usuario1 = rs.getNString("usuario");
+            }
+            db.closeConnection();
+        }
+        catch(SQLException error){
+            System.out.println(error.toString());
+        }
+    }
 }

@@ -73,7 +73,7 @@ public class Registroo extends HttpServlet {
         cEmail cmail = new cEmail();
         cmail.mandaMAil(emai, "VERIFICA TU CUENTA EN REWRITE "+usuario+". ", "Te enviamos este mensaje para que confirmes tu registro en Litteram,\n"
                             + "para hacerlo, ingresa al siguiente link. \n\n"
-                            + request.getServletContext()+"/Registroo?clave");
+                            + "http://localhost:8084/ReWrite8/jsp/MISOBRAS/MisObras.jsp");
 
         try{
             db.connect();

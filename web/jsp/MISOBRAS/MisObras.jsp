@@ -54,7 +54,7 @@ and open the template in the editor.
             <h3 >Mis Obras</h3>  
         </div>
         
-      
+        <br><br>
         <form action="${pageContext.request.contextPath}/jsp/VerificaSello.jsp">
             <input type="submit" class="btn waves-button-input black-text z-depth-3" value="Verificador de sellos" name="aceptar">
         </form>

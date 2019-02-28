@@ -20,7 +20,7 @@ function mostrarTipoRef() {
 }
 function mostrarEstrofa() {
     let btn = document.getElementById('tipoEstro');
-    if (btn.hidden == true) {
+    if (btn.hidden === true) {
         document.getElementById('tipoEstro').hidden = false;
     } else {
         document.getElementById('tipoEstro').hidden = true;
@@ -75,7 +75,7 @@ function agregaPalabra(pal) {
 
         icon.innerHTML = 'check';
         
-        pala = pal.value;
+        pala = (pal.value).toLowerCase();
         
         for(i = 0; i < pala.length; i++){    
             if((i === pala.length-1) && pala.charAt(pala.length-1)===' '){
@@ -125,9 +125,10 @@ function pClaves(){
     //Comparando palabras de lista1 y lista2, agregando a lista 3 las que están, 
     //a lista4 las que faltan
     
+    lista1[0].equalsIgnoreCase(lista2[1]);
     for(i = 0; i < lista1.length; i++){ 
         for(j = 0; j < lista2.length; j++){ 
-            if(lista1[i] === lista2[j]){
+            if(lista1[i].equalsIgnoreCase(lista2[j])){
                 lista3[numPalabra] = lista1[i];
                 numPalabra++;
                 noHay = 1;

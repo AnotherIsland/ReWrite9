@@ -22,7 +22,10 @@
         if (sesi.getAttribute("ID") != null) {
             
         String email = (String) sesi.getAttribute("Email");
-        String username = (String) sesi.getAttribute("Username");
+        String username = (String) sesi.getAttribute("username");
+        String pass = (String) sesi.getAttribute("pass");
+     
+        
         %>
 <div class="" name="header">
   <nav>
@@ -55,12 +58,13 @@
     <span>Da clic para cambiar alguno de tus datos</span>
     <ul class="collapsible popout">
       <li>
-        <div class="collapsible-header"><i class="material-icons">account_circle</i>Usuario: <%%></div>
+        <div class="collapsible-header"><i class="material-icons">account_circle</i>Usuario: <%=username%></div>
         <div class="collapsible-body row">
             <form action="${pageContext.request.contextPath}/Ajustes" method="POST"><!--Form para cambiar nombre de usuario e imagen-->
+            <input type="text" class="" name="tipo" id="tipo" value="usuario" hidden>
             <div class="col s4 m4 l5 xl5">
               <img src="${pageContext.request.contextPath}/img/user.png" class="responsive-img">
-              <input type="button" class="waves-effect waves-lights" name="cambiaImagen" value="Escoger imagen...">
+              <input hidden type="button" class="waves-effect waves-lights" name="cambiaImagen" value="Escoger imagen...">
             </div>
             <div class=" col s8 m8 l7 xl7">
               <label for="usuario">Cambiar nombre de usuario:</label><input type="text" class="" name="usuario" id="usuario" placeholder="Nuevo nombre">
@@ -71,12 +75,13 @@
         </div>
       </li>
       <li>
-        <div class="collapsible-header"><i class="material-icons">email</i>Correo:</div>
+        <div class="collapsible-header"><i class="material-icons">email</i>Correo: <%=email%></div>
         <div class="collapsible-body">
           <form action="${pageContext.request.contextPath}/Ajustes" method="POST"><!--Form para cambiar email-->
             <div class="input-field">
               <label for="correo">Ingresa el nuevo correo:</label>
               <input type="text" class="" name="correo" id="correo">
+              <input type="text" class="" name="tipo" id="tipo" value="correo" hidden>
             </div>
             <input type="submit" class="btn waves-effect waves-light" name="guardar" value="Guardar">
           </form>
@@ -86,6 +91,7 @@
         <div class="collapsible-header"><i class="material-icons">lock</i>Contraseña</div>
         <div class="collapsible-body">
             <form action="${pageContext.request.contextPath}/Ajustes" method="POST"><!--Form para cambiar contraseña-->
+                <input type="text" class="" name="tipo" id="tipo" value="pass" hidden>
             <div class="input-field">
               <label for="contraVieja"> Ingresa tu actual contraseña:</label>
               <input type="password" class="validate" name="contraVieja" id="contraVieja"><br>
