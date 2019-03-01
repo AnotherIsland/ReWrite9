@@ -87,6 +87,7 @@ CREATE TABLE `ensayo` (
   `intro` mediumtext,
   `desarrollo` mediumtext,
   `conclusion` mediumtext,
+  `sello` mediumtext,
   PRIMARY KEY (`idensayo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 LOCK TABLES `ensayo` WRITE;

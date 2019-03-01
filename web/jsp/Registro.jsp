@@ -78,13 +78,14 @@
                                     <div class="input-field col s12">
                                         <input id="password" type="password" name="password" class="validate" onkeypress="vNumyLetras();" >
                                         <label class="" for="password">Contraseña</label>
-                                        <span class="helper-text" data-error="Incorrecto" data-success="correcto">Puedes usar números y letras</span>
+                                        <span class="helper-text" data-error="Incorrecto" data-success="Correcto">Puedes usar números y letras</span>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s12">
-                                        <input id="password1" type="password" name="password1" class="validate" onkeypress="vNumyLetras();">
+                                        <input id="password1" type="password" name="password1" class="validate" onkeypress="vNumyLetras();" onkeyup="confirmaCorreo(this);">
                                         <label class="" for="password1">Confirma contraseña</label>
+                                        <span class="helper-text" id="helper1" name="helper1" data-error="Incorrecto" data-success="Correcto">Puedes usar números y letras</span>
                                     </div>
                                 </div>
                                 <div class="row">

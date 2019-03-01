@@ -3,6 +3,15 @@
  * Copyright 2014-2017 Materialize
  * MIT License (https://raw.githubusercontent.com/Dogfalo/materialize/master/LICENSE)
  */
+.incorrecto{
+    color: #ff0000!important;
+    font-size: 12px;
+}
+.correcto{
+    color: #4CAF50!important;
+    font-size: 12px;
+}
+    
 .palabra{
     color: #FFFFFF;
 }

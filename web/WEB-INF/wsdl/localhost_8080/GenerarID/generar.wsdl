@@ -4,36 +4,36 @@
 <xsd:import namespace="http://Generar/" schemaLocation="http://localhost:8080/GenerarID/generar?xsd=1"/>
 </xsd:schema>
 </types>
-<message name="generar">
-<part name="parameters" element="tns:generar"/>
-</message>
-<message name="generarResponse">
-<part name="parameters" element="tns:generarResponse"/>
-</message>
-<message name="Exception">
-<part name="fault" element="tns:Exception"/>
-</message>
 <message name="descifrar">
 <part name="parameters" element="tns:descifrar"/>
 </message>
 <message name="descifrarResponse">
 <part name="parameters" element="tns:descifrarResponse"/>
 </message>
+<message name="Exception">
+<part name="fault" element="tns:Exception"/>
+</message>
+<message name="generar">
+<part name="parameters" element="tns:generar"/>
+</message>
+<message name="generarResponse">
+<part name="parameters" element="tns:generarResponse"/>
+</message>
 <portType name="generar">
-<operation name="generar">
-<input wsam:Action="http://Generar/generar/generarRequest" message="tns:generar"/>
-<output wsam:Action="http://Generar/generar/generarResponse" message="tns:generarResponse"/>
-<fault message="tns:Exception" name="Exception" wsam:Action="http://Generar/generar/generar/Fault/Exception"/>
-</operation>
 <operation name="descifrar">
 <input wsam:Action="http://Generar/generar/descifrarRequest" message="tns:descifrar"/>
 <output wsam:Action="http://Generar/generar/descifrarResponse" message="tns:descifrarResponse"/>
 <fault message="tns:Exception" name="Exception" wsam:Action="http://Generar/generar/descifrar/Fault/Exception"/>
 </operation>
+<operation name="generar">
+<input wsam:Action="http://Generar/generar/generarRequest" message="tns:generar"/>
+<output wsam:Action="http://Generar/generar/generarResponse" message="tns:generarResponse"/>
+<fault message="tns:Exception" name="Exception" wsam:Action="http://Generar/generar/generar/Fault/Exception"/>
+</operation>
 </portType>
 <binding name="generarPortBinding" type="tns:generar">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-<operation name="generar">
+<operation name="descifrar">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -45,7 +45,7 @@
 <soap:fault name="Exception" use="literal"/>
 </fault>
 </operation>
-<operation name="descifrar">
+<operation name="generar">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>

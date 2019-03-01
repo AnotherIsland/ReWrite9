@@ -92,8 +92,8 @@ public class GuardarObra extends HttpServlet {
         
         try{
             db.connect();
-            db.insert("insert into ensayo(idUsuario,titulo,intro,desarrollo,conclusion,sello)"
-                    + " values("+us+",'"+titulo+"','"+intro+"','"+desarrollo+"','"+conclusion+"','"+sello+"')");
+            db.insert("insert into ensayo(intro,desarrollo,conclusion,sello)"
+                    + " values('"+intro+"','"+desarrollo+"','"+conclusion+"','"+sello+"')");
      
             db.closeConnection();
         }

@@ -105,11 +105,9 @@ function pClaves(){
     let noHay = 0;
     let texto = '';
     let guarda = '';
-    
     let largo = 0;
     
     largo = lista4.length-1;
-    //lista4.slice(0,largo);
     
     console.log(lista4);
     
@@ -122,13 +120,15 @@ function pClaves(){
     texto = contenido.value;
     lista2 = texto.split(' ');
     
+    for(i = 0; i < lista2.length; i++){
+        lista2[i] = lista2[i].toLowerCase();
+    }
     //Comparando palabras de lista1 y lista2, agregando a lista 3 las que están, 
     //a lista4 las que faltan
     
-    lista1[0].equalsIgnoreCase(lista2[1]);
     for(i = 0; i < lista1.length; i++){ 
         for(j = 0; j < lista2.length; j++){ 
-            if(lista1[i].equalsIgnoreCase(lista2[j])){
+            if(lista1[i] === lista2[j]){
                 lista3[numPalabra] = lista1[i];
                 numPalabra++;
                 noHay = 1;
@@ -179,10 +179,9 @@ function revEnsayo(){
     let desa = document.getElementById('desarrollo');
     let conclu = document.getElementById('conclusion');
     
-    let texto = intro.value + desa.value + conclu.value;
-    
-    cuentaPalabras('Este es una prueba');
-    //cuentaPalabras(texto);
+    let texto = intro.value+' ' + desa.value +' ' + conclu.value;
+    console.log(texto);
+    cuentaPalabras(texto);
 
 }
 function revResumen(){
@@ -480,7 +479,24 @@ function valCorreo() {
         event.returnValue = false;
     }
 }
+function confirmaCorreo(input){
+    console.log(input.value);
+    if (document.getElementById('password').value !== input.value) {
+        document.getElementById('helper1').setAttribute('class','incorrecto');
+        document.getElementById('helper1').innerHTML = 'Las contraseñas no coinciden';
+        //alert('Las contraseñas no coinciden');
+        return false;
+    } else {
+        console.log(document.getElementById('helper1').getAttribute('class'));
+        if(document.getElementById('helper1').getAttribute('class') === 'incorrecto'){
+            document.getElementById('helper1').setAttribute('class','correcto');
+            document.getElementById('helper1').innerHTML = 'Correcto';
+        }
+        return true;
+    }
+}
 function validaRegistro(formulario) {
+    
     if (formulario.email.value.length === 0) {
         document.getElementById('email').class = 'validate invalid';
         formulario.email.focus();
@@ -495,19 +511,12 @@ function validaRegistro(formulario) {
             if (formulario.password1.value.length === 0) {
 
                 event.preventDefault();
-
                 formulario.password1.focus();
                 return false;
             }
         }
     }
-    if (formulario.password.value !== formulario.password1.value) {
-
-        alert('Las contraseñas no coinciden');
-        return false;
-    } else {
-        return true;
-    }
+    
     //Valida que no inserten caracteres especiales
     let nom = formulario.email.value;
     let cadena = 'qwertyuiopasdfghjklmnbvcxzQWERTYUIOPLKJHGFDSAZXCVBNM!#$%&?¿-_@1234567890';
