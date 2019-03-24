@@ -10,12 +10,6 @@
 <message name="xorResponse">
 <part name="parameters" element="tns:xorResponse"/>
 </message>
-<message name="Basec">
-<part name="parameters" element="tns:Basec"/>
-</message>
-<message name="BasecResponse">
-<part name="parameters" element="tns:BasecResponse"/>
-</message>
 <message name="actCorreo">
 <part name="parameters" element="tns:actCorreo"/>
 </message>
@@ -28,11 +22,11 @@
 <message name="CifradoResponse">
 <part name="parameters" element="tns:CifradoResponse"/>
 </message>
-<message name="actUsuario">
-<part name="parameters" element="tns:actUsuario"/>
+<message name="Basec">
+<part name="parameters" element="tns:Basec"/>
 </message>
-<message name="actUsuarioResponse">
-<part name="parameters" element="tns:actUsuarioResponse"/>
+<message name="BasecResponse">
+<part name="parameters" element="tns:BasecResponse"/>
 </message>
 <message name="actContraseña">
 <part name="parameters" element="tns:actContraseña"/>
@@ -40,14 +34,16 @@
 <message name="actContraseñaResponse">
 <part name="parameters" element="tns:actContraseñaResponse"/>
 </message>
+<message name="actUsuario">
+<part name="parameters" element="tns:actUsuario"/>
+</message>
+<message name="actUsuarioResponse">
+<part name="parameters" element="tns:actUsuarioResponse"/>
+</message>
 <portType name="Servicio">
 <operation name="xor">
 <input wsam:Action="http://Paquete/Servicio/xorRequest" message="tns:xor"/>
 <output wsam:Action="http://Paquete/Servicio/xorResponse" message="tns:xorResponse"/>
-</operation>
-<operation name="Basec">
-<input wsam:Action="http://Paquete/Servicio/BasecRequest" message="tns:Basec"/>
-<output wsam:Action="http://Paquete/Servicio/BasecResponse" message="tns:BasecResponse"/>
 </operation>
 <operation name="actCorreo">
 <input wsam:Action="http://Paquete/Servicio/actCorreoRequest" message="tns:actCorreo"/>
@@ -57,13 +53,17 @@
 <input wsam:Action="http://Paquete/Servicio/CifradoRequest" message="tns:Cifrado"/>
 <output wsam:Action="http://Paquete/Servicio/CifradoResponse" message="tns:CifradoResponse"/>
 </operation>
-<operation name="actUsuario">
-<input wsam:Action="http://Paquete/Servicio/actUsuarioRequest" message="tns:actUsuario"/>
-<output wsam:Action="http://Paquete/Servicio/actUsuarioResponse" message="tns:actUsuarioResponse"/>
+<operation name="Basec">
+<input wsam:Action="http://Paquete/Servicio/BasecRequest" message="tns:Basec"/>
+<output wsam:Action="http://Paquete/Servicio/BasecResponse" message="tns:BasecResponse"/>
 </operation>
 <operation name="actContraseña">
 <input wsam:Action="http://Paquete/Servicio/actContraseñaRequest" message="tns:actContraseña"/>
 <output wsam:Action="http://Paquete/Servicio/actContraseñaResponse" message="tns:actContraseñaResponse"/>
+</operation>
+<operation name="actUsuario">
+<input wsam:Action="http://Paquete/Servicio/actUsuarioRequest" message="tns:actUsuario"/>
+<output wsam:Action="http://Paquete/Servicio/actUsuarioResponse" message="tns:actUsuarioResponse"/>
 </operation>
 </portType>
 <binding name="ServicioPortBinding" type="tns:Servicio">
@@ -77,15 +77,6 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="Basec">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
 <operation name="actCorreo">
 <soap:operation soapAction=""/>
 <input>
@@ -104,7 +95,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="actUsuario">
+<operation name="Basec">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -114,6 +105,15 @@
 </output>
 </operation>
 <operation name="actContraseña">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="actUsuario">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>

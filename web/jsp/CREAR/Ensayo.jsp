@@ -10,6 +10,8 @@
 <%
     HttpSession sesi = request.getSession();
     if (sesi.getAttribute("ID") != null) {
+        
+    if()
 %>
 <!DOCTYPE html>
 <html>
@@ -142,7 +144,7 @@
                                 <!--Aquí se generan las referencias-->
                             </div>
                             <div class="oculto" id="sello" name="sello" contenteditable>
-
+                                
                             </div>
                             <input type="submit" class="btn waves-effect waves-light" name="guardar" id="guardar" value="Guardar"><br><br>
                         </form>

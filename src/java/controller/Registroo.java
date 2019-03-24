@@ -17,13 +17,16 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.ws.WebServiceRef;
+import ws.Exception_Exception;
+import ws.NoSuchAlgorithmException_Exception;
+import ws.SelloRW_Service;
 
 /**
  *
- * @author victor
+ * @author Axolotech
  */
 public class Registroo extends HttpServlet {
-
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -37,7 +40,62 @@ public class Registroo extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        DataBase db = new DataBase();
+        ResultSet rs;
+        String password = "";
+        String emai = "";
+        String usuario = "";
+        String query = "";
+        //String cv = request.getParameter("cv");
+        String clave = "";
+        //System.out.println(cv);
 
+        /*if (cv != null) {
+            query = "Select * from usuarioNR where clave = '" +cv+"';";
+            
+            try {
+                db.connect();
+                rs = db.query(query);
+                while (rs.next()) {
+                    password = rs.getString("pass");
+                    System.out.println("Password: "+password);
+                    emai = rs.getString("correo");
+                    System.out.println("Correo: "+emai);
+                }
+                db.closeConnection();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        
+         */
+        password = request.getParameter("password");
+        emai = request.getParameter("email");
+
+        for (int i = 0; i < emai.length(); i++) {
+            if (!Character.toString(emai.charAt(i)).equals("@")) {
+                usuario += Character.toString(emai.charAt(i));
+            } else {
+                i = emai.length();
+            }
+        }
+
+        try {
+            db.connect();
+            CallableStatement call = db.procedure("{call alta_usuario (?, ?, ?)}");
+            call.setString(1, usuario);
+            call.setString(2, emai);
+            call.setString(3, password);
+            call.execute();
+            call.close();
+
+            db.closeConnection();
+        } catch (SQLException error) {
+            System.out.println(error.toString());
+        }
+
+        //}
+        RequestDispatcher rd = request.getRequestDispatcher("./jsp/Login.jsp");
+        rd.forward(request, response);
     }
 
     /**
@@ -51,75 +109,84 @@ public class Registroo extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        
-        
         DataBase db = new DataBase();
         ResultSet rs;
-        String password = request.getParameter("password");
-        String emai = request.getParameter("email");
+        String password = "";
+        String emai = "";
         String usuario = "";
-        
-        
-        
-        for (int i = 0; i < emai.length(); i++) {
-            if(!Character.toString(emai.charAt(i)).equals("@")){
-              usuario+=Character.toString(emai.charAt(i));  
+        String query = "";
+        //String cv = request.getParameter("cv");
+        String clave = "";
+        //System.out.println(cv);
+
+        /*if (cv != null) {
+            query = "Select * from usuarioNR where clave = '" +cv+"';";
+            
+            try {
+                db.connect();
+                rs = db.query(query);
+                while (rs.next()) {
+                    password = rs.getString("pass");
+                    System.out.println("Password: "+password);
+                    emai = rs.getString("correo");
+                    System.out.println("Correo: "+emai);
+                }
+                db.closeConnection();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
-            else
-                i=emai.length();
+        
+         */
+        if (request.getParameter("password") != null && request.getParameter("email") != null) {
+            password = request.getParameter("password");
+            emai = request.getParameter("email");
         }
         
-        cEmail cmail = new cEmail();
-        cmail.mandaMAil(emai, "VERIFICA TU CUENTA EN REWRITE "+usuario+". ", "Te enviamos este mensaje para que confirmes tu registro en Litteram,\n"
-                            + "para hacerlo, ingresa al siguiente link. \n\n"
-                            + "http://localhost:8084/ReWrite8/jsp/MISOBRAS/MisObras.jsp");
+        for (int i = 0; i < emai.length(); i++) {
+            if (!Character.toString(emai.charAt(i)).equals("@")) {
+                usuario += Character.toString(emai.charAt(i));
+            } else {
+                i = emai.length();
+            }
+        }
 
-        try{
+        try {
             db.connect();
-            CallableStatement call = db.procedure("{call alta_usuario(?, ?, ?)}");
+            CallableStatement call = db.procedure("{call alta_usuario (?, ?, ?)}");
             call.setString(1, usuario);
             call.setString(2, emai);
             call.setString(3, password);
             call.execute();
             call.close();
-            
+
             db.closeConnection();
-        }
-        catch(SQLException error){
+        } catch (SQLException error) {
             System.out.println(error.toString());
         }
-            RequestDispatcher rd = request.getRequestDispatcher("./jsp/Login.jsp");
-            rd.forward(request, response);
-    }
-        
-        
-        
-     /*
-        basec(emai, usuario, password);
-        
-           RequestDispatcher rd = request.getRequestDispatcher("jsp/Login.jsp");
-                rd.forward(request, response);
+
+        //}
+        RequestDispatcher rd = request.getRequestDispatcher("./jsp/Login.jsp");
+        rd.forward(request, response);
+
     }
 
+    // basec(emai, usuario, password);
     /**
      * Returns a short description of the servlet.
      *
+     *
      * @return a String containing servlet description
-     
+     */
     @Override
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
 
-    private static String basec(java.lang.String correo, java.lang.String usuario, java.lang.String contraseña) {
+    /*private static String basec(java.lang.String correo, java.lang.String usuario, java.lang.String contraseña) {
         paquete.Servicio_Service service = new paquete.Servicio_Service();
         paquete.Servicio port = service.getServicioPort();
         return port.basec(correo, usuario, contraseña);
     }
 
-    */
-
-  
+     */
 }
-

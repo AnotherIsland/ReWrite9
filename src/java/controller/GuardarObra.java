@@ -90,7 +90,7 @@ public class GuardarObra extends HttpServlet {
         
         String sello = creaSello(usuario);
         
-        try{
+        /*try{  REEMPLAZAR POR DAR OBRA DE ALTA CON PROCEDURE
             db.connect();
             db.insert("insert into ensayo(intro,desarrollo,conclusion,sello)"
                     + " values('"+intro+"','"+desarrollo+"','"+conclusion+"','"+sello+"')");
@@ -99,7 +99,7 @@ public class GuardarObra extends HttpServlet {
         }
         catch(SQLException error){
             System.out.println(error.toString());
-        }
+        }*/
         RequestDispatcher rd = request.getRequestDispatcher("jsp/CREAR/Ensayo.jsp");
                 rd.forward(request, response);
     }
@@ -118,7 +118,7 @@ public class GuardarObra extends HttpServlet {
         _texto = "";
         _bloque = "";
         
-        //generaLlaves();
+        generaLlaves();
         try {
             _sello = cifra(bloque);
             System.out.println(_sello);

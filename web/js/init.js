@@ -11,7 +11,7 @@ $(document).ready(function () {
 
 //Funcionalidad de los módulos
 function mostrarTipoRef() {
-    let btn = document.getElementById('tipoRef');
+    var btn = document.getElementById('tipoRef');
     if (btn.hidden == true) {
         document.getElementById('tipoRef').hidden = false;
     } else {
@@ -19,7 +19,7 @@ function mostrarTipoRef() {
     }
 }
 function mostrarEstrofa() {
-    let btn = document.getElementById('tipoEstro');
+    var btn = document.getElementById('tipoEstro');
     if (btn.hidden === true) {
         document.getElementById('tipoEstro').hidden = false;
     } else {
@@ -27,43 +27,43 @@ function mostrarEstrofa() {
     }
 }
 function mostrarCompartir() {
-    let btn = document.getElementById('share');
+    var btn = document.getElementById('share');
     if (btn.hidden == true) {
         document.getElementById('share').hidden = false;
     } else {
         document.getElementById('share').hidden = true;
     }
 }
-function cuentaPalabras(texto){
-    let numPalabra = 0;
-    let guarda = '';
-    let listaP = [];
+function cuentaPalabras(texto) {
+    var numPalabra = 0;
+    var guarda = '';
+    var listaP = [];
 
     //Extrae palabras del texto ya las mete en arreglo listaP
     listaP = texto.split(' ');
     numPalabra = listaP.length;
 
-    let span = document.createElement('span');
-    let h6 = document.getElementById('numP');
-    
-    span.innerHTML = ' '+ numPalabra;
-    span.id='spanNumP';
+    var span = document.createElement('span');
+    var h6 = document.getElementById('numP');
+
+    span.innerHTML = ' ' + numPalabra;
+    span.id = 'spanNumP';
     console.log(numPalabra);
-    if(document.getElementById('spanNumP')){
+    if (document.getElementById('spanNumP')) {
         h6.removeChild(document.getElementById('spanNumP'));
-        
+
     }
     document.getElementById('numP').appendChild(span);
-    
-    
+
+
 }
 function agregaPalabra(pal) {
-    let palabra = null;
-    let icon = null;
-    let span = null;
-    let pala = '';
-    let guarda = '';
-    let bandera = 0;
+    var palabra = null;
+    var icon = null;
+    var span = null;
+    var pala = '';
+    var guarda = '';
+    var bandera = 0;
     if (pal.value !== '') {
         palabra = document.createElement('li');
         icon = document.createElement('i');
@@ -74,13 +74,13 @@ function agregaPalabra(pal) {
         span.setAttribute('class', 'palabra');
 
         icon.innerHTML = 'check';
-        
+
         pala = (pal.value).toLowerCase();
-        
-        for(i = 0; i < pala.length; i++){    
-            if((i === pala.length-1) && pala.charAt(pala.length-1)===' '){
+
+        for (i = 0; i < pala.length; i++) {
+            if ((i === pala.length - 1) && pala.charAt(pala.length - 1) === ' ') {
                 bandera = 1;
-            }else
+            } else
                 guarda = guarda + pala.charAt(i);
         }
         span.innerHTML = guarda;
@@ -93,68 +93,69 @@ function agregaPalabra(pal) {
         return false;
     }
 }
-function pClaves(){
-    let contenido = document.getElementById('contenido');
-    let lista = document.getElementsByClassName('palabra');
-    let lista1 = [];//Palabras clave en lista
-    let lista2 = [];//Palabras en todo texto
-    let lista3 = [];//Palabras clave en texto
-    let lista4 = [];//Palabras clave FALTANTES en texto
-    let numPalabra = 0;
-    let numPalabra1 = 0;
-    let noHay = 0;
-    let texto = '';
-    let guarda = '';
-    let largo = 0;
-    
-    largo = lista4.length-1;
-    
+function pClaves() {
+    var contenido = document.getElementById('contenido');
+    var lista = document.getElementsByClassName('palabra');
+    var lista1 = [];//Palabras clave en lista
+    var lista2 = [];//Palabras en todo texto
+    var lista3 = [];//Palabras clave en texto
+    var lista4 = [];//Palabras clave FALTANTES en texto
+    var numPalabra = 0;
+    var numPalabra1 = 0;
+    var noHay = 0;
+    var texto = '';
+    var guarda = '';
+    var largo = 0;
+
+    largo = lista4.length - 1;
+
     console.log(lista4);
-    
+
     //Extrae palabras de la lista de palabras clave
-    for(i = 0; i < lista.length; i++){ 
+    for (i = 0; i < lista.length; i++) {
         lista1[i] = lista[i].innerHTML;
     }
-    
+
     //Extrae palabras del texto y las mete en arreglo lista2
     texto = contenido.value;
     lista2 = texto.split(' ');
-    
-    for(i = 0; i < lista2.length; i++){
+
+    for (i = 0; i < lista2.length; i++) {
         lista2[i] = lista2[i].toLowerCase();
     }
     //Comparando palabras de lista1 y lista2, agregando a lista 3 las que están, 
     //a lista4 las que faltan
-    
-    for(i = 0; i < lista1.length; i++){ 
-        for(j = 0; j < lista2.length; j++){ 
-            if(lista1[i] === lista2[j]){
+
+    for (i = 0; i < lista1.length; i++) {
+        for (j = 0; j < lista2.length; j++) {
+            if (lista1[i] === lista2[j]) {
                 lista3[numPalabra] = lista1[i];
                 numPalabra++;
                 noHay = 1;
             }
-        } 
-        if(noHay === 0){
-            
+        }
+        if (noHay === 0) {
+
             lista4[numPalabra1] = lista1[i];
             numPalabra1++;
             console.log(lista4[numPalabra1]);
         }
-    }console.log(lista4);
-    
+    }
+    console.log(lista4);
+
     //Despliega las palabras que faltan 
-    let palabra = null;
-    let icon = null;
-    let span = null;
-    let borra = null;
-    
-    
+    var palabra = null;
+    var icon = null;
+    var span = null;
+    var borra = null;
+
+
     borra = document.getElementsByClassName('palabraClave');
-    for(i = 0; i < borra.length;i++){
-            document.getElementById('faltanClaves').removeChild(borra[i]);
-        }
-    
-    for(i = 0; i < lista4.length;i++){
+    for (i = 0; i < borra.length; i++) {
+        document.getElementById('faltanClaves').removeChild(borra[i]);
+    }
+
+    for (i = 0; i < lista4.length; i++) {
         palabra = document.createElement('li');
         icon = document.createElement('i');
         span = document.createElement('span');
@@ -163,45 +164,45 @@ function pClaves(){
         icon.setAttribute('class', 'tiny material-icons');
         span.setAttribute('class', 'white-text');
         icon.innerHTML = 'priority_high';
-        
+
         span.innerHTML = lista4[i];
-        
+
         palabra.appendChild(icon);
         palabra.appendChild(span);
 
         document.getElementById('faltanClaves').appendChild(palabra);
-    }    
+    }
 }
 //Revisión por módulos
-function revEnsayo(){
-    
-    let intro = document.getElementById('intro');
-    let desa = document.getElementById('desarrollo');
-    let conclu = document.getElementById('conclusion');
-    
-    let texto = intro.value+' ' + desa.value +' ' + conclu.value;
+function revEnsayo() {
+
+    var intro = document.getElementById('intro');
+    var desa = document.getElementById('desarrollo');
+    var conclu = document.getElementById('conclusion');
+
+    var texto = intro.value + ' ' + desa.value + ' ' + conclu.value;
     console.log(texto);
     cuentaPalabras(texto);
 
 }
-function revResumen(){
+function revResumen() {
     pClaves();
     cuentaPalabras(document.getElementById('contenido').value);
 }
 //Funcionalidad de referencias
 function newRef(ref) {
-    let refer = null;//Div donde irán los inputs para añadir una referencia
-    let h7 = document.createElement('h7');
-    let label = document.createElement('label');
-    let br = document.createElement('br');
-    let br1 = document.createElement('br');
-    let inputs = [1];
-    let labels = [1];
-    let numDivs = 0;
-    let numInputs = 0;
+    var refer = null;//Div donde irán los inputs para añadir una referencia
+    var h7 = document.createElement('h7');
+    var label = document.createElement('label');
+    var br = document.createElement('br');
+    var br1 = document.createElement('br');
+    var inputs = [1];
+    var labels = [1];
+    var numDivs = 0;
+    var numInputs = 0;
     var inputN = null;
-    let numId = 0;
-    let labelN = null;
+    var numId = 0;
+    var labelN = null;
 
     //Revisa si hay referencias en el documento
     if (document.getElementsByClassName('pRef').length !== 0) {
@@ -216,7 +217,7 @@ function newRef(ref) {
     refer.setAttribute('class', 'refe');
     refer.id = 'refe' + (numDivs + 1);
 
-    for (let i = 1; i <= 8; i++) {
+    for (var i = 1; i <= 8; i++) {
         inputN = document.createElement('input');
         inputs[i] = inputN;
         inputs[i].type = 'text';
@@ -289,7 +290,7 @@ function newRef(ref) {
     //Añadiendo al div de referencias
     refer.appendChild(h7);
     refer.appendChild(br1);
-    for (let i = 1; i <= 8; i++) {
+    for (var i = 1; i <= 8; i++) {
         refer.appendChild(labels[i]);
         refer.appendChild(inputs[i]);
     }
@@ -299,24 +300,24 @@ function newRef(ref) {
 }
 function agregaRef(submit) {//Añade por primera vez referencia creada en form 
 
-    let autor = ' ', titulo = ' ', anio = ' ', tipo = ' ';
-    let sitio = ' ', fecha = ' ', url = ' ';
-    let editorial = ' ', lugar = ' ', pags = ' ';
-    let otros = ' ';
-    let inputX = ' ';
-    let inps = [];
-    let ref = document.createElement('p');
-    let divX = 0;
-    let icon = document.createElement('i');
-    let btn = document.createElement('button');
-    let divRefs;
+    var autor = ' ', titulo = ' ', anio = ' ', tipo = ' ';
+    var sitio = ' ', fecha = ' ', url = ' ';
+    var editorial = ' ', lugar = ' ', pags = ' ';
+    var otros = ' ';
+    var inputX = ' ';
+    var inps = [];
+    var ref = document.createElement('p');
+    var divX = 0;
+    var icon = document.createElement('i');
+    var btn = document.createElement('button');
+    var divRefs;
 
     //Revisa si hay referencias en el documento
     if (document.getElementsByClassName('refe').length !== 0) {
         divX = document.getElementsByClassName('refe').length;
     }
 
-    let numRef = submit.id - 7;
+    var numRef = submit.id - 7;
 
     for (i = 0; i < 7; i++) {
         inputX = 'input' + (numRef);
@@ -365,13 +366,13 @@ function agregaRef(submit) {//Añade por primera vez referencia creada en form
 }
 function haceReferencia(autor, anio, titulo, numRef) {//Añade la referencia con el formato correspondiente al doc 
 
-    let autor = ' ';
-    let titulo = ' ';
-    let anio = ' ';
-    let otros = ' ';
-    let ref = document.createElement('p');
-    let icon = document.createElement('i');
-    let btn = document.createElement('button');
+    var autor = ' ';
+    var titulo = ' ';
+    var anio = ' ';
+    var otros = ' ';
+    var ref = document.createElement('p');
+    var icon = document.createElement('i');
+    var btn = document.createElement('button');
 
 
     //Añade botón para editar 
@@ -392,16 +393,16 @@ function haceReferencia(autor, anio, titulo, numRef) {//Añade la referencia con
 }
 function editaRef(btnRefEdita) {
 
-    let nomRef = btnRefEdita.id;//Nombre del botón de la referencia
-    let numRef = 0;//Número del botón de la referencia
-    let inputRef = document.createElement('input');//Input donde se podra editar la referencia
-    let pRef = null;//Elemento p de donde saca los valores de la referencia 
-    let puntos = 0;//Cuenta los puntos en la referencia
-    let contenido = '';
-    let autor = ' ';
-    let titulo = ' ';
-    let anio = ' ';
-    let otros = ' ';
+    var nomRef = btnRefEdita.id;//Nombre del botón de la referencia
+    var numRef = 0;//Número del botón de la referencia
+    var inputRef = document.createElement('input');//Input donde se podra editar la referencia
+    var pRef = null;//Elemento p de donde saca los valores de la referencia 
+    var puntos = 0;//Cuenta los puntos en la referencia
+    var contenido = '';
+    var autor = ' ';
+    var titulo = ' ';
+    var anio = ' ';
+    var otros = ' ';
 
     //Para obtener el número de referencia
     for (i = 0; i < nomRef.length; i++) {
@@ -411,27 +412,34 @@ function editaRef(btnRefEdita) {
     }
 
     pRef = document.getElementById('pRef' + numRef);
-    
-    inputRef.id = 'inputRef' + numRef;    
+
+    inputRef.id = 'inputRef' + numRef;
     pRef.innerHTML = '';
-    
+
     //Para obtener los componentes de la ref
     for (i = 0; i < pRef.innerHTML.length; i++) {
         if (pRef.innerHTML.charAt(i) === '.') {
-            if (puntos === 1) {autor = contenido;} else {
-                if (puntos === 2) {anio = contenido;}
-                else {
-                    if (puntos === 3) {titulo = contenido;} else {
-                        if (puntos >= 4) {otros = contenido;}
+            if (puntos === 1) {
+                autor = contenido;
+            } else {
+                if (puntos === 2) {
+                    anio = contenido;
+                } else {
+                    if (puntos === 3) {
+                        titulo = contenido;
+                    } else {
+                        if (puntos >= 4) {
+                            otros = contenido;
+                        }
                     }
                 }
             }
             puntos++;
             contenido = '';
             i++;
-        }else{
+        } else {
             contenido = contenido + pRef.innerHTML.charAt(i);
-        }    
+        }
     }
     inputRef.value = (numRef) + '.- ' + autor + '. (' + anio + '). <i>' + titulo + '</i>' + otros;
     pRef.appendChild(inputRef);
@@ -454,49 +462,49 @@ function validaNum() {
 }
 function validap() {
     var x = event.keyCode;
-    var letras = 'qwertyuiopasdfghjklñmnbvcxz ,. QWERTYUIOPÑLKJHGFDSAZXCVBNMáéíóú';
-    var letra = String.fromCharCode(x);
+    var varras = 'qwertyuiopasdfghjklñmnbvcxz ,. QWERTYUIOPÑLKJHGFDSAZXCVBNMáéíóú';
+    var varra = String.fromCharCode(x);
 
-    if (letras.indexOf(letra) === -1) {
+    if (varras.indexOf(varra) === -1) {
         event.returnValue = false;
     }
 }
 function vNumyLetras() {
     var x = event.keyCode;
-    var letras = 'qwertyuiopasdfghjklñmnbvcxz QWERTYUIOPÑLKJHGFDSAZXCVBNMáéíóú1234567890!?#$%&';
-    var letra = String.fromCharCode(x);
+    var varras = 'qwertyuiopasdfghjklñmnbvcxz QWERTYUIOPÑLKJHGFDSAZXCVBNMáéíóú1234567890!?#$%&';
+    var varra = String.fromCharCode(x);
 
-    if (letras.indexOf(letra) === -1) {
+    if (varras.indexOf(varra) === -1) {
         event.returnValue = false;
     }
 }
 function valCorreo() {
     var x = event.keyCode;
-    var letras = 'qwertyuiopasdfghjklnmnbvcxzQWERTYUIOPNLKJHGFDSAZXCVBNM-_1234567890@.';
-    var letra = String.fromCharCode(x);
+    var varras = 'qwertyuiopasdfghjklnmnbvcxzQWERTYUIOPNLKJHGFDSAZXCVBNM-_1234567890@.';
+    var varra = String.fromCharCode(x);
 
-    if (letras.indexOf(letra) === -1) {
+    if (varras.indexOf(varra) === -1) {
         event.returnValue = false;
     }
 }
-function confirmaCorreo(input){
+function confirmaCorreo(input) {
     console.log(input.value);
     if (document.getElementById('password').value !== input.value) {
-        document.getElementById('helper1').setAttribute('class','incorrecto');
+        document.getElementById('helper1').setAttribute('class', 'incorrecto');
         document.getElementById('helper1').innerHTML = 'Las contraseñas no coinciden';
         //alert('Las contraseñas no coinciden');
         return false;
     } else {
         console.log(document.getElementById('helper1').getAttribute('class'));
-        if(document.getElementById('helper1').getAttribute('class') === 'incorrecto'){
-            document.getElementById('helper1').setAttribute('class','correcto');
+        if (document.getElementById('helper1').getAttribute('class') === 'incorrecto') {
+            document.getElementById('helper1').setAttribute('class', 'correcto');
             document.getElementById('helper1').innerHTML = 'Correcto';
         }
         return true;
     }
 }
 function validaRegistro(formulario) {
-    
+
     if (formulario.email.value.length === 0) {
         document.getElementById('email').class = 'validate invalid';
         formulario.email.focus();
@@ -516,11 +524,18 @@ function validaRegistro(formulario) {
             }
         }
     }
-    
+    if (formulario.password.value !== formulario.password1.value) {
+
+        alert('Las contraseñeas no coinciden');
+        return false;
+    } else {
+        return true;
+    }
+
     //Valida que no inserten caracteres especiales
-    let nom = formulario.email.value;
-    let cadena = 'qwertyuiopasdfghjklmnbvcxzQWERTYUIOPLKJHGFDSAZXCVBNM!#$%&?¿-_@1234567890';
-    let nomValid = true;
+    var nom = formulario.email.value;
+    var cadena = 'qwertyuiopasdfghjklmnbvcxzQWERTYUIOPLKJHGFDSAZXCVBNM!#$%&?¿-_@1234567890';
+    var nomValid = true;
 
     for (k = 0; k < 3; k++) {
         if (k = 1) {
@@ -554,9 +569,9 @@ function validaInicio(formulario) {
         }
     }
     //Valida que no inserten caracteres especiales
-    let nom = formulario.usuario.value;
-    let cadena = 'qwertyuiopasdfghjklmnbvcxzQWERTYUIOPLKJHGFDSAZXCVBNM!#$%&?¿-_@1234567890';
-    let nomValid = true;
+    var nom = formulario.usuario.value;
+    var cadena = 'qwertyuiopasdfghjklmnbvcxzQWERTYUIOPLKJHGFDSAZXCVBNM!#$%&?¿-_@1234567890';
+    var nomValid = true;
 
     for (k = 0; k < 2; k++) {
         if (k = 1) {

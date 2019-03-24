@@ -69,28 +69,28 @@
                             <form method="post" action="${pageContext.request.contextPath}/Registroo"  id="formR" name="formR">
                                 <div class="row">
                                     <div class="input-field col s12">
-                                        <input id="email" type="email" name="email" class="validate" onkeypress="valCorreo();">
+                                        <input id="email" type="email" name="email" class="validate" onkeypress="valCorreo();" />
                                         <label class="" for="email">Correo Electrónico</label>
                                         <span class="helper-text" data-error="Incorrecto" data-success="correcto">ejemplo@correo.com</span>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s12">
-                                        <input id="password" type="password" name="password" class="validate" onkeypress="vNumyLetras();" >
+                                        <input id="password" type="password" name="password" class="validate" onkeypress="vNumyLetras();" />
                                         <label class="" for="password">Contraseña</label>
                                         <span class="helper-text" data-error="Incorrecto" data-success="Correcto">Puedes usar números y letras</span>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s12">
-                                        <input id="password1" type="password" name="password1" class="validate" onkeypress="vNumyLetras();" onkeyup="confirmaCorreo(this);">
+                                        <input id="password1" type="password" name="password1" class="validate" onkeypress="vNumyLetras();" onkeyup="confirmaCorreo(this);" />
                                         <label class="" for="password1">Confirma contraseña</label>
                                         <span class="helper-text" id="helper1" name="helper1" data-error="Incorrecto" data-success="Correcto">Puedes usar números y letras</span>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s12">
-                                        <input type="submit"  class="btn waves-effect waves-light" value="ENVIAR" onclick="return validaRegistro(formR);"  id="aceptar" name="aceptar">
+                                        <input type="submit"  class="btn waves-effect waves-light" value="ENVIAR" onclick="return validaRegistro(formR);"  id="aceptar" name="aceptar" />
                                     </div>
                                 </div>
                             </form>

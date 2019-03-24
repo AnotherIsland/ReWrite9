@@ -106,9 +106,6 @@ public class Login extends HttpServlet {
     }// </editor-fold>
 
     
-
-    
-
     private static String generar(java.lang.String correo, java.lang.String id, java.lang.String username, java.lang.String hora) throws Exception_Exception {
         generar.Generar_Service service = new generar.Generar_Service();
         generar.Generar port = service.getGenerarPort();
@@ -120,10 +117,7 @@ public class Login extends HttpServlet {
         paquete.Servicio port = service.getServicioPort();
         return port.cifrado(contra);
     }
-
-
-
-    
+  
 
 
 }

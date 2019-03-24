@@ -7,11 +7,11 @@
 <xsd:import namespace="http://security/" schemaLocation="http://localhost:8080/RWSecurity/SelloRW?xsd=1"/>
 </xsd:schema>
 </types>
-<message name="cifra">
-<part name="parameters" element="tns:cifra"/>
+<message name="generaSello">
+<part name="parameters" element="tns:generaSello"/>
 </message>
-<message name="cifraResponse">
-<part name="parameters" element="tns:cifraResponse"/>
+<message name="generaSelloResponse">
+<part name="parameters" element="tns:generaSelloResponse"/>
 </message>
 <message name="NoSuchAlgorithmException">
 <part name="fault" element="tns:NoSuchAlgorithmException"/>
@@ -19,23 +19,11 @@
 <message name="Exception">
 <part name="fault" element="tns:Exception"/>
 </message>
-<message name="descifra">
-<part name="parameters" element="tns:descifra"/>
-</message>
-<message name="descifraResponse">
-<part name="parameters" element="tns:descifraResponse"/>
-</message>
 <message name="sello">
 <part name="parameters" element="tns:sello"/>
 </message>
 <message name="selloResponse">
 <part name="parameters" element="tns:selloResponse"/>
-</message>
-<message name="traeLlavePublica">
-<part name="parameters" element="tns:traeLlavePublica"/>
-</message>
-<message name="traeLlavePublicaResponse">
-<part name="parameters" element="tns:traeLlavePublicaResponse"/>
 </message>
 <message name="generaLlaves">
 <part name="parameters" element="tns:generaLlaves"/>
@@ -43,18 +31,38 @@
 <message name="generaLlavesResponse">
 <part name="parameters" element="tns:generaLlavesResponse"/>
 </message>
-<message name="generaSello">
-<part name="parameters" element="tns:generaSello"/>
+<message name="descifra">
+<part name="parameters" element="tns:descifra"/>
 </message>
-<message name="generaSelloResponse">
-<part name="parameters" element="tns:generaSelloResponse"/>
+<message name="descifraResponse">
+<part name="parameters" element="tns:descifraResponse"/>
+</message>
+<message name="cifra">
+<part name="parameters" element="tns:cifra"/>
+</message>
+<message name="cifraResponse">
+<part name="parameters" element="tns:cifraResponse"/>
+</message>
+<message name="traeLlavePublica">
+<part name="parameters" element="tns:traeLlavePublica"/>
+</message>
+<message name="traeLlavePublicaResponse">
+<part name="parameters" element="tns:traeLlavePublicaResponse"/>
 </message>
 <portType name="SelloRW">
-<operation name="cifra">
-<input wsam:Action="http://security/SelloRW/cifraRequest" message="tns:cifra"/>
-<output wsam:Action="http://security/SelloRW/cifraResponse" message="tns:cifraResponse"/>
-<fault message="tns:NoSuchAlgorithmException" name="NoSuchAlgorithmException" wsam:Action="http://security/SelloRW/cifra/Fault/NoSuchAlgorithmException"/>
-<fault message="tns:Exception" name="Exception" wsam:Action="http://security/SelloRW/cifra/Fault/Exception"/>
+<operation name="generaSello">
+<input wsam:Action="http://security/SelloRW/generaSelloRequest" message="tns:generaSello"/>
+<output wsam:Action="http://security/SelloRW/generaSelloResponse" message="tns:generaSelloResponse"/>
+<fault message="tns:NoSuchAlgorithmException" name="NoSuchAlgorithmException" wsam:Action="http://security/SelloRW/generaSello/Fault/NoSuchAlgorithmException"/>
+<fault message="tns:Exception" name="Exception" wsam:Action="http://security/SelloRW/generaSello/Fault/Exception"/>
+</operation>
+<operation name="sello">
+<input wsam:Action="http://security/SelloRW/selloRequest" message="tns:sello"/>
+<output wsam:Action="http://security/SelloRW/selloResponse" message="tns:selloResponse"/>
+</operation>
+<operation name="generaLlaves">
+<input wsam:Action="http://security/SelloRW/generaLlavesRequest" message="tns:generaLlaves"/>
+<output wsam:Action="http://security/SelloRW/generaLlavesResponse" message="tns:generaLlavesResponse"/>
 </operation>
 <operation name="descifra">
 <input wsam:Action="http://security/SelloRW/descifraRequest" message="tns:descifra"/>
@@ -62,9 +70,11 @@
 <fault message="tns:NoSuchAlgorithmException" name="NoSuchAlgorithmException" wsam:Action="http://security/SelloRW/descifra/Fault/NoSuchAlgorithmException"/>
 <fault message="tns:Exception" name="Exception" wsam:Action="http://security/SelloRW/descifra/Fault/Exception"/>
 </operation>
-<operation name="sello">
-<input wsam:Action="http://security/SelloRW/selloRequest" message="tns:sello"/>
-<output wsam:Action="http://security/SelloRW/selloResponse" message="tns:selloResponse"/>
+<operation name="cifra">
+<input wsam:Action="http://security/SelloRW/cifraRequest" message="tns:cifra"/>
+<output wsam:Action="http://security/SelloRW/cifraResponse" message="tns:cifraResponse"/>
+<fault message="tns:NoSuchAlgorithmException" name="NoSuchAlgorithmException" wsam:Action="http://security/SelloRW/cifra/Fault/NoSuchAlgorithmException"/>
+<fault message="tns:Exception" name="Exception" wsam:Action="http://security/SelloRW/cifra/Fault/Exception"/>
 </operation>
 <operation name="traeLlavePublica">
 <input wsam:Action="http://security/SelloRW/traeLlavePublicaRequest" message="tns:traeLlavePublica"/>
@@ -72,21 +82,11 @@
 <fault message="tns:NoSuchAlgorithmException" name="NoSuchAlgorithmException" wsam:Action="http://security/SelloRW/traeLlavePublica/Fault/NoSuchAlgorithmException"/>
 <fault message="tns:Exception" name="Exception" wsam:Action="http://security/SelloRW/traeLlavePublica/Fault/Exception"/>
 </operation>
-<operation name="generaLlaves">
-<input wsam:Action="http://security/SelloRW/generaLlavesRequest" message="tns:generaLlaves"/>
-<output wsam:Action="http://security/SelloRW/generaLlavesResponse" message="tns:generaLlavesResponse"/>
-</operation>
-<operation name="generaSello">
-<input wsam:Action="http://security/SelloRW/generaSelloRequest" message="tns:generaSello"/>
-<output wsam:Action="http://security/SelloRW/generaSelloResponse" message="tns:generaSelloResponse"/>
-<fault message="tns:NoSuchAlgorithmException" name="NoSuchAlgorithmException" wsam:Action="http://security/SelloRW/generaSello/Fault/NoSuchAlgorithmException"/>
-<fault message="tns:Exception" name="Exception" wsam:Action="http://security/SelloRW/generaSello/Fault/Exception"/>
-</operation>
 </portType>
 <binding name="SelloRWPortBinding" type="tns:SelloRW">
 <wsp:PolicyReference URI="#SelloRWPortBindingPolicy"/>
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-<operation name="cifra">
+<operation name="generaSello">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -100,6 +100,24 @@
 <fault name="Exception">
 <soap:fault name="Exception" use="literal"/>
 </fault>
+</operation>
+<operation name="sello">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="generaLlaves">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
 </operation>
 <operation name="descifra">
 <soap:operation soapAction=""/>
@@ -116,16 +134,7 @@
 <soap:fault name="Exception" use="literal"/>
 </fault>
 </operation>
-<operation name="sello">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="traeLlavePublica">
+<operation name="cifra">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -140,16 +149,7 @@
 <soap:fault name="Exception" use="literal"/>
 </fault>
 </operation>
-<operation name="generaLlaves">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="generaSello">
+<operation name="traeLlavePublica">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>

@@ -5,12 +5,12 @@
         <jsp-file>/ReWrite/index.jsp</jsp-file>
     </servlet>
     <servlet>
-        <servlet-name>Registro</servlet-name>
-        <servlet-class>controller.Registro</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>Registroo</servlet-name>
         <servlet-class>controller.Registroo</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EnviaCorreo</servlet-name>
+        <servlet-class>controller.EnviaCorreo</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Login</servlet-name>
@@ -36,6 +36,14 @@
         <servlet-name>Prueba</servlet-name>
         <servlet-class>controller.Prueba</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Register</servlet-name>
+        <servlet-class>controller.Register</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MandaCorreo</servlet-name>
+        <servlet-class>controller.MandaCorreo</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Inicio</servlet-name>
         <url-pattern>/ReWrite/index.jsp</url-pattern>
@@ -49,16 +57,16 @@
         <url-pattern>/algo1</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>Registro</servlet-name>
-        <url-pattern>/Registro</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>Registroo</servlet-name>
         <url-pattern>/Registroo</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EnviaCorreo</servlet-name>
+        <url-pattern>/EnviaCorreo</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>GuardarObra</servlet-name>
@@ -79,6 +87,14 @@
     <servlet-mapping>
         <servlet-name>Ajustes</servlet-name>
         <url-pattern>/Ajustes</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Register</servlet-name>
+        <url-pattern>/Register</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MandaCorreo</servlet-name>
+        <url-pattern>/MandaCorreo</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
