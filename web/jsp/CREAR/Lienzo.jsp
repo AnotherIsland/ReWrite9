@@ -5,6 +5,15 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    HttpSession sesi = request.getSession();
+    
+    if (sesi.getAttribute("ID") != null) {
+    String sello = "";    
+    if (request.getAttribute("sello") != null) {
+        sello = request.getAttribute("sello").toString();
+    }
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -95,12 +104,10 @@
     <div class="section white col s8 m8 l8 xl8"><!--contenido principal donde se escribe-->
       <div>
         <form name="form1" id="form1">
+            <input type="text" name="tipo" id="tipo" value="lienzo" hidden="true">
             <input type="button" class="btn waves-effect waves-light right" name="revisar" id="revisar" value="Revisar" onclick="revEnsayo();"><br><br>
-          <div class="oculto lienzo" contenteditable>
-              
-            Este un texto de prueba. :)
-          </div>
-          <input type="submit" class="btn waves-effect waves-light" name="guardar" id="guardar" value="Guardar"><br><br>
+            <input type="text" name="contenido" id="contenido" class="input-field oculto " placeholder="Escribe aquí..." >
+            <input type="submit" class="btn waves-effect waves-light" name="guardar" id="guardar" value="Guardar"><br><br>
         </form>
       </div>
     </div>
@@ -148,3 +155,8 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/init.js"></script>
 </body>
 </html>
+<% } 
+    else {
+    RequestDispatcher rd = request.getRequestDispatcher("../Login.jsp");
+                rd.forward(request, response);
+}%>

@@ -12,7 +12,7 @@ $(document).ready(function () {
 //Funcionalidad de los módulos
 function mostrarTipoRef() {
     var btn = document.getElementById('tipoRef');
-    if (btn.hidden == true) {
+    if (btn.hidden === true) {
         document.getElementById('tipoRef').hidden = false;
     } else {
         document.getElementById('tipoRef').hidden = true;
@@ -96,6 +96,7 @@ function agregaPalabra(pal) {
 function pClaves() {
     var contenido = document.getElementById('contenido');
     var lista = document.getElementsByClassName('palabra');
+    var inputP = document.createElement('input');
     var lista1 = [];//Palabras clave en lista
     var lista2 = [];//Palabras en todo texto
     var lista3 = [];//Palabras clave en texto
@@ -114,6 +115,8 @@ function pClaves() {
     //Extrae palabras de la lista de palabras clave
     for (i = 0; i < lista.length; i++) {
         lista1[i] = lista[i].innerHTML;
+        inputP.value =  "," +lista1[i];
+        console.log(inputP.value);
     }
 
     //Extrae palabras del texto y las mete en arreglo lista2
@@ -172,6 +175,8 @@ function pClaves() {
 
         document.getElementById('faltanClaves').appendChild(palabra);
     }
+    
+    document.getElementById('pClave').appendChild(inputP);
 }
 //Revisión por módulos
 function revEnsayo() {
@@ -179,15 +184,39 @@ function revEnsayo() {
     var intro = document.getElementById('intro');
     var desa = document.getElementById('desarrollo');
     var conclu = document.getElementById('conclusion');
+    var numRef = 0;
+    var inputNRef = document.createElement('input');
 
     var texto = intro.value + ' ' + desa.value + ' ' + conclu.value;
     console.log(texto);
     cuentaPalabras(texto);
+    
+    //Revisa si hay referencias en el documento
+    if (document.getElementsByClassName('pRef').length !== 0) {
+        numRef = document.getElementsByClassName('pRef').length;
+        console.log(numRef);
+    }
+    //Añade input de numero de ref
+    inputNRef.value = numRef;
+    inputNRef.setAttribute('name','numRef');
+    inputNRef.setAttribute('hidden','true');
+    document.getElementById('referencias').appendChild(inputNRef);
 
 }
 function revResumen() {
     pClaves();
     cuentaPalabras(document.getElementById('contenido').value);
+    
+    //Revisa si hay referencias en el documento
+    if (document.getElementsByClassName('pRef').length !== 0) {
+        numRef = document.getElementsByClassName('pRef').length;
+        console.log(numRef);
+    }
+    //Añade input de numero de ref
+    inputNRef.value = numRef;
+    inputNRef.setAttribute('name','numRef');
+    inputNRef.setAttribute('hidden','true');
+    document.getElementById('referencias').appendChild(inputNRef);
 }
 //Funcionalidad de referencias
 function newRef(ref) {
@@ -310,7 +339,9 @@ function agregaRef(submit) {//Añade por primera vez referencia creada en form
     var divX = 0;
     var icon = document.createElement('i');
     var btn = document.createElement('button');
+    var inputR = document.createElement('input');
     var divRefs;
+    
 
     //Revisa si hay referencias en el documento
     if (document.getElementsByClassName('refe').length !== 0) {
@@ -362,6 +393,13 @@ function agregaRef(submit) {//Añade por primera vez referencia creada en form
     //Quita el div de la referencia
     divRefs = document.getElementById('referencias');
     divRefs.removeChild(document.getElementById('refe' + (numRef / 8)));
+    
+    //Añade input escondido para mandar ref
+    inputR.value = ref.innerHTML;
+    inputR.setAttribute('name','vRef'+(numRef / 8));
+    inputR.setAttribute('hidden','true');
+    document.getElementById('referencias').appendChild(inputR);
+    
 
 }
 function haceReferencia(autor, anio, titulo, numRef) {//Añade la referencia con el formato correspondiente al doc 
@@ -373,6 +411,7 @@ function haceReferencia(autor, anio, titulo, numRef) {//Añade la referencia con
     var ref = document.createElement('p');
     var icon = document.createElement('i');
     var btn = document.createElement('button');
+    var inputR = document.createElement('input');
 
 
     //Añade botón para editar 
@@ -390,6 +429,13 @@ function haceReferencia(autor, anio, titulo, numRef) {//Añade la referencia con
     btn.appendChild(icon);
     ref.appendChild(btn);
     document.getElementById('referencias').appendChild(ref);
+    
+    //Añade input escondido para mandar ref
+    inputR.value = ref.innerHTML;
+    inputR.setAttribute('name','vRef'+(numRef / 8));
+    //inputR.setAttribute('hidden','true');
+    document.getElementById('referencias').appendChild(inputR);
+    
 }
 function editaRef(btnRefEdita) {
 
@@ -538,7 +584,7 @@ function validaRegistro(formulario) {
     var nomValid = true;
 
     for (k = 0; k < 3; k++) {
-        if (k = 1) {
+        if (k === 1) {
             nom = formulario.password.value;
         } else {
             nom = formulario.password1.value;
@@ -574,7 +620,7 @@ function validaInicio(formulario) {
     var nomValid = true;
 
     for (k = 0; k < 2; k++) {
-        if (k = 1) {
+        if (k === 1) {
             nom = formulario.password.value;
         }
         for (i = 0; i < nom.length; i++) {

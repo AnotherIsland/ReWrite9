@@ -5,6 +5,15 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    HttpSession sesi = request.getSession();
+    
+    if (sesi.getAttribute("ID") != null) {
+    String sello = "";    
+    if (request.getAttribute("sello") != null) {
+        sello = request.getAttribute("sello").toString();
+    }
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -115,59 +124,27 @@
     </div>
 
     <div class="section lienzo white col s8 m8 l8 xl8"><!--contenido principal donde se escribe-->
-        <form name="form1" id="form1">
-          <input type="button" class="btn waves-effect waves-light right" name="revisar" id="revisar" value="Revisar" onclick="revResumen();"><br><br>
-          <input type="text" class="input-field oculto" placeholder="Título" name="titulo" id="titulo" >
+        <form name="form1" id="form1" action="${pageContext.request.contextPath}/GuardarObra" method="POST">
+          <input type="button" class="btn waves-effect waves-light right" name="revisar" id="revisar"
+                 value="Revisar" onclick="revResumen();"/><br><br>
+          <input type="text" name="tipo" id="tipo" value="resumen" hidden="true">
+          <input type="text" class="input-field oculto" placeholder="Título" name="titulo" id="titulo" />
           <label for="contenido"><h6>Contenido</h6></label>
-          <input class="input-field oculto" id="contenido" name="contenido" onchange="revResumen();">
-          </input>
+          <input class="input-field oculto" id="contenido" name="contenido" onchange="revResumen();"/>
           <label for="referencias"><h6>Referencias</h6></label><br>
           <div type="text" id="referencias" name="referencias" class="input-field oculto">
-            <!--Aquí se generan las referencias-->
+            
           </div>
-          <div class="oculto" id="sello" name="sello" contenteditable>
-
+          <div class="oculto" id="sello" name="sello" >
+              <hr>
+                            <label for=""><h6>Sello</h6></label>
+              <input type="text" name="selloF" id="selloF" class="input-field oculto" disabled="true" value="<%=sello%>">
                             </div>
+          <input type="submit" class="btn waves-effect waves-light" name="guardar" id="guardar" value="Guardar"><br><br>
         </form>
     </div>
 
-    <ul id="slide-out" class="sidenav">
-      <div class="chat section">
-        <div class="row">
-          <div id="messages"></div>
-        </div>
-        <div class="row">
-          <div id="users" >
-            <h7>Usuarios conectados: </h7>
-            <ul id="user-list" class="list-group"></ul>
-          </div>
-        </div>
-
-        <div class="responsive-table">
-          <table class="table" align="centered">
-            <tr>
-              <form class="col l12 m12 s12 xl12" name="messageToSend">
-                </th>
-                <th>
-                  <div class="input-field">
-                    <label for="text">Mensaje:</label>
-                    <textarea class="materialize-textarea" id="text" placeholder="Escribe aquí..."></textarea>
-                  </div>
-                  <div class="alert alert-danger" id="alert2"><strong>ERROR! </strong>Ingresa un mensaje válido.</div>
-                </th>
-                <th><br><br>
-                  <div class="">
-                    <button class="btn-floating btn-large waves-effect waves-light blue" onclick="addMessage()">
-                      <i class="material-icons medium">send</i>
-                    </button>
-                  </div>
-                </th>
-              </form>
-            </tr>
-          </table>
-        </div>
-      </div>
-    </ul>
+    
   </div>
 
 </div>
@@ -177,3 +154,8 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/Resumen.js"></script>
 </body>
 </html>
+<% } 
+    else {
+    RequestDispatcher rd = request.getRequestDispatcher("../Login.jsp");
+                rd.forward(request, response);
+}%>

@@ -5,6 +5,15 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    HttpSession sesi = request.getSession();
+    
+    if (sesi.getAttribute("ID") != null) {
+    String sello = "";    
+    if (request.getAttribute("sello") != null) {
+        sello = request.getAttribute("sello").toString();
+    }
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -109,6 +118,7 @@
                 <div class="section lienzo white col s8 m8 l8 xl8"><!--contenido principal donde se escribe-->
                     <div>
                         <form name="form1" id="form1">
+                            <input type="text" name="tipo" id="tipo" value="articulo" hidden="true">
                             <input type="button" class="btn waves-effect waves-light right" name="revisar" id="revisar" value="Revisar" onclick="revEnsayo();"><br><br>
                             <input type="text" class="input-field oculto " placeholder="Título" >
                             <input type="text" class="input-field oculto " placeholder="Introducción" >
@@ -118,8 +128,9 @@
                             <div type="text" id="referencias" name="referencias" class="input-field oculto">
                                 <!--Aquí se generan las referencias-->
                             </div>
-                            <div class="oculto" contenteditable>
-                            </div>
+                            <hr>
+                            <label for=""><h6>Sello</h6></label>
+                            <p><%=sello%></p>
                             <input type="submit" class="btn waves-effect waves-light" name="guardar" id="guardar" value="Guardar"><br><br>
                         </form>
 
@@ -170,3 +181,8 @@
         <script type="text/javascript" src="../../js/init.js"></script>
     </body>
 </html>
+<% } 
+    else {
+    RequestDispatcher rd = request.getRequestDispatcher("../Login.jsp");
+                rd.forward(request, response);
+}%>

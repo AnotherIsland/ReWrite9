@@ -8,7 +8,12 @@
 <%@page import="javax.servlet.http.HttpSession"%>
 <%
     HttpSession sesi = request.getSession();
+    
     if (sesi.getAttribute("ID") != null) {
+    String sello = "";    
+    if (request.getAttribute("sello") != null) {
+        sello = request.getAttribute("sello").toString();
+    }
 %>
 <!DOCTYPE html>
 <html>
@@ -117,7 +122,8 @@
                 <div class="section white lienzo col s8 m8 l8 xl8"><!--contenido principal donde se escribe-->
                     <div>
                         <form name="form1" id="form1" action="${pageContext.request.contextPath}/GuardarObra" method="POST">
-                            <input type="button" class="btn waves-effect waves-light right" name="revisar" id="revisar" value="Revisar" onclick="revEnsayo();"><br><br>
+                            <input type="text" name="tipo" id="tipo" value="narrativo" hidden="true">
+                            <input type="button" class="btn waves-effect waves-light right" name="revisar" id="revisar" value="Revisar" onclick="revNarrativo();"><br><br>
                             <input type="text" name="titulo" class="input-field oculto " placeholder="Título" >
                             <input type="text" name="intro" class="input-field oculto " placeholder="Exposición" >
                             <input type="text" name="desarrollo" class="input-field oculto " placeholder="Desarrollo" >

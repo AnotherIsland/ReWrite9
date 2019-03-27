@@ -5,6 +5,15 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    HttpSession sesi = request.getSession();
+    
+    /*if (sesi.getAttribute("ID") != null) {
+    String sello = "";    
+    if (request.getAttribute("sello") != null) {
+        sello = request.getAttribute("sello").toString();
+    }
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -99,7 +108,8 @@
                 </div>
 
                 <div class="section white col s8 m8 l8 xl8"><!--contenido principal donde se escribe-->
-                    <form action="" method="">
+                    <form action="${pageContext.request.contextPath}/GuardarObra" method="POST">
+                        <input type="text" name="tipo" id="tipo" value="lirica" hidden="true">
                         <input type="submit" class="btn waves-effect waves-light right" name="guardar" id="guardar" value="Guardar"><br><br>
                         <div contenteditable="true" class="oculto">
                             <input type="button" class="btn waves-effect waves-light right" name="revisar" id="revisar" value="Revisar" onclick="revEnsayo();"><br><br>
@@ -112,6 +122,9 @@
                                 Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
                                 deserunt mollit anim id est laborum.</p>
                         </div>
+                        <hr>
+                            <label for=""><h6>Sello</h6></label>
+                            <p><%=sello%></p>
                     </form>
                 </div>
                 <ul id="slide-out" class="sidenav">
@@ -159,4 +172,9 @@
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/init.js"></script>
     </body>
 </html>
+<% /*} 
+    else {
+    RequestDispatcher rd = request.getRequestDispatcher("../Login.jsp");
+                rd.forward(request, response);*/
+}%>
 
