@@ -54,8 +54,6 @@ function cuentaPalabras(texto) {
 
     }
     document.getElementById('numP').appendChild(span);
-
-
 }
 function agregaPalabra(pal) {
     var palabra = null;

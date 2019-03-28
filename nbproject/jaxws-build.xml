@@ -74,5 +74,21 @@
         <delete dir="${build.generated.sources.dir}/jax-ws/paquete"/>
         <delete dir="${build.generated.dir}/jax-wsCache/Servicio"/>
     </target>
-    <target name="wsimport-client-generate" depends="wsimport-client-generar, wsimport-client-SelloRW, wsimport-client-Servicio"/>
+    <target name="wsimport-client-generaPDF" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/generaPDF"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/generaPDF" destdir="${build.generated.dir}/jax-wsCache/generaPDF" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/generaPDF/wsdl/localhost_8080/AdminPDF/generaPDF.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/AdminPDF/generaPDF?wsdl" xnocompile="true" xendorsed="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/generaPDF/wsdl/localhost_8080/AdminPDF/generaPDF.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/generaPDF"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/generaPDF">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-generaPDF" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/uno"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/generaPDF"/>
+    </target>
+    <target name="wsimport-client-generate" depends="wsimport-client-generar, wsimport-client-SelloRW, wsimport-client-Servicio, wsimport-client-generaPDF"/>
 </project>

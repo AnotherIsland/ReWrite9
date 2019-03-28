@@ -9,4 +9,6 @@
     <system systemId="http://localhost:8080/RWSecurity/SelloRW?xsd=1" uri="src/conf/xml-resources/web-service-references/SelloRW/wsdl/localhost_8080/RWSecurity/SelloRW.xsd_1.xsd"/>
     <system systemId="http://localhost:8080/Servidor/Servicio?wsdl" uri="src/conf/xml-resources/web-service-references/Servicio/wsdl/localhost_8080/Servidor/Servicio.wsdl"/>
     <system systemId="http://localhost:8080/Servidor/Servicio?xsd=1" uri="src/conf/xml-resources/web-service-references/Servicio/wsdl/localhost_8080/Servidor/Servicio.xsd_1.xsd"/>
+    <system systemId="http://localhost:8080/AdminPDF/generaPDF?wsdl" uri="src/conf/xml-resources/web-service-references/generaPDF/wsdl/localhost_8080/AdminPDF/generaPDF.wsdl"/>
+    <system systemId="http://localhost:8080/AdminPDF/generaPDF?xsd=1" uri="src/conf/xml-resources/web-service-references/generaPDF/wsdl/localhost_8080/AdminPDF/generaPDF.xsd_1.xsd"/>
 </catalog>
