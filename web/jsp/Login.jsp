@@ -5,6 +5,15 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    HttpSession sesi;
+    if(request.getSession() != null){
+        sesi = request.getSession();
+        sesi.invalidate();
+    }
+    
+
+%>
 <!DOCTYPE html>
 <html>
 <head>

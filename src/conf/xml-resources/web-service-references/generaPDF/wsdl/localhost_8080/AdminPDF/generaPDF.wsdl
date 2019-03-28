@@ -4,36 +4,36 @@
 <xsd:import namespace="http://uno/" schemaLocation="http://localhost:8080/AdminPDF/generaPDF?xsd=1"/>
 </xsd:schema>
 </types>
-<message name="ensayoPDF">
-<part name="parameters" element="tns:ensayoPDF"/>
-</message>
-<message name="ensayoPDFResponse">
-<part name="parameters" element="tns:ensayoPDFResponse"/>
-</message>
-<message name="IOException">
-<part name="fault" element="tns:IOException"/>
-</message>
 <message name="resumenPDF">
 <part name="parameters" element="tns:resumenPDF"/>
 </message>
 <message name="resumenPDFResponse">
 <part name="parameters" element="tns:resumenPDFResponse"/>
 </message>
+<message name="IOException">
+<part name="fault" element="tns:IOException"/>
+</message>
+<message name="ensayoPDF">
+<part name="parameters" element="tns:ensayoPDF"/>
+</message>
+<message name="ensayoPDFResponse">
+<part name="parameters" element="tns:ensayoPDFResponse"/>
+</message>
 <portType name="generaPDF">
-<operation name="ensayoPDF">
-<input wsam:Action="http://uno/generaPDF/ensayoPDFRequest" message="tns:ensayoPDF"/>
-<output wsam:Action="http://uno/generaPDF/ensayoPDFResponse" message="tns:ensayoPDFResponse"/>
-<fault message="tns:IOException" name="IOException" wsam:Action="http://uno/generaPDF/ensayoPDF/Fault/IOException"/>
-</operation>
 <operation name="resumenPDF">
 <input wsam:Action="http://uno/generaPDF/resumenPDFRequest" message="tns:resumenPDF"/>
 <output wsam:Action="http://uno/generaPDF/resumenPDFResponse" message="tns:resumenPDFResponse"/>
 <fault message="tns:IOException" name="IOException" wsam:Action="http://uno/generaPDF/resumenPDF/Fault/IOException"/>
 </operation>
+<operation name="ensayoPDF">
+<input wsam:Action="http://uno/generaPDF/ensayoPDFRequest" message="tns:ensayoPDF"/>
+<output wsam:Action="http://uno/generaPDF/ensayoPDFResponse" message="tns:ensayoPDFResponse"/>
+<fault message="tns:IOException" name="IOException" wsam:Action="http://uno/generaPDF/ensayoPDF/Fault/IOException"/>
+</operation>
 </portType>
 <binding name="generaPDFPortBinding" type="tns:generaPDF">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-<operation name="ensayoPDF">
+<operation name="resumenPDF">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -45,7 +45,7 @@
 <soap:fault name="IOException" use="literal"/>
 </fault>
 </operation>
-<operation name="resumenPDF">
+<operation name="ensayoPDF">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>

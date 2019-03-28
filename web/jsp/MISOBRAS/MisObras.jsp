@@ -4,6 +4,12 @@
     Author     : Student
 --%>
 
+<%@page import="Database.DataBase"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="model.Obra"%>
+<%@page import="model.Obra"%>
+<%@page import="java.sql.SQLException"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <!--
@@ -14,6 +20,51 @@ and open the template in the editor.
 <%
         HttpSession sesi = request.getSession();
         if (sesi.getAttribute("ID") != null) {
+            
+                    
+            /*if(request.getAttribute("obras") == null){
+                System.out.println("Entra al java");
+                RequestDispatcher rd = request.getRequestDispatcher("/MisObras");
+                rd.forward(request, response);
+            }else{
+                System.out.println(request.getAttribute("tiene").toString());
+            }*/
+            
+            DataBase db = new DataBase();
+            ResultSet rs = null;
+            
+            String usuario = sesi.getAttribute("Email").toString();
+            String idUs = sesi.getAttribute("idUsuario").toString();
+
+            //Datos a obtener de la obra
+            ArrayList <Obra> obras = new ArrayList();
+            Obra obraX = null;
+            int idObra = 0;
+            String titulo = "";
+            String fecha = "";
+            String tipo = "";
+
+            try {
+                db.connect();
+                rs = db.query("select * from obra inner join relobrausu on relobrausu.idObra = obra.idObra where idUsuario ="+idUs+";");
+                while(rs.next()){
+                    idObra = rs.getInt("idObra");
+                    titulo = rs.getString("titulo");
+                    fecha = rs.getString("fecha");
+                    tipo = rs.getString("tipo");
+
+                    //System.out.println("Obra: "+idObra+" titulo: "+titulo+" tipo: "+tipo+" fecha: "+fecha);
+
+                    obraX = new Obra(idObra, titulo, fecha, tipo);
+                    obras.add(obraX);
+                }                      
+                db.closeConnection();
+            } catch (SQLException error) {
+                System.out.println(error.toString());
+            }
+            
+            
+
         %>
 <html>
 <head>
@@ -64,6 +115,13 @@ and open the template in the editor.
           <div class="row">
             <h5 class="white-text">Recientes</h5><hr class="blue lighten-1">
             <div class="col s12 m12 l12 xl12 " >
+                <%for(int i = 0; i < obras.size(); i++){
+                    obraX = obras.get(i);
+                    titulo = obraX.getTitulo();
+                    fecha = obraX.getFecha();
+                    tipo = obraX.getTipo();
+                    idObra = obraX.getIdObra();
+                %>
               <div class="col s4 m4 l4 xl4 ">
                 <div class="card sticky-action">
                   <div class="card-image">
@@ -71,42 +129,25 @@ and open the template in the editor.
                     <a class="btn-floating halfway-fab waves-effect waves-light"><i class="material-icons">create</i></a>
                   </div>
                   <div class="card-content">
-                    <span class="card-title black-text">Mi primer poema</span><!--Traer titulo de la obra-->
+                    <span class="card-title black-text"><%=titulo%></span><!--Traer titulo de la obra-->
+                    <p><%=fecha%></p>
                   </div>
                   <div class="card-action">
-                    <a class=" blue-text " href="#">Descargar PDF<i class="material-icons">file_download</i></a>
+                      <form action="${pageContext.request.contextPath}/MisObras" method="POST" >
+                          <input name="title" type="text" value="<%=titulo%>" hidden />
+                          <input name="fecha" type="text" value="<%=fecha%>" hidden/>
+                          <input name="idObra" type="text" value="<%=idObra%>" hidden/>
+                          <input name="tipo" type="text" value="<%=tipo%>" hidden/>
+                          <input class=" blue-text" name="descargaPDF" type="submit" value="Descargar PDF"><i class="material-icons">file_download</i>
+                      </form>
+                      
                   </div>
                 </div>
-              </div>
-              <div class="col s4 m4 l4 xl4 "><div class="card sticky-action">
-                <div class="card-image">
-                  <img src="${pageContext.request.contextPath}/img/plantilla.png">
-                  <a class="btn-floating halfway-fab waves-effect waves-light"><i class="material-icons">create</i></a>
-                </div>
-                <div class="card-content">
-                  <span class="card-title black-text">Mi primer poema</span><!--Traer titulo de la obra-->
-                </div>
-                <div class="card-action">
-                  <a class=" blue-text " href="#">Descargar PDF<i class="material-icons">file_download</i></a>
-                </div>
-              </div></div>
-              <div class="col s4 m4 l4 xl4 ">
-                <div class="card sticky-action">
-                  <div class="card-image">
-                    <img src="${pageContext.request.contextPath}/img/plantilla.png">
-                    <a class="btn-floating halfway-fab waves-effect waves-light"><i class="material-icons">create</i></a>
-                  </div>
-                  <div class="card-content">
-                    <span class="card-title black-text">Mi primer poema</span><!--Traer titulo de la obra-->
-                  </div>
-                  <div class="card-action">
-                    <a class=" blue-text " href="#">Descargar PDF<i class="material-icons">file_download</i></a>
-                  </div>
-                </div>
-              </div>
+              </div><%}%>
+              
             </div>
           </div>
-          <div class="row">
+          <!--<div class="row">
             <h5 class="white-text">Todas mis obras</h5><hr class="blue lighten-1">
             <div class="col s12 m12 l12 xl12 " >
               <div class="col s4 m4 l4 xl4 ">
@@ -116,33 +157,7 @@ and open the template in the editor.
                     <a class="btn-floating halfway-fab waves-effect waves-light"><i class="material-icons">create</i></a>
                   </div>
                   <div class="card-content">
-                    <span class="card-title black-text">Mi primer poema</span><!--Traer titulo de la obra-->
-                  </div>
-                  <div class="card-action">
-                    <a class=" blue-text " href="#">Descargar PDF<i class="material-icons">file_download</i></a>
-                  </div>
-                </div>
-              </div>
-              <div class="col s4 m4 l4 xl4 "><div class="card sticky-action">
-                <div class="card-image">
-                  <img src="${pageContext.request.contextPath}/img/plantilla.png">
-                  <a class="btn-floating halfway-fab waves-effect waves-light"><i class="material-icons">create</i></a>
-                </div>
-                <div class="card-content">
-                  <span class="card-title black-text">Mi primer poema</span><!--Traer titulo de la obra-->
-                </div>
-                <div class="card-action">
-                  <a class=" blue-text " href="#">Descargar PDF<i class="material-icons">file_download</i></a>
-                </div>
-              </div></div>
-              <div class="col s4 m4 l4 xl4 ">
-                <div class="card sticky-action">
-                  <div class="card-image">
-                    <img src="${pageContext.request.contextPath}/img/plantilla.png">
-                    <a class="btn-floating halfway-fab waves-effect waves-light"><i class="material-icons">create</i></a>
-                  </div>
-                  <div class="card-content">
-                    <span class="card-title black-text">Mi primer poema</span><!--Traer titulo de la obra-->
+                    <span class="card-title black-text">Mi primer poema</span>
                   </div>
                   <div class="card-action">
                     <a class=" blue-text " href="#">Descargar PDF<i class="material-icons">file_download</i></a>
@@ -150,7 +165,7 @@ and open the template in the editor.
                 </div>
               </div>
             </div>
-          </div>
+          </div>-->
 
 
         </div>

@@ -21,16 +21,31 @@ public class Obra implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Integer idObra;
+    private int idObra;
 
     private String titulo;
 
-    private Date fecha;
+    private String fecha;
   
     private String consejos;
-
-
+    
+    private String tipo;
+    
     public Obra() {
+    }
+    public Obra(int _idObra, String _titulo,String _fecha,String _tipo) {
+        idObra = _idObra;
+        titulo = _titulo;
+        fecha = _fecha;
+        tipo = _tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public String getTipo() {
+        return tipo;
     }
 
     public Obra(Integer idObra) {
@@ -53,11 +68,11 @@ public class Obra implements Serializable {
         this.titulo = titulo;
     }
 
-    public Date getFecha() {
+    public String getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 
@@ -70,25 +85,6 @@ public class Obra implements Serializable {
     }
 
     
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (idObra != null ? idObra.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Obra)) {
-            return false;
-        }
-        Obra other = (Obra) object;
-        if ((this.idObra == null && other.idObra != null) || (this.idObra != null && !this.idObra.equals(other.idObra))) {
-            return false;
-        }
-        return true;
-    }
 
     @Override
     public String toString() {

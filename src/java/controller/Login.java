@@ -74,6 +74,7 @@ public class Login extends HttpServlet {
                 sesi.setAttribute("Email", correo);
                 sesi.setAttribute("username", username);
                 sesi.setAttribute("pass", pass);
+                sesi.setAttribute("idUsuario", id);
                     System.out.println("id: " + sesi.getAttribute("ID").toString());
                     System.out.println("usuario: " + sesi.getAttribute("username").toString());
                 }

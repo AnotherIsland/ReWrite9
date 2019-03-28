@@ -27,13 +27,10 @@ import ws.NoSuchAlgorithmException_Exception;
  * @author ACIE-PC
  */
 public class GuardarObra extends HttpServlet {
-    
-    
-    
+
     String _texto = null;
     String _bloque = null;
     String _sello = null;
-    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -47,7 +44,7 @@ public class GuardarObra extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
     }
 
     /**
@@ -61,12 +58,13 @@ public class GuardarObra extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         DataBase db = new DataBase();
         ResultSet rs = null;
         HttpSession sesi = request.getSession();
         String usuario = sesi.getAttribute("Email").toString();
-        
+        String idUs = sesi.getAttribute("idUsuario").toString();
+
         //Variables que dependen del tipo de texto
         String tipo = request.getParameter("tipo");
         String titulo = request.getParameter("titulo");
@@ -77,25 +75,27 @@ public class GuardarObra extends HttpServlet {
         String refe = "";
         String contenido = "";
         String claves = "";
-        
-              
+        int idObra = 0;
+        String regreso = "";
+
         //Obtiene parámetros según tipo de Obra
-        if(tipo.equals("lienzo")){
+        if (tipo.equals("lienzo")) {
             contenido = request.getParameter("contenido");
-            
-        }else if(tipo.equals("ensayo")){
+
+        } else if (tipo.equals("ensayo")) {
             intro = request.getParameter("intro");
             desa = request.getParameter("desarrollo");
             conclu = request.getParameter("conclusion");
             refe = request.getParameter("referencias");
-            
-            try {//Da de alta la ensayo 
+            regreso = "jsp/CREAR/Ensayo.jsp";
+
+            try {//Da de alta ensayo 
                 db.connect();
                 CallableStatement call = db.procedure("{call alta_ensayo (?,?,?,?)}");
                 call.setString(1, titulo);
                 call.setString(2, intro);
                 call.setString(3, desa);
-                call.setString(4, conclu + "\n Referencias: "+ refe);
+                call.setString(4, conclu + "\n Referencias: " + refe);
                 call.execute();
                 call.close();
 
@@ -103,12 +103,13 @@ public class GuardarObra extends HttpServlet {
             } catch (SQLException error) {
                 System.out.println(error.toString());
             }
-        }else if(tipo.equals("resumen")){
-            
+        } else if (tipo.equals("resumen")) {
+
             refe = request.getParameter("referencias");
             contenido = request.getParameter("contenido");
             claves = request.getParameter("claves");
-            
+            regreso = "jsp/CREAR/Resumen.jsp";
+
             try {//Da de alta la resumen 
                 db.connect();
                 CallableStatement call = db.procedure("{call alta_resumen (?,?,?)}");
@@ -122,54 +123,39 @@ public class GuardarObra extends HttpServlet {
             } catch (SQLException error) {
                 System.out.println(error.toString());
             }
-            
-        }else if(tipo.equals("lirico")){
-            
-        }else if(tipo.equals("narrativo")){
-            
-        }else if(tipo.equals("dramatico")){
-            
-        }else if(tipo.equals("articulo")){
-            
+
+        } else if (tipo.equals("lirico")) {
+
+        } else if (tipo.equals("narrativo")) {
+
+        } else if (tipo.equals("dramatico")) {
+
+        } else if (tipo.equals("articulo")) {
+
         }
-        
-        //String idUs = "1";
-        int us = 0;
-        
-        try{
+        //Da de alta obra en relacion a usuario en tabla relobrausu
+        try {
             db.connect();
-            rs = db.query("select idUsuario,usuario from usuario where usuario = '"+usuario+"' or correo = '"+usuario+"'");
-                
-            if(rs.next()) {
-                us = rs.getInt("idUsuario");
-                System.out.println("El usuario es: "+us);
-                usuario = rs.getNString("usuario");
-            }
+            rs = db.query("Select idObra from obra where titulo ='"+titulo+"';");
+            if(rs.next()){
+                idObra = rs.getInt("idObra");
+                db.insert("Insert into relobrausu(idObra,idUsuario) values("+idObra+","+idUs+");");
+            }                      
             db.closeConnection();
-        }
-        catch(SQLException error){
+        } catch (SQLException error) {
             System.out.println(error.toString());
         }
-        
+
         try {
             sello = creaSello(usuario);
         } catch (ws.Exception_Exception ex) {
             Logger.getLogger(GuardarObra.class.getName()).log(Level.SEVERE, null, ex);
         }
         request.setAttribute("sello", sello);
+
         
-        /*try{  REEMPLAZAR POR DAR OBRA DE ALTA CON PROCEDURE
-            db.connect();
-            db.insert("insert into ensayo(intro,desarrollo,conclusion,sello)"
-                    + " values('"+intro+"','"+desarrollo+"','"+conclusion+"','"+sello+"')");
-     
-            db.closeConnection();
-        }
-        catch(SQLException error){
-            System.out.println(error.toString());
-        }*/
-        RequestDispatcher rd = request.getRequestDispatcher("jsp/CREAR/Ensayo.jsp");
-                rd.forward(request, response);
+        RequestDispatcher rd = request.getRequestDispatcher(regreso);
+        rd.forward(request, response);
     }
 
     /**
@@ -182,10 +168,10 @@ public class GuardarObra extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private String creaSello(String bloque) throws ws.Exception_Exception{
+    private String creaSello(String bloque) throws ws.Exception_Exception {
         _texto = "";
         _bloque = "";
-        
+
         //generaLlaves();
         try {
             _sello = cifra(bloque);
@@ -194,10 +180,9 @@ public class GuardarObra extends HttpServlet {
             Logger.getLogger(GuardarObra.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NoSuchAlgorithmException_Exception ex) {
             Logger.getLogger(GuardarObra.class.getName()).log(Level.SEVERE, null, ex);
-        } 
-      return _sello;  
+        }
+        return _sello;
     }
-    
 
     private static String generaLlaves() {
         ws.SelloRW_Service service = new ws.SelloRW_Service();
@@ -211,6 +196,4 @@ public class GuardarObra extends HttpServlet {
         return port.cifra(msg);
     }
 
-    
-    
 }

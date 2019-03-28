@@ -44,6 +44,10 @@
         <servlet-name>MandaCorreo</servlet-name>
         <servlet-class>controller.MandaCorreo</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MisObras</servlet-name>
+        <servlet-class>controller.MisObras</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Inicio</servlet-name>
         <url-pattern>/ReWrite/index.jsp</url-pattern>
@@ -95,6 +99,10 @@
     <servlet-mapping>
         <servlet-name>MandaCorreo</servlet-name>
         <url-pattern>/MandaCorreo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MisObras</servlet-name>
+        <url-pattern>/MisObras</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
