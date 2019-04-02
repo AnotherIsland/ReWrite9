@@ -1,20 +1,24 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package encriptacion;
 
-package controller;
-
-import encriptacion.Generar;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author ACIE-PC
  */
-public class Prueba extends HttpServlet {
+public class imp extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -27,33 +31,25 @@ public class Prueba extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, Exception {
+        Asignar a = new Asignar();
+        String ticket = a.GenerarSesion("1231", "asba", "hooa","12:30");
+        System.out.println(ticket);
+        a.desci(ticket);
+        System.out.println(a.desci(ticket));
+        System.out.println(a.getCorreo());
+        System.out.println(a.getID());
+        System.out.println(a.getUsername());
+        System.out.println(a.getHora());
         response.setContentType("text/html;charset=UTF-8");
-        
-        //HttpSession sesi = request.getSession();
-        //sesi.getAttribute("ID");sesi.getAttribute("ID").toString();
-        
-        Generar gen = new Generar();
-        
-        String descifrado = gen.descifrar("LWCwvMHqWnGdlqxX8voR4J28L3v86JGduWHPuPVjXTj3lclFDkN0g+hGOn8etd3E");
-        System.out.println(gen.descifrar("LWCwvMHqWnGdlqxX8voR4J28L3v86JGduWHPuPVjXTj3lclFDkN0g+hGOn8etd3E"));
-        SeparaTicket st = new SeparaTicket();
-        st.desci(descifrado);
-        
-        System.out.println(st.getCorreo());
-        System.out.println(st.getID());
-        System.out.println(st.getUsername());
-        
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet PruebaDescifraTicket</title>");            
+            out.println("<title>Servlet imp</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>correo " + st.getCorreo()+ "</h1>");
-            out.println("<h1>id " + st.getID()+ "</h1>");
-            out.println("<h1>usuario " + st.getUsername()+ "</h1>");
+            out.println("<h1>Servlet imp at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -71,7 +67,11 @@ public class Prueba extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (Exception ex) {
+            Logger.getLogger(imp.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -85,7 +85,11 @@ public class Prueba extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (Exception ex) {
+            Logger.getLogger(imp.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -97,8 +101,5 @@ public class Prueba extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
-
-    
 
 }

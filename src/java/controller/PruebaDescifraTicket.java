@@ -5,7 +5,8 @@
  */
 package controller;
 
-import generar.Exception_Exception;
+
+import encriptacion.Generar;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -30,13 +31,15 @@ public class PruebaDescifraTicket extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, Exception_Exception, Exception {
+            throws ServletException, IOException, Exception {
         response.setContentType("text/html;charset=UTF-8");
         
         //HttpSession sesi = request.getSession();
-        //sesi.getAttribute("ID");sesi.getAttribute("ID").toString(
+        //sesi.getAttribute("ID");sesi.getAttribute("ID").toString();
         
-        String descifrado = descifrar("LWCwvMHqWnGdlqxX8voR4J28L3v86JGduWHPuPVjXTj3lclFDkN0g+hGOn8etd3E");
+        Generar gen = new Generar();
+        
+        String descifrado = gen.descifrar("LWCwvMHqWnGdlqxX8voR4J28L3v86JGduWHPuPVjXTj3lclFDkN0g+hGOn8etd3E");
         
         SeparaTicket st = new SeparaTicket();
         st.desci(descifrado);
@@ -97,11 +100,6 @@ public class PruebaDescifraTicket extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private static String descifrar(java.lang.String ticket) throws Exception_Exception {
-        generar.Generar_Service service = new generar.Generar_Service();
-        generar.Generar port = service.getGenerarPort();
-        return port.descifrar(ticket);
-    }
 
    
     

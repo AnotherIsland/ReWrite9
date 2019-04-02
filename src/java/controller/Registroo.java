@@ -17,10 +17,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.ws.WebServiceRef;
-import ws.Exception_Exception;
-import ws.NoSuchAlgorithmException_Exception;
-import ws.SelloRW_Service;
+
 
 /**
  *
@@ -182,11 +179,5 @@ public class Registroo extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    /*private static String basec(java.lang.String correo, java.lang.String usuario, java.lang.String contraseña) {
-        paquete.Servicio_Service service = new paquete.Servicio_Service();
-        paquete.Servicio port = service.getServicioPort();
-        return port.basec(correo, usuario, contraseña);
-    }
 
-     */
 }

@@ -6,6 +6,7 @@
 package controller;
 
 import Database.DataBase;
+import Paquete.Servicio;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.CallableStatement;
@@ -59,6 +60,7 @@ public class Ajustes extends HttpServlet {
         HttpSession sesi = request.getSession();
         ResultSet rs = null;
         usuario1 = sesi.getAttribute("Email").toString();
+        Servicio serv = new Servicio();
         
         consultaUsu(usuario1);
         
@@ -89,15 +91,15 @@ public class Ajustes extends HttpServlet {
         String CContra=request.getParameter("confirmacionContraseña");
          
         if(usuario!=null){
-            System.out.println(actUsuario(usuario, id));
+            System.out.println(serv.actUsuario(usuario, id));
         }
         if(emai!=null){        
         
-        System.out.println(actCorreo(emai, id));
+        System.out.println(serv.actCorreo(emai, id));
         }
         if(Cnueva!=null){
         
-        System.out.println(actContraseña(cifrado(Cnueva),cifrado(Cvieja), id));
+        System.out.println(serv.actContra(serv.cifrado(Cnueva),serv.cifrado(Cvieja), id));
         }
         
            RequestDispatcher rd = request.getRequestDispatcher("jsp/AJUSTES/Ajustes.jsp");
@@ -113,37 +115,6 @@ public class Ajustes extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
-    private static String basec(java.lang.String correo, java.lang.String usuario, java.lang.String contraseña) {
-        paquete.Servicio_Service service = new paquete.Servicio_Service();
-        paquete.Servicio port = service.getServicioPort();
-        return port.basec(correo, usuario, contraseña);
-    }
-
-    private static String actContraseña(java.lang.String nuevaContra, java.lang.String viejaContra, java.lang.String id) {
-        paquete.Servicio_Service service = new paquete.Servicio_Service();
-        paquete.Servicio port = service.getServicioPort();
-        return port.actContraseña(nuevaContra, viejaContra, id);
-    }
-
-    private static String cifrado(java.lang.String contra) {
-        paquete.Servicio_Service service = new paquete.Servicio_Service();
-        paquete.Servicio port = service.getServicioPort();
-        return port.cifrado(contra);
-    }
-
-
-    private static String actUsuario(java.lang.String nuevoUsuario, java.lang.String id) {
-        paquete.Servicio_Service service = new paquete.Servicio_Service();
-        paquete.Servicio port = service.getServicioPort();
-        return port.actUsuario(nuevoUsuario, id);
-    }
-
-    private static String actCorreo(java.lang.String nuevoCorreo, java.lang.String id) {
-        paquete.Servicio_Service service = new paquete.Servicio_Service();
-        paquete.Servicio port = service.getServicioPort();
-        return port.actCorreo(nuevoCorreo, id);
-    }
     
     private void consultaUsu(String usuCorreo){
         DataBase db = new DataBase();

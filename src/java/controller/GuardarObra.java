@@ -18,9 +18,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.xml.ws.WebServiceRef;
-import generar.Exception_Exception;
-import ws.NoSuchAlgorithmException_Exception;
+import security.AdminSello;
+
 
 /**
  *
@@ -31,6 +30,7 @@ public class GuardarObra extends HttpServlet {
     String _texto = null;
     String _bloque = null;
     String _sello = null;
+    AdminSello asello = null;
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -146,11 +146,8 @@ public class GuardarObra extends HttpServlet {
             System.out.println(error.toString());
         }
 
-        try {
-            sello = creaSello(usuario);
-        } catch (ws.Exception_Exception ex) {
-            Logger.getLogger(GuardarObra.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        sello = creaSello(usuario);
+
         request.setAttribute("sello", sello);
 
         
@@ -168,32 +165,22 @@ public class GuardarObra extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private String creaSello(String bloque) throws ws.Exception_Exception {
+    private String creaSello(String bloque){
         _texto = "";
         _bloque = "";
+        
+        asello = new AdminSello();
 
         //generaLlaves();
         try {
-            _sello = cifra(bloque);
+            _sello = asello.cifra(bloque);
             System.out.println(_sello);
-        } catch (Exception_Exception ex) {
-            Logger.getLogger(GuardarObra.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (NoSuchAlgorithmException_Exception ex) {
+        } catch (Exception ex) {
             Logger.getLogger(GuardarObra.class.getName()).log(Level.SEVERE, null, ex);
         }
         return _sello;
     }
 
-    private static String generaLlaves() {
-        ws.SelloRW_Service service = new ws.SelloRW_Service();
-        ws.SelloRW port = service.getSelloRWPort();
-        return port.generaLlaves();
-    }
-
-    private static String cifra(java.lang.String msg) throws NoSuchAlgorithmException_Exception, Exception_Exception, ws.Exception_Exception {
-        ws.SelloRW_Service service = new ws.SelloRW_Service();
-        ws.SelloRW port = service.getSelloRWPort();
-        return port.cifra(msg);
-    }
+ 
 
 }

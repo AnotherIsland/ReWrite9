@@ -129,7 +129,7 @@ public class MisObras extends HttpServlet {
             
             
             crea = new creaPDF();
-            path = "G:/RW_ElBuenisimo/pdf/" + titulo + ".pdf";
+            path = "F:/RW_ElBuenisimo/pdf/" + titulo + ".pdf";
 
             try {
                 db.connect();

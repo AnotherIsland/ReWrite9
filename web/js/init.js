@@ -10,6 +10,7 @@ $(document).ready(function () {
 });
 
 //Funcionalidad de los módulos
+
 function mostrarTipoRef() {
     var btn = document.getElementById('tipoRef');
     if (btn.hidden === true) {

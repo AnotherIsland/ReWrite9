@@ -6,7 +6,7 @@
 package controller;
 
 import Database.DataBase;
-import generar.Exception_Exception;
+import encriptacion.Generar;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
@@ -57,6 +57,8 @@ public class Login extends HttpServlet {
         String contrasena = request.getParameter("password");//En esta parte se quitó el método de cifrado
         String Usu = "";
         HttpSession sesi = request.getSession();
+        Generar gen = new Generar();
+        
         try{
             db.connect();
             ResultSet rs = db.query("Select * from usuario where (correo = '"+usuario+"' or usuario='"+usuario+"') and pass = '"+contrasena+"';");
@@ -70,7 +72,7 @@ public class Login extends HttpServlet {
                 
                 try{
                      Login l = new Login();
-                sesi.setAttribute("ID", l.generar(correo,id,username, date));
+                sesi.setAttribute("ID", gen.generar(correo,id,username, date));
                 sesi.setAttribute("Email", correo);
                 sesi.setAttribute("username", username);
                 sesi.setAttribute("pass", pass);
@@ -105,20 +107,4 @@ public class Login extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
-    
-    private static String generar(java.lang.String correo, java.lang.String id, java.lang.String username, java.lang.String hora) throws Exception_Exception {
-        generar.Generar_Service service = new generar.Generar_Service();
-        generar.Generar port = service.getGenerarPort();
-        return port.generar(correo, id, username, hora);
-    }
-
-    private static String cifrado(java.lang.String contra) {
-        paquete.Servicio_Service service = new paquete.Servicio_Service();
-        paquete.Servicio port = service.getServicioPort();
-        return port.cifrado(contra);
-    }
-  
-
-
 }
