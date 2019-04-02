@@ -2,7 +2,6 @@ drop database if exists rw_database;
 create database rw_database;
 use rw_database;
 
-
 DROP TABLE IF EXISTS `usuario`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -31,16 +30,17 @@ LOCK TABLES `tipoobra` WRITE;
 /*!40000 ALTER TABLE `tipoobra` DISABLE KEYS */;
 /*!40000 ALTER TABLE `tipoobra` ENABLE KEYS */;
 UNLOCK TABLES;
+insert into tipoobra values (1, 'ensayo');
+insert into tipoobra values (2, 'resumen');
 
 DROP TABLE IF EXISTS `obra`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `obra` (
-  `idObra` int(11) NOT NULL,
+  `idObra` int(11) NOT NULL auto_increment,
   `tipo` int(11) DEFAULT NULL,
   `titulo` varchar(45) DEFAULT NULL,
-  `fecha` date DEFAULT NULL,
-  `sello` varchar(150) DEFAULT NULL,
+  `fecha` timestamp default current_timestamp,
   PRIMARY KEY (`idObra`),
   KEY `tipo_idx` (`tipo`),
   CONSTRAINT `tipo` FOREIGN KEY (`tipo`) REFERENCES `tipoobra` (`idtipoObra`) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -54,7 +54,7 @@ DROP TABLE IF EXISTS `relobrausu`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `relobrausu` (
-  `idrelObraUsu` int(11) NOT NULL,
+  `idrelObraUsu` int(11) NOT NULL auto_increment,
   `idObra` int(11) DEFAULT NULL,
   `idUsuario` int(11) DEFAULT NULL,
   PRIMARY KEY (`idrelObraUsu`),
@@ -87,7 +87,7 @@ DROP TABLE IF EXISTS `resumen`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `resumen` (
-  `idResumen` int(11) NOT NULL,
+  `idResumen` int(11) NOT NULL auto_increment,
   `contenido` mediumtext,
   `idObra1` int(11) DEFAULT NULL,
   `claves` longtext,
@@ -101,7 +101,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `ensayo`;
 CREATE TABLE `ensayo` (
-  `idensayo` int(11) NOT NULL,
+  `idensayo` int(11) NOT NULL auto_increment,
   `idObra2` int(11) DEFAULT NULL,
   `intro` mediumtext,
   `desarrollo` mediumtext,
@@ -214,10 +214,10 @@ CREATE TABLE `reporte` (
   `fecha_conclusion` date NOT NULL,
   `folio` varchar(4) NOT NULL,
   `etiqueta` varchar(20) NOT NULL,
-  `contenido` tinytext NOT NULL,
+  `contenido` tinytext NOT NULL
   
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-LOCK TABLES `articulo` WRITE;
-/*!40000 ALTER TABLE `articulo` DISABLE KEYS */;
-/*!40000 ALTER TABLE `articulo` ENABLE KEYS */;
+LOCK TABLES `reporte` WRITE;
+/*!40000 ALTER TABLE `reporte` DISABLE KEYS */;
+/*!40000 ALTER TABLE `reporte` ENABLE KEYS */;
 UNLOCK TABLES;
