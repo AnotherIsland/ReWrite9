@@ -12,7 +12,7 @@ DECLARE validar INT;
 	if validar = 0 THEN
 	SELECT (max(idUsuario)+1) INTO ID FROM usuario limit 1;
 	#the value estados_id its a auto_increment value, just call to add the value...
-	INSERT INTO usuario(idUsuario,usuario, pass, correo) VALUES(ID,_usuario,_pass,_correo);
+	INSERT INTO usuario(idUsuario,usuario, pass, correo, idTipoUsuario0) VALUES(ID,_usuario,_pass,_correo, 1);
 
 	ELSE
 		SELECT CONCAT('El correo: ',_correo,' ya está en uso.') ESTADO;

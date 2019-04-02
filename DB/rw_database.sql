@@ -2,6 +2,25 @@ drop database if exists rw_database;
 create database rw_database;
 use rw_database;
 
+
+DROP TABLE IF EXISTS `tipousuario`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tipousuario` (
+	`idTipoUsuario` int(11),
+    `tipoUsu` varchar (45),
+    primary key (`idTipoUsuario`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+LOCK TABLES `tipousuario` WRITE;
+/*!40000 ALTER TABLE `tipousuario` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tipousuario` ENABLE KEYS */;
+UNLOCK TABLES;
+
+insert into tipousuario values(1, 'cliente');
+insert into tipousuario values(2, 'operador');
+insert into tipousuario values(3, 'gerente');
+insert into tipousuario values(4, 'ingeniero');
+
 DROP TABLE IF EXISTS `usuario`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -10,12 +29,19 @@ CREATE TABLE `usuario` (
   `usuario` varchar(45) DEFAULT NULL,
   `pass` varchar(45) DEFAULT NULL,
   `correo` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`idUsuario`)
+  `idTipoUsuario0` int (11),
+  PRIMARY KEY (`idUsuario`),
+  CONSTRAINT `idTipoUsuario0` FOREIGN KEY (`idTipoUsuario0`) REFERENCES `tipousuario` (`idTipoUsuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
+
+insert into usuario values(1, 'Pedro', 'pedrito', 'Pedro@gmail.com', 4);
+insert into usuario values(2, 'Ana', 'anita', 'Ana@gmail.com', 3);
+insert into usuario values(3, 'Daniel', 'danielito', 'Daniel@gmail.com', 2);
+
 
 
 DROP TABLE IF EXISTS `tipoobra`;
@@ -214,8 +240,14 @@ CREATE TABLE `reporte` (
   `fecha_conclusion` date NOT NULL,
   `folio` varchar(4) NOT NULL,
   `etiqueta` varchar(20) NOT NULL,
-  `contenido` tinytext NOT NULL
-  
+  `contenido` tinytext NOT NULL, 
+  `idUsuarioLevanta` int (11) not null,
+  `idUsuarioAsigna` int (11) not null,
+  `idUsuarioCierra` int (11) not null, 
+  primary key (`idreporte`),
+  CONSTRAINT `idUsuarioLevanta` FOREIGN KEY (`idUsuarioLevanta`) REFERENCES `usuario` (`idUsuario`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `idUsuarioAsigna` FOREIGN KEY (`idUsuarioAsigna`) REFERENCES `usuario` (`idUsuario`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `idUsuarioCierra` FOREIGN KEY (`idUsuarioCierra`) REFERENCES `usuario` (`idUsuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 LOCK TABLES `reporte` WRITE;
 /*!40000 ALTER TABLE `reporte` DISABLE KEYS */;
