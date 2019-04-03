@@ -48,6 +48,10 @@
         <servlet-name>MisObras</servlet-name>
         <servlet-class>controller.MisObras</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UsuarioReporte</servlet-name>
+        <servlet-class>soporte.UsuarioReporte</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Inicio</servlet-name>
         <url-pattern>/ReWrite/index.jsp</url-pattern>
@@ -103,6 +107,10 @@
     <servlet-mapping>
         <servlet-name>MisObras</servlet-name>
         <url-pattern>/MisObras</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UsuarioReporte</servlet-name>
+        <url-pattern>/UsuarioReporte</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

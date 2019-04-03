@@ -69,11 +69,11 @@ and open the template in the editor.
                     <div class="section white z-depth-3">
                         <h6>Para levantar un reporte de evento ingresa los siguientes datos:</h6>
                         <div class="row">
-                            <form name="reporte" action="UsuarioReporte">
+                            <form name="reporte" action="${pageContext.request.contextPath}/UsuarioReporte" method="POST">
                                 <div class="row">
                                     <div class="col s5 l5 m5 xl5">
                                         <div class="input-field col s12">
-                                            <input id="usuario" type="text" name="usuario" onkeypress="validap();" />
+                                            <input id="usuario" type="text" name="usuario" onkeypress="valCorreo();" />
                                             <label for="usuario">Ingresa el correo del usuario que ha reportado el asunto</label>       
                                         </div>
                                     </div>
@@ -86,7 +86,7 @@ and open the template in the editor.
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s12">
-                                        <input id="reporte" type="text" name="reporte" onkeypress="validap();" />
+                                        <input id="contenido" type="text" name="contenido" onkeypress="validap();" />
                                         <label for="comentario">Escribe aquí el contenido del reporte...</label>       
                                     </div>
                                 </div>

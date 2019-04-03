@@ -234,17 +234,18 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `reporte`;
 CREATE TABLE `reporte` (
-  `idreporte` int(11) NOT NULL,
-  `fecha_inicio` date NOT NULL,
-  `fecha_resolucion` date NOT NULL,
-  `fecha_conclusion` date NOT NULL,
-  `folio` varchar(4) NOT NULL,
-  `etiqueta` varchar(20) NOT NULL,
+  `idreporte` int(11) NOT NULL auto_increment,
+  `fecha_inicio` date NOT NULL ,
+  `fecha_resolucion` date ,
+  `fecha_conclusion` date ,
+  `etiqueta` varchar(20),
   `contenido` tinytext NOT NULL, 
   `idUsuarioLevanta` int (11) not null,
-  `idUsuarioAsigna` int (11) not null,
-  `idUsuarioCierra` int (11) not null, 
+  `idUsuarioAsigna` int (11),
+  `idUsuarioCierra` int (11), 
+  `idUsuarioEscritor` int (11) not null, 
   primary key (`idreporte`),
+  CONSTRAINT `idUsuarioEscritor` FOREIGN KEY (`idUsuarioEscritor`) REFERENCES `usuario` (`idUsuario`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `idUsuarioLevanta` FOREIGN KEY (`idUsuarioLevanta`) REFERENCES `usuario` (`idUsuario`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `idUsuarioAsigna` FOREIGN KEY (`idUsuarioAsigna`) REFERENCES `usuario` (`idUsuario`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `idUsuarioCierra` FOREIGN KEY (`idUsuarioCierra`) REFERENCES `usuario` (`idUsuario`) ON DELETE NO ACTION ON UPDATE NO ACTION

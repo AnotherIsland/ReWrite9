@@ -4,6 +4,8 @@
     Author     : ACIE-PC
 --%>
 
+<%@page import="java.sql.ResultSet"%>
+<%@page import="Database.DataBase"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <!--
@@ -13,6 +15,24 @@ and open the template in the editor.
 -->
 <%
     HttpSession sesi = request.getSession();
+    DataBase db = new DataBase();
+    ResultSet rs;
+    
+    
+        
+    try{
+        db.connect();
+        rs = db.query("select idUsuario,usuario from usuario where usuario = '"+usuario+"' or correo = '"+usuario+"'");
+
+        if(rs.next()) {
+            us = rs.getInt("idUsuario");
+            System.out.println("El usuario es: "+us);
+        }
+        db.closeConnection();
+    }
+    catch(SQLException error){
+        System.out.println(error.toString());
+    }
     //if (sesi.getAttribute("ID") != null) {
 %>
 <html>
@@ -50,6 +70,7 @@ and open the template in the editor.
                                 <h6>Administración de reportes</h6><hr class="blue lighten-1">
                                 <div class="col s12 m12 l12 xl12 " >
                                     <div class="row" >
+                                        
                                         <h6 class="blue1">NO ASIGNADOS<h6>
                                         <table>
                                             <tr>
@@ -71,7 +92,7 @@ and open the template in the editor.
                                                 <td>13/03/19</td>
                                                 <td>13/02/19</td>
                                                 <td><h5>
-                                                    <a href="${pageContext.request.contextPath}/jsp/Revisar.jsp" 
+                                                    <a href="${pageContext.request.contextPath}/jsp/AdminReporte.jsp" 
                                                        class="waves-effect waves-light light-blue btn">Revisar</a>
                                                 </h5></td>
                                             </tr>
