@@ -2,7 +2,6 @@ drop database if exists rw_database;
 create database rw_database;
 use rw_database;
 
-
 DROP TABLE IF EXISTS `tipousuario`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -254,3 +253,7 @@ LOCK TABLES `reporte` WRITE;
 /*!40000 ALTER TABLE `reporte` DISABLE KEYS */;
 /*!40000 ALTER TABLE `reporte` ENABLE KEYS */;
 UNLOCK TABLES;
+
+INSERT INTO reporte(fecha_inicio,fecha_resolucion,fecha_conclusion,etiqueta,contenido,idUsuarioLevanta,idUsuarioEscritor) VALUES('2019-09-16','2019-09-22','2019-09-23','No asignado','Contenido reporte no asignado',3,4);
+INSERT INTO reporte(fecha_inicio,fecha_resolucion,fecha_conclusion,etiqueta,contenido,idUsuarioLevanta,idUsuarioAsigna,idUsuarioEscritor) VALUES('2019-09-16','2019-09-22','2019-09-23','Pendiente','Contenido reporte pendiente',3,2,4);
+INSERT INTO reporte(fecha_inicio,fecha_resolucion,fecha_conclusion,etiqueta,contenido,idUsuarioLevanta,idUsuarioAsigna,idUsuarioCierra,idUsuarioEscritor) VALUES('2019-09-16','2019-09-22','2019-09-23','Cerrado','Contenido reporte cerrado',3,2,1,4);

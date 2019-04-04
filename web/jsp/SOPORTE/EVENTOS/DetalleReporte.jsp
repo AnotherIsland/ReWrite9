@@ -1,9 +1,10 @@
 <%-- 
-    Document   : AdminReporte
-    Created on : 2/04/2019, 09:03:52 AM
+    Document   : DetalleReporte
+    Created on : 3/04/2019, 09:13:05 PM
     Author     : ACIE-PC
 --%>
 
+<%@page import="soporte.ConsultaReporte"%>
 <%@page import="java.sql.Date"%>
 <%@page import="model.Reporte"%>
 <%@page import="java.util.ArrayList"%>
@@ -22,9 +23,6 @@ and open the template in the editor.
     ArrayList <Reporte> repsPen = new ArrayList();//Lista de reportes pendientes
     ArrayList <Reporte> repsCerr = new ArrayList();//Lista de reportes cerrados
     
-    repsNA = (ArrayList <Reporte>) request.getAttribute("repsNA");
-    repsPen = (ArrayList <Reporte>) request.getAttribute("repsPen");
-    repsCerr = (ArrayList <Reporte>) request.getAttribute("repsCerr");
     
     int folio = 0;
     String etiqueta = "";
@@ -33,38 +31,12 @@ and open the template in the editor.
     
     if(request.getParameter("folio")!= null){
         folio = Integer.parseInt(request.getParameter("folio"));
-         etiqueta = request.getParameter("etiqueta");
+        etiqueta = request.getParameter("etiqueta");
     }
     
-    if(etiqueta.equals("No asignado")){
-        for(int i = 0; i < repsNA.size();i++ ){
-            repX = repsNA.get(i);
-            if(repX.getIdReporte() == folio){
-                repX = repsNA.get(i);
-                bandera = 1;
-                break;
-            }
-        } 
-    } else if(etiqueta.equals("Cerrado")){
-        for(int i = 0; i < repsCerr.size();i++ ){
-            repX = repsCerr.get(i);
-            if(repX.getIdReporte() == folio){
-                repX = repsCerr.get(i);
-                bandera = 1;
-                break;
-            }
-        }
-        
-    } else if(etiqueta.equals("Pendiente")){
-        for(int i = 0; i < repsPen.size();i++ ){
-            repX = repsPen.get(i);
-            if(repX.getIdReporte() == folio){
-                repX = repsPen.get(i);
-                bandera = 1;
-                break;
-            }
-        }
-    }
+    ConsultaReporte cr = new ConsultaReporte();
+    repX = cr.consultaReporte(folio);
+    
     
     String especifica = "";
     String levanta = "";  
@@ -121,17 +93,28 @@ and open the template in the editor.
                                 <h6>Administración de reportes</h6><hr class="blue lighten-1">
                                 <div class="col s12 m12 l12 xl12 " >
                                     <div class="row" >
+                                        <form action="${pageContext.request.contextPath}/ActualizarReporte">
                                         <table>
-                                            <tr><th>Folio</th></tr><td><%=folio%></td>
-                                            <tr><th>Etiqueta</th></tr><td><%=etiqueta%></td>
-                                            <tr><th>Fecha inicio</th></tr><td><%=fInicio%></td>
-                                            <tr><th>Levantado por:</th></tr><td><%=levanta%></td>
-                                            <tr><th>Fecha asignación</th></tr><td><%=fResol%></td>
-                                            <tr><th>Asignado a:</th></tr><td><%=asigna%></td>
-                                            <tr><th>Fecha término</th></tr><td><%=fTermino%></td>
-                                            <tr><th>Cerrado por:</th></tr><td><%=cierra%></td>
-                                            <tr><th>Especificaciones</th></tr><td><%=especifica%></td> 
-                                        </table> 
+                                            <tr><th>Folio</th>
+                                                <td><input name="folio" id="folio" type="text" value="<%=folio%>"></td></tr>
+                                            <tr><th>Etiqueta</th>
+                                                <td><input name="etiqueta" id="etiqueta" type="text" value="<%=etiqueta%>"></td></tr>
+                                            <tr><th>Fecha inicio</th>
+                                                <td><input name="fInicio" id="fInicio" type="text" value="<%=fInicio%>"></td></tr>
+                                            <tr><th>Levantado por:</th>
+                                                <td><input name="levanta" id="levanta" type="text" value="<%=levanta%>"></td></tr>
+                                            <tr><th>Fecha asignación</th>
+                                                <td><input name="fResol" id="fResol" type="text" value="<%=fResol%>"></td></tr>
+                                            <tr><th>Asignado a:</th>
+                                                <td><input name="asigna" id="asigna" type="text" value="<%=asigna%>"></td></tr>
+                                            <tr><th>Fecha término</th>
+                                                <td><input name="fTermino" id="fTermino" type="text" value="<%=fTermino%>"></td></tr>
+                                            <tr><th>Cerrado por:</th>
+                                                <td><input name="cierra" id="cierra" type="text" value="<%=cierra%>"></td></tr>
+                                            <tr><th>Especificaciones</th>
+                                                <td><input name="especifica" id="especifica" type="text" value="<%=especifica%>"></td></tr>
+                                        </table>
+                                        </form>
                                     </div>  
                                 </div>
                             </div>

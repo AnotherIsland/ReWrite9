@@ -170,6 +170,8 @@ public class ConsultaReporte {
     public String consultaUsuario(int idUsuario){
         DataBase bd = new DataBase();
         ResultSet res;
+        usuario = "";
+        
         try{
             bd.connect();
             res = bd.query("select idUsuario,usuario from usuario where idUsuario = "+idUsuario);
@@ -183,6 +185,35 @@ public class ConsultaReporte {
             System.out.println(error.toString());
         }
         return usuario;
+    }
+    
+    public Reporte consultaReporte(int idReporte){
+        
+        DataBase data = new DataBase();
+        ResultSet resul = null;
+        Reporte rprt = null;
+        try{
+            data.connect();
+            resul = data.query("select * from reporte where idReporte = "+idReporte);
+
+            if (resul.next()) {
+                System.out.println("El reporte es:"+resul.getInt("idReporte")+" - "+resul.getString("contenido"));
+                levanta= consultaUsuario(resul.getInt("idUsuarioLevanta"));  
+                asigna= consultaUsuario(resul.getInt("idUsuarioAsigna"));  
+                cierra= consultaUsuario(resul.getInt("idUsuarioCierra")); 
+                rprt = new Reporte(resul.getInt("idReporte"), resul.getDate("fecha_inicio"), 
+                        resul.getDate("fecha_resolucion"),resul.getDate("fecha_conclusion") ,
+                        resul.getString("etiqueta") ,resul.getString("contenido") ,
+                        resul.getInt("idUsuarioEscritor"),levanta,asigna,cierra);
+            }
+            data.closeConnection();
+        }
+        catch(SQLException error){
+            System.out.println(error.toString());
+        }
+        return rprt;
+        
+        
     }
     
     

@@ -34,10 +34,10 @@ and open the template in the editor.
    
     
     int folio = 0;                                          
-    String levanta= "";  
-    String asigna= "";  
-    String cierra= ""; 
-    String etiqueta= ""; 
+    String levanta= "-";  
+    String asigna= "-";  
+    String cierra= "-"; 
+    String etiqueta= "-"; 
 
     String usuario= "";  
     Date fInicio= null;       
@@ -49,6 +49,9 @@ and open the template in the editor.
         res = db.query("select * from reporte;");
 
         while(res.next()) {
+            System.out.println(res.getInt("idUsuarioLevanta"));
+            System.out.println(res.getInt("idUsuarioAsigna"));
+            System.out.println(res.getInt("idUsuarioCierra"));
                 levanta= crep.consultaUsuario(res.getInt("idUsuarioLevanta"));  
                 asigna= crep.consultaUsuario(res.getInt("idUsuarioAsigna"));  
                 cierra= crep.consultaUsuario(res.getInt("idUsuarioCierra")); 
@@ -74,7 +77,7 @@ and open the template in the editor.
             repsPen.add(rep);
         } 
     }
-    
+
     request.setAttribute("repsNA", repsNA);
     request.setAttribute("repsCerr", repsCerr);
     request.setAttribute("repsPen", repsPen);
@@ -147,15 +150,15 @@ and open the template in the editor.
                                                 <td><%=folio%></td>
                                                 <td><%=etiqueta%></td>
                                                 <td><%=levanta%></td>
-                                                <td>-</td>
-                                                <td>-</td>
+                                                <td><%=asigna%></td>
+                                                <td><%=cierra%></td>
                                                 <td><%=fInicio%></td>
-                                                <td>-</td>
-                                                <td>-</td>
+                                                <td><%=fResol%></td>
+                                                <td><%=fTermino%></td>
                                                 <td>
-                                                    <form action="${pageContext.request.contextPath}/jsp/SOPORTE/EVENTOS/AdminReporte.jsp" method="POST">
-                                                    <input type="text" name="folio" value="<%=folio%>" hidden disabled />
-                                                    <input type="text" name="etiqueta" value="<%=etiqueta%>" hidden disabled />
+                                                    <form action="${pageContext.request.contextPath}/jsp/SOPORTE/EVENTOS/DetalleReporte.jsp" method="POST">
+                                                    <input type="text" name="folio" id="folio" value="<%=folio%>" hidden   />
+                                                    <input type="text" name="etiqueta" id="etiqueta" value="<%=etiqueta%>" hidden   />
                                                     <input type="submit" class="waves-effect waves-light light-blue btn" value="Revisar"/>
                                                     </form>
                                                 </td> 
@@ -189,20 +192,18 @@ and open the template in the editor.
                                                 fTermino = rep.getFecha_conclusion();
                                             %>
                                             <tr>
-                                                <input type="text" value="<%=folio%>" hidden disabled />
-                                                <input type="text" name="etiqueta" value="<%=etiqueta%>" hidden disabled />
                                                 <td><%=folio%></td>
                                                 <td><%=etiqueta%></td>
                                                 <td><%=levanta%></td>
                                                 <td><%=asigna%></td>
-                                                <td>-</td>
+                                                <td><%=cierra%></td>
                                                 <td><%=fInicio%></td>
                                                 <td><%=fResol%></td>
-                                                <td>-</td>
+                                                <td><%=fTermino%></td>
                                                 <td>
-                                                    <form action="${pageContext.request.contextPath}/jsp/SOPORTE/EVENTOS/AdminReporte.jsp" method="POST">
-                                                    <input type="text" name="folio" value="<%=folio%>" hidden disabled />
-                                                    <input type="text" name="etiqueta" value="<%=etiqueta%>" hidden disabled />
+                                                    <form action="${pageContext.request.contextPath}/jsp/SOPORTE/EVENTOS/DetalleReporte.jsp" method="POST">
+                                                    <input type="text" name="folio" id="folio" value="<%=folio%>" hidden />
+                                                    <input type="text" name="etiqueta" id="etiqueta" value="<%=etiqueta%>" hidden />
                                                     <input type="submit" class="waves-effect waves-light light-blue btn" value="Revisar"/>
                                                     </form>
                                                 </td>
@@ -237,8 +238,6 @@ and open the template in the editor.
                                                 fTermino = rep.getFecha_conclusion();
                                             %>
                                             <tr>
-                                                <input type="text" value="<%=folio%>" hidden disabled />
-                                                <input type="text" name="etiqueta" value="<%=etiqueta%>" hidden disabled />
                                                 <td><%=folio%></td>
                                                 <td><%=etiqueta%></td>
                                                 <td><%=levanta%></td>
@@ -248,9 +247,9 @@ and open the template in the editor.
                                                 <td><%=fResol%></td>
                                                 <td><%=fTermino%></td>
                                                 <td>
-                                                    <form action="${pageContext.request.contextPath}/jsp/SOPORTE/EVENTOS/AdminReporte.jsp" method="POST">
-                                                    <input type="text" name="folio" value="<%=folio%>" hidden disabled />
-                                                    <input type="text" name="etiqueta" value="<%=etiqueta%>" hidden disabled />
+                                                    <form action="${pageContext.request.contextPath}/jsp/SOPORTE/EVENTOS/DetalleReporte.jsp" method="POST">
+                                                    <input type="text" name="folio" id="folio" value="<%=folio%>" hidden   />
+                                                    <input type="text" name="etiqueta" id="etiqueta" value="<%=etiqueta%>" hidden   />
                                                     <input type="submit" class="waves-effect waves-light light-blue btn" value="Revisar"/>
                                                     </form>
                                                 </td>

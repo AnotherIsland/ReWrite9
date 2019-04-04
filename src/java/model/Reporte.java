@@ -75,8 +75,8 @@ public class Reporte {
         _idUsuarioCierra = idUsuarioCierra; 
         _idUsuarioEscritor = idUsuarioEscritor; 
         _usuarioLevanta = usuarioLevanta;
-        _usuarioAsigna = usuarioLevanta;
-        _usuarioCierra = usuarioLevanta;
+        _usuarioAsigna = usuarioAsigna;
+        _usuarioCierra = usuarioCierra;
     }
     
     public Reporte(int idReporte,Date fecha_inicio,Date fecha_resolucion,Date fecha_conclusion,
