@@ -4,6 +4,9 @@
     Author     : ACIE-PC
 --%>
 
+<%@page import="java.sql.Date"%>
+<%@page import="model.Reporte"%>
+<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <!--
@@ -14,6 +17,73 @@ and open the template in the editor.
 <%
     HttpSession sesi = request.getSession();
     //if (sesi.getAttribute("ID") != null) {
+    
+    ArrayList <Reporte> repsNA = new ArrayList();//Lista de reportes no asignados
+    ArrayList <Reporte> repsPen = new ArrayList();//Lista de reportes pendientes
+    ArrayList <Reporte> repsCerr = new ArrayList();//Lista de reportes cerrados
+    
+    repsNA = (ArrayList <Reporte>) request.getAttribute("repsNA");
+    repsPen = (ArrayList <Reporte>) request.getAttribute("repsPen");
+    repsCerr = (ArrayList <Reporte>) request.getAttribute("repsCerr");
+    
+    int folio = 0;
+    String etiqueta = "";
+    int bandera = 0;
+    Reporte repX = new Reporte();
+    
+    if(request.getParameter("folio")!= null){
+        folio = Integer.parseInt(request.getParameter("folio"));
+        etiqueta = request.getParameter("etiqueta");
+    }
+    
+    if(etiqueta.equals("No asignado")){
+        for(int i = 0; i < repsNA.size();i++ ){
+            repX = repsNA.get(i);
+            if(repX.getIdReporte() == folio){
+                repX = repsNA.get(i);
+                bandera = 1;
+                break;
+            }
+        } 
+    } else if(etiqueta.equals("Cerrado")){
+        for(int i = 0; i < repsNA.size();i++ ){
+            repX = repsNA.get(i);
+            if(repX.getIdReporte() == folio){
+                repX = repsNA.get(i);
+                bandera = 1;
+                break;
+            }
+        }
+        
+    } else if(etiqueta.equals("Pendiente")){
+        for(int i = 0; i < repsNA.size();i++ ){
+            repX = repsNA.get(i);
+            if(repX.getIdReporte() == folio){
+                repX = repsNA.get(i);
+                bandera = 1;
+                break;
+            }
+        }
+    }
+    
+    String especifica = "";
+    String levanta = "";  
+    String asigna = "";  
+    String cierra = ""; 
+    Date fInicio = null;       
+    Date fResol = null;       
+    Date fTermino = null;
+    
+    if(repX.getEtiqueta() != "" ){
+        especifica = repX.getContenido();
+        levanta = repX.getUsuarioLevanta();  
+        asigna = repX.getUsuarioAsigna();  
+        cierra = repX.getUsuarioCierra(); 
+        fInicio = repX.getFecha_inicio();       
+        fResol = repX.getFecha_resolucion();       
+        fTermino = repX.getFecha_conclusion();
+    }
+
 %>
 <html>
     <head>
@@ -31,8 +101,9 @@ and open the template in the editor.
                     <a href="${pageContext.request.contextPath}/index.jsp" class="brand-logo"><img class="responsive-img center-align" style="padding: 10px" src="${pageContext.request.contextPath}/img/logoT.png"></a>
                     <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                     <ul class="right hide-on-med-and-down">
+                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/SOPORTE/EVENTOS/LevantarReporte.jsp">Alta Reporte</a></li>
+                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/SOPORTE/EVENTOS/VerReporte.jsp">Ver Reportes</a></li>
                         <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/SOPORTE/EVENTOS/InicioEventos.jsp">Cerrar Sesión</a></li>
-
                     </ul>
                 </div>
             </nav>
@@ -41,7 +112,7 @@ and open the template in the editor.
             <div class="row">
                 <div class="col s12 m12 l12 xl12">
                     <div class="section grey z-depth-3 center-align">
-                        <h4 class="white-text">Reporte de eventos - Gerencia</h4>  
+                        <h4 class="white-text">Detalles del evento y asignación</h4>  
                     </div>
                     <br>
                     <div class="col s12 m12 l12 xl12 " >
@@ -51,17 +122,16 @@ and open the template in the editor.
                                 <div class="col s12 m12 l12 xl12 " >
                                     <div class="row" >
                                         <table>
-                                            <tr><th>Folio</th></tr>
-                                            <tr><th>Etiqueta</th></tr>
+                                            <tr><th>Folio</th></tr><td><%=folio%></td>
+                                            <tr><th>Etiqueta</th></tr><td><%=etiqueta%></td>
+                                            <tr><th>Fecha inicio</th></tr><td><%=fInicio%></td>
+                                            <tr><th>Levantado por:</th></tr><td><%=levanta%></td>
+                                            <tr><th>Fecha asignación</th></tr><td><%=fResol%></td>
+                                            <tr><th>Asignado a:</th></tr><td><%=asigna%></td>
+                                            <tr><th>Fecha término</th></tr><td><%=fTermino%></td>
+                                            <tr><th>Cerrado por:</th></tr><td><%=cierra%></td>
+                                            <tr><th>Especificaciones</th></tr><td><%=especifica%></td>
                                             
-                                            <tr><th>Fecha inicio</th></tr>
-                                            <tr><th>Levantado por:</th></tr>
-                                            <tr><th>Fecha resolución</th></tr>
-                                            <tr><th>Resuelto por:</th></tr>
-                                            <tr><th>Fecha término</th></tr>
-                                            <tr><th>Cerrado por:</th></tr>
-                                            <tr><th>Fecha resolución</th></tr>
-                                            <tr><th>Especificaciones</th></tr> 
                                         </table> 
                                     </div>  
                                 </div>

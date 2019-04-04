@@ -69,7 +69,7 @@ and open the template in the editor.
                     <div class="section white z-depth-3">
                         <h6>Para levantar un reporte de evento ingresa los siguientes datos:</h6>
                         <div class="row">
-                            <form name="reporte" action="${pageContext.request.contextPath}/UsuarioReporte" method="POST">
+                            <form name="reporte" action="${pageContext.request.contextPath}/AltaReporte" method="POST">
                                 <div class="row">
                                     <div class="col s5 l5 m5 xl5">
                                         <div class="input-field col s12">

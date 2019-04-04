@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author ACIE-PC
  */
-public class UsuarioReporte extends HttpServlet {
+public class AltaReporte extends HttpServlet {
 
     
 
@@ -78,10 +78,10 @@ public class UsuarioReporte extends HttpServlet {
         
         try{
             db.connect();   
-            db.insert("INSERT INTO reporte(fecha_inicio,contenido,idUsuarioEscritor,idUsuarioLevanta) VALUES('"+fecha+"','"+contenido+"',"+us+","+idL+");");
+            db.insert("INSERT INTO reporte(etiqueta,fecha_inicio,contenido,idUsuarioEscritor,idUsuarioLevanta) VALUES('No asignado','"+fecha+"','"+contenido+"',"+us+","+idL+");");
             System.out.println("Reporte levantado");
         } catch (SQLException ex) {
-            Logger.getLogger(UsuarioReporte.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AltaReporte.class.getName()).log(Level.SEVERE, null, ex);
         }
         
          RequestDispatcher rd = request.getRequestDispatcher("jsp/SOPORTE/EVENTOS/LevantarReporte.jsp");

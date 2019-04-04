@@ -49,8 +49,8 @@
         <servlet-class>controller.MisObras</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>UsuarioReporte</servlet-name>
-        <servlet-class>soporte.UsuarioReporte</servlet-class>
+        <servlet-name>AltaReporte</servlet-name>
+        <servlet-class>soporte.AltaReporte</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Inicio</servlet-name>
@@ -109,8 +109,8 @@
         <url-pattern>/MisObras</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>UsuarioReporte</servlet-name>
-        <url-pattern>/UsuarioReporte</url-pattern>
+        <servlet-name>AltaReporte</servlet-name>
+        <url-pattern>/AltaReporte</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

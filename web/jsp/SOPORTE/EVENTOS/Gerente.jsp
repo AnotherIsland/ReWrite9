@@ -4,6 +4,11 @@
     Author     : ACIE-PC
 --%>
 
+<%@page import="soporte.ConsultaReporte"%>
+<%@page import="java.sql.Date"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.sql.SQLException"%>
+<%@page import="model.Reporte"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="Database.DataBase"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -15,29 +20,39 @@ and open the template in the editor.
 -->
 <%
     HttpSession sesi = request.getSession();
-    DataBase db = new DataBase();
-    ResultSet rs;
     
+    Reporte rep = null;
+    ArrayList <Reporte> repsNA = new ArrayList();//Lista de reportes no asignados
+    ArrayList <Reporte> repsPen = new ArrayList();//Lista de reportes pendientes
+    ArrayList <Reporte> repsCerr = new ArrayList();//Lista de reportes cerrados
     
-        
-    try{
-        db.connect();
-        rs = db.query("select idUsuario,usuario from usuario where usuario = '"+usuario+"' or correo = '"+usuario+"'");
+    ConsultaReporte crep = new ConsultaReporte();
+     
+    repsNA = crep.consultaNA();
+    //repsPen = crep.consultaPen();
+    //repsCerr = crep.consultaCerr();
+    
+    request.setAttribute("repsNA", repsNA);
+    request.setAttribute("repsCerr", repsCerr);
+    request.setAttribute("repsPen", repsPen);
+    
+    int folio = 0;                                          
+    String levanta= "";  
+    String asigna= "";  
+    String cierra= ""; 
 
-        if(rs.next()) {
-            us = rs.getInt("idUsuario");
-            System.out.println("El usuario es: "+us);
-        }
-        db.closeConnection();
-    }
-    catch(SQLException error){
-        System.out.println(error.toString());
-    }
+    String usuario= "";  
+    Date fInicio= null;       
+    Date fResol= null;       
+    Date fTermino= null;
+    
+    
+    
     //if (sesi.getAttribute("ID") != null) {
 %>
 <html>
     <head>
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
         <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/materialize.css"  media="screen,projection"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -74,28 +89,28 @@ and open the template in the editor.
                                         <h6 class="blue1">NO ASIGNADOS<h6>
                                         <table>
                                             <tr>
-                                                <th>Folio</th>
-                                                <th>Etiqueta</th>
-                                                //Incluir contenido, usuario y estado en ver reporte
+                                                <th>Folio</th> 
                                                 <th>Responsable</th>
                                                 <th>Fecha inicio</th>
-                                                <th>Fecha resolución</th>
-                                                <th>Fecha término</th>
                                                 <th> </th>
                                             </tr>
-                                            
+                                            <%for(int i = 0; i < repsNA.size(); i++){
+                                                rep = repsNA.get(i);
+                                                folio = rep.getIdReporte();
+                                                fInicio = rep.getFecha_inicio();
+                                                levanta = rep.getUsuarioLevanta();
+                                            %>
                                             <tr>
-                                                <td>0001</td>
-                                                <td>-</td>
-                                                <td>-</td>
-                                                <td>12/03/19</td>
-                                                <td>13/03/19</td>
-                                                <td>13/02/19</td>
+                                                <td><%=folio%></td>
+                                                <td><%=levanta%></td>
+                                                <td><%=fInicio%></td>
                                                 <td><h5>
                                                     <a href="${pageContext.request.contextPath}/jsp/AdminReporte.jsp" 
                                                        class="waves-effect waves-light light-blue btn">Revisar</a>
                                                 </h5></td>
                                             </tr>
+                                            <%}%>
+                                            
                                         </table>
                                     </div>
                                     <div class="row" >
