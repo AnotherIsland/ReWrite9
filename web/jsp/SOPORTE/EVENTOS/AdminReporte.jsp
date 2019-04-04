@@ -130,8 +130,7 @@ and open the template in the editor.
                                             <tr><th>Asignado a:</th></tr><td><%=asigna%></td>
                                             <tr><th>Fecha término</th></tr><td><%=fTermino%></td>
                                             <tr><th>Cerrado por:</th></tr><td><%=cierra%></td>
-                                            <tr><th>Especificaciones</th></tr><td><%=especifica%></td>
-                                            
+                                            <tr><th>Especificaciones</th></tr><td><%=especifica%></td> 
                                         </table> 
                                     </div>  
                                 </div>

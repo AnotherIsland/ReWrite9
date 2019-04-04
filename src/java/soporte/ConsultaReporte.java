@@ -176,7 +176,6 @@ public class ConsultaReporte {
                 
             if(res.next()) {
                 usuario = res.getString("usuario");
-                System.out.println("El usuario es: "+usuario);
             }
             bd.closeConnection();
         }
