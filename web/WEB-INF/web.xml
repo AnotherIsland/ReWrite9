@@ -52,6 +52,14 @@
         <servlet-name>AltaReporte</servlet-name>
         <servlet-class>soporte.AltaReporte</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ActualizaReporte</servlet-name>
+        <servlet-class>soporte.ActualizaReporte</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AltaFaqs</servlet-name>
+        <servlet-class>soporte.AltaFaqs</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Inicio</servlet-name>
         <url-pattern>/ReWrite/index.jsp</url-pattern>
@@ -111,6 +119,14 @@
     <servlet-mapping>
         <servlet-name>AltaReporte</servlet-name>
         <url-pattern>/AltaReporte</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ActualizaReporte</servlet-name>
+        <url-pattern>/ActualizaReporte</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AltaFaqs</servlet-name>
+        <url-pattern>/AltaFaqs</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

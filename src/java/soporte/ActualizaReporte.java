@@ -8,10 +8,9 @@ package soporte;
 import Database.DataBase;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -22,9 +21,10 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author ACIE-PC
  */
-public class AltaReporte extends HttpServlet {
+public class ActualizaReporte extends HttpServlet {
 
-    
+    private DataBase db;
+    private ConsultaReporte cr;
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -53,38 +53,55 @@ public class AltaReporte extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        String usuario = request.getParameter("usuario");
-        String contenido = request.getParameter("contenido");
-        String fecha = request.getParameter("fecha");
-        //String idLevanta = request.getParameter("idLevanta"); Traer id de quien inicia sesion en sesion
-        int idL = 3;
-        int us = 0;
-        DataBase db = new DataBase();
-        ResultSet rs;
+        String especifica = "";
+        String levanta = "";  
+        String asigna = "";  
+        String cierra = ""; 
+        String fInicio = "";       
+        String fResol = "";       
+        String fTermino = "";
+        String etiqueta = "";
+        String folio = "";
+        int idLevanta = 0;
+        int idAsigna = 0;
+        int idCierra = 0;
+
         
+        if(request.getParameter("folio")!=null){
+            especifica = request.getParameter("especifica");
+            levanta = request.getParameter("levanta");  
+            asigna = request.getParameter("asigna");  
+            cierra = request.getParameter("cierra"); 
+            fInicio = request.getParameter("fInicio");       
+            fResol = request.getParameter("fResol");       
+            fTermino = request.getParameter("fTermino");
+            etiqueta = request.getParameter("etiqueta");
+            folio = request.getParameter("folio");
+        }
+        
+        cr = new ConsultaReporte();
+        
+        idLevanta = cr.consultaUsID(levanta);System.out.println(idLevanta);
+        idAsigna = cr.consultaUsID(asigna);System.out.println(idAsigna);
+        idCierra = cr.consultaUsID(cierra);System.out.println(idCierra);
+                     
+        db = new DataBase();
+
         try{
             db.connect();
-            rs = db.query("select idUsuario,usuario from usuario where usuario = '"+usuario+"' or correo = '"+usuario+"'");
-                
-            if(rs.next()) {
-                us = rs.getInt("idUsuario");
-                System.out.println("El usuario es: "+us);
-            }
+            db.update("UPDATE reporte set etiqueta = '"+etiqueta+"', fecha_inicio = '"+fInicio+"',"
+                    + "fecha_resolucion = '"+fResol+"',fecha_conclusion = '"+fTermino+"',"
+                    + "contenido = '"+especifica+"', idUsuarioLevanta = "+idLevanta+", "
+                    + " idUsuarioAsigna = "+idAsigna+", idUsuarioCierra = "+idCierra
+                    + " where idReporte = "+folio+";");
+                System.out.println("Reporte actualizado");
             db.closeConnection();
         }
         catch(SQLException error){
             System.out.println(error.toString());
         }
         
-        try{
-            db.connect();   
-            db.insert("INSERT INTO reporte(etiqueta,fecha_inicio,contenido,idUsuarioEscritor,idUsuarioLevanta) VALUES('No asignado','"+fecha+"','"+contenido+"',"+us+","+idL+");");
-            System.out.println("Reporte levantado");
-        } catch (SQLException ex) {
-            Logger.getLogger(AltaReporte.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        RequestDispatcher rd = request.getRequestDispatcher("jsp/SOPORTE/EVENTOS/LevantarReporte.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("jsp/SOPORTE/EVENTOS/DetalleReporte.jsp");
         rd.forward(request, response);
         
         

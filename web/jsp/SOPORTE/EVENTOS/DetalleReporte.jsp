@@ -74,7 +74,7 @@ and open the template in the editor.
                     <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                     <ul class="right hide-on-med-and-down">
                         <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/SOPORTE/EVENTOS/LevantarReporte.jsp">Alta Reporte</a></li>
-                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/SOPORTE/EVENTOS/VerReporte.jsp">Ver Reportes</a></li>
+                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/SOPORTE/EVENTOS/VerReportes.jsp">Ver Reportes</a></li>
                         <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/SOPORTE/EVENTOS/InicioEventos.jsp">Cerrar Sesión</a></li>
                     </ul>
                 </div>
@@ -93,10 +93,10 @@ and open the template in the editor.
                                 <h6>Administración de reportes</h6><hr class="blue lighten-1">
                                 <div class="col s12 m12 l12 xl12 " >
                                     <div class="row" >
-                                        <form action="${pageContext.request.contextPath}/ActualizarReporte">
+                                        <form action="${pageContext.request.contextPath}/ActualizaReporte" method="POST">
                                         <table>
                                             <tr><th>Folio</th>
-                                                <td><input name="folio" id="folio" type="text" value="<%=folio%>"></td></tr>
+                                                <td><input name="folio" id="folio" type="text" value="<%=folio%>" hidden><%=folio%></td></tr>
                                             <tr><th>Etiqueta</th>
                                                 <td><input name="etiqueta" id="etiqueta" type="text" value="<%=etiqueta%>"></td></tr>
                                             <tr><th>Fecha inicio</th>
@@ -113,6 +113,7 @@ and open the template in the editor.
                                                 <td><input name="cierra" id="cierra" type="text" value="<%=cierra%>"></td></tr>
                                             <tr><th>Especificaciones</th>
                                                 <td><input name="especifica" id="especifica" type="text" value="<%=especifica%>"></td></tr>
+                                            <tr><td><input class="waves-effect waves-light light-blue btn" type="submit" value="Guardar cambios"></td></tr>
                                         </table>
                                         </form>
                                     </div>  

@@ -9,9 +9,6 @@ import Database.DataBase;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -22,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author ACIE-PC
  */
-public class AltaReporte extends HttpServlet {
+public class AltaFaqs extends HttpServlet {
 
     
 
@@ -38,7 +35,7 @@ public class AltaReporte extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+       
     }
 
     /**
@@ -52,42 +49,23 @@ public class AltaReporte extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String pregurnta=request.getParameter("pregunta");
+        String respuesta=request.getParameter("respuesta");
         
-        String usuario = request.getParameter("usuario");
-        String contenido = request.getParameter("contenido");
-        String fecha = request.getParameter("fecha");
-        //String idLevanta = request.getParameter("idLevanta"); Traer id de quien inicia sesion en sesion
-        int idL = 3;
-        int us = 0;
-        DataBase db = new DataBase();
-        ResultSet rs;
+        DataBase objeto = new DataBase();    
         
-        try{
-            db.connect();
-            rs = db.query("select idUsuario,usuario from usuario where usuario = '"+usuario+"' or correo = '"+usuario+"'");
-                
-            if(rs.next()) {
-                us = rs.getInt("idUsuario");
-                System.out.println("El usuario es: "+us);
-            }
-            db.closeConnection();
-        }
-        catch(SQLException error){
-            System.out.println(error.toString());
+        ResultSet R;
+        
+        try {
+           objeto.connect();
+           objeto.insert("insert into FAQs(pregunta,respuesta) values ('"+pregurnta+"','"+respuesta+"'); ");
+           System.out.println("Pregunta agregada");
+        } 
+        catch (Exception e) {
         }
         
-        try{
-            db.connect();   
-            db.insert("INSERT INTO reporte(etiqueta,fecha_inicio,contenido,idUsuarioEscritor,idUsuarioLevanta) VALUES('No asignado','"+fecha+"','"+contenido+"',"+us+","+idL+");");
-            System.out.println("Reporte levantado");
-        } catch (SQLException ex) {
-            Logger.getLogger(AltaReporte.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        RequestDispatcher rd = request.getRequestDispatcher("jsp/SOPORTE/EVENTOS/LevantarReporte.jsp");
-        rd.forward(request, response);
-        
-        
+        RequestDispatcher RD = request.getRequestDispatcher("jsp/SOPORTE/FAQS/Editor.jsp");
+        RD.forward(request, response);
     }
 
     /**

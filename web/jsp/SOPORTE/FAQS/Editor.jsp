@@ -53,16 +53,22 @@ and open the template in the editor.
             <div class="row">
                 <div class="col s12 m12 l12 xl12">
                     <div class="section white z-depth-3 center-align">
-                        <h4 >Ayuda y soporte</h4>  
+                        <h4 >PREGUNTAS FRECUENTES</h4>  
                     </div>
 
                     <br><br>
                     <div class="col s12 m12 l12 xl12 " >
                         <div class="section grey z-depth-3">
                             <div class="row">
-                                <h6 class="white-text">Si tienes alguna duda revisa nuestra lista de preguntas frecuentes:</h6><hr class="blue lighten-1">
+                                <h6 class="white-text">Revisa nuestra lista de preguntas frecuentes para aclarar cualquier duda:</h6><hr class="blue lighten-1">
                                 <div class="col s12 m12 l12 xl12 " >
-                                    //FAQS
+                                    <div class="white-text">
+                                        <br>FAQ 1:
+                                        <br>FAQ 2:
+                                        <br>FAQ 3:
+                                        <br>FAQ 4:
+                                        <br>FAQ 5:
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -71,28 +77,27 @@ and open the template in the editor.
 
                 <div class="col s12 m12 l12 xl12 " >
                     <div class="section white z-depth-3">
-                        <h6>Deja tu comentario, duda o sugerencia para que 
-                            sea atendido por nuestro equipo de soporte técnico.</h6>
+                        <h6>Si las preguntas de la lista no son suficientes para aclarar todas las dudas,
+                             siéntete en la libertad de agregar una.</h6>
                         <div class="row">
-                            <form name="reporte" action="UsuarioReporte">
+                            <form name="pregunta" method="POST" action="${pageContext.request.contextPath}/AltaFaqs">
+                                
                                 <div class="row">
-                                    <div class="col s5 l5 m5 xl5">
-                                        <select id="tipoReporte"  name="tipoReporte">
-                                            <option class="white-text" value="" disabled selected>Elige uno..</option>
-                                            <option value="1">Ayuda</option>
-                                            <option value="2">Sugerencia</option>
-                                            <option value="2">Reportar problema</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="row">
+                                    
                                     <div class="input-field col s12">
-                                        <input id="reporte" type="text" name="reporte" onkeypress="validap();" />
-                                        <label for="comentario">Escribe aquí...</label>       
+                                        <input id="pregunta" type="text" name="pregunta" onkeypress="VNumyLetras();" />
+                                        <label for="comentario">Escribe aquí la pregunta</label>  
                                     </div>
+                                    
+                                    <div class="input-field col s12">
+                                        <input id="respuesta" type="text" name="respuesta" onkeypress="VNumyLetras();" />
+                                        <label for="comentario">Escribe aquí la respuesta</label>       
+                                    </div>  
+                                    
                                 </div>
+                                
                                 <div class="row">
-                                    <input type="submit" name="aceptar" class="btn waves-effect waves-light" value="ENVIAR"/>
+                                    <input type="submit" name="aceptar" class="btn waves-effect waves-light" value="ACEPTAR"/>
                                 </div> 
                             </form>
                         </div>
