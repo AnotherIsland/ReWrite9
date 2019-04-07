@@ -60,6 +60,26 @@
         <servlet-name>AltaFaqs</servlet-name>
         <servlet-class>soporte.AltaFaqs</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ActualizarFAQ</servlet-name>
+        <servlet-class>controller.ActualizarFAQ</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>VerMantenimiento</servlet-name>
+        <servlet-class>soporte.VerMantenimiento</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AltaMantenimiento</servlet-name>
+        <servlet-class>soporte.AltaMantenimiento</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AltaMantenimiento0</servlet-name>
+        <servlet-class>soporte.AltaMantenimiento0</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CerrarMantenimiento</servlet-name>
+        <servlet-class>soporte.CerrarMantenimiento</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Inicio</servlet-name>
         <url-pattern>/ReWrite/index.jsp</url-pattern>
@@ -127,6 +147,26 @@
     <servlet-mapping>
         <servlet-name>AltaFaqs</servlet-name>
         <url-pattern>/AltaFaqs</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ActualizarFAQ</servlet-name>
+        <url-pattern>/ActualizarFAQ</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VerMantenimiento</servlet-name>
+        <url-pattern>/VerMantenimiento</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AltaMantenimiento</servlet-name>
+        <url-pattern>/AltaMantenimiento</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AltaMantenimiento0</servlet-name>
+        <url-pattern>/AltaMantenimiento0</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CerrarMantenimiento</servlet-name>
+        <url-pattern>/CerrarMantenimiento</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

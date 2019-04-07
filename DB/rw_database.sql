@@ -17,8 +17,12 @@ UNLOCK TABLES;
 
 insert into tipousuario values(1, 'cliente');
 insert into tipousuario values(2, 'operador');
-insert into tipousuario values(3, 'gerente');
+insert into tipousuario values(3, 'gerenteS');
 insert into tipousuario values(4, 'ingeniero');
+insert into tipousuario values(5, 'gerenteM');
+insert into tipousuario values(6, 'editor');
+
+
 
 DROP TABLE IF EXISTS `usuario`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -40,6 +44,8 @@ UNLOCK TABLES;
 insert into usuario values(1, 'Pedro', 'pedrito', 'Pedro@gmail.com', 4);
 insert into usuario values(2, 'Ana', 'anita', 'Ana@gmail.com', 3);
 insert into usuario values(3, 'Daniel', 'danielito', 'Daniel@gmail.com', 2);
+insert into usuario values(4, 'Bruno', 'brunito', 'Bruno@gmail.com', 5);
+insert into usuario values(5, 'Marco', 'marquito', 'Marco@gmail.com', 6);
 
 
 
@@ -254,6 +260,37 @@ LOCK TABLES `reporte` WRITE;
 /*!40000 ALTER TABLE `reporte` ENABLE KEYS */;
 UNLOCK TABLES;
 
+
+
+DROP TABLE IF EXISTS `reporteMant`;
+CREATE TABLE `reporteMant` (
+  `idreporteMant` int(11) NOT NULL auto_increment,
+  `contenido` tinytext NOT NULL,
+  `fecha_inicio` date NOT NULL ,
+  `fecha_conclusion` date , 
+  `idUsuario1Levanta` int (11) not null,
+  `idUsuario1Asigna` int (11),
+  primary key (`idreporteMant`),
+  
+  CONSTRAINT `idUsuario1Levanta` FOREIGN KEY (`idUsuario1Levanta`) REFERENCES `usuario` (`idUsuario`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `idUsuario1Asigna` FOREIGN KEY (`idUsuario1Asigna`) REFERENCES `usuario` (`idUsuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+LOCK TABLES `reporteMant` WRITE;
+/*!40000 ALTER TABLE `reporteMant` DISABLE KEYS */;
+/*!40000 ALTER TABLE `reporteMant` ENABLE KEYS */;
+UNLOCK TABLES;
+
+select * from reporte;
+insert into reporte (fecha_inicio, fecha_resolucion, etiqueta, contenido, idUsuarioLevanta, idUsuarioAsigna, idUsuarioCierra, idUsuarioEscritor) values(current_date(), null, 'no asignado', 'error en la base', 1, 2 , 1, 4);
+
+
+INSERT INTO reporteMant(contenido,fecha_inicio,idUsuario1Levanta,idUsuario1Asigna) VALUES('error en el diseño', current_date() ,4,4);
+select * from reporteMant;
+Select * from reporteMant where fecha_conclusion is null;
+
 INSERT INTO reporte(fecha_inicio,fecha_resolucion,fecha_conclusion,etiqueta,contenido,idUsuarioLevanta,idUsuarioEscritor) VALUES('2019-09-16','2019-09-22','2019-09-23','No asignado','Contenido reporte no asignado',3,4);
 INSERT INTO reporte(fecha_inicio,fecha_resolucion,fecha_conclusion,etiqueta,contenido,idUsuarioLevanta,idUsuarioAsigna,idUsuarioEscritor) VALUES('2019-09-16','2019-09-22','2019-09-23','Pendiente','Contenido reporte pendiente',3,2,4);
 INSERT INTO reporte(fecha_inicio,fecha_resolucion,fecha_conclusion,etiqueta,contenido,idUsuarioLevanta,idUsuarioAsigna,idUsuarioCierra,idUsuarioEscritor) VALUES('2019-09-16','2019-09-22','2019-09-23','Cerrado','Contenido reporte cerrado',3,2,1,4);
+
+
+select * from usuario;

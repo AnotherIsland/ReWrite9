@@ -98,7 +98,14 @@ and open the template in the editor.
                                             <tr><th>Folio</th>
                                                 <td><input name="folio" id="folio" type="text" value="<%=folio%>" hidden><%=folio%></td></tr>
                                             <tr><th>Etiqueta</th>
-                                                <td><input name="etiqueta" id="etiqueta" type="text" value="<%=etiqueta%>"></td></tr>
+                                                <td>
+                                                <select id="etiqueta"  name="etiqueta">
+                                                    <option value="<%=etiqueta%>" selected><%=etiqueta%></option>
+                                                    <option value="No asignado">No asignado</option>
+                                                    <option value="Pendiente">Pendiente</option>
+                                                    <option value="Cerrado">Cerrado</option>
+                                                </select>
+                                                </td></tr>
                                             <tr><th>Fecha inicio</th>
                                                 <td><input name="fInicio" id="fInicio" type="text" value="<%=fInicio%>"></td></tr>
                                             <tr><th>Levantado por:</th>
