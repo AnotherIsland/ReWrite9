@@ -13,7 +13,10 @@ and open the template in the editor.
 -->
 <%
     HttpSession sesi = request.getSession();
-    //if (sesi.getAttribute("ID") != null) {
+    
+    //if (sesi.getAttribute("ID") != null) { 
+    
+    sesi.invalidate();
 %>
 <html>
     <head>
@@ -46,7 +49,7 @@ and open the template in the editor.
                             <div class="row center-align">
                                 <h6 >Inicia sesión</h6><hr class="blue lighten-1">
                                 <div class="col s12 m12 l12 xl12 " >
-                                    <form action="${pageContext.request.contextPath}/jsp/SOPORTE/EVENTOS/VerReportes.jsp" method="POST">
+                                    <form action="${pageContext.request.contextPath}/InicioEventos" method="POST">
                                         <div class="row">
                                             <div class="input-field col s12">
                                                 <input id="username" type="text" name="username" class="validate" onkeypress="valCorreo();">

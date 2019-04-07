@@ -44,6 +44,8 @@ public class VerificarSello extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        
         System.out.println("Entra a verifica sello");
         String texto = "";
         String sello = request.getParameter("sello");

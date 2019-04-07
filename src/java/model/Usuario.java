@@ -19,18 +19,58 @@ public class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Integer idUsuario;
+    private Integer idUsuario = 0;
 
-    private String usuario;
+    private String usuario = " ";
 
-    private String correo;
+    private String correo = " ";
 
-    private String contraseña;
+    private String contraseña= " ";
+    
+    private String tipoUsuario= " ";
+    
+    private int idTipoUsuario = 0;
 
     private byte[] imagen;
 
 
     public Usuario() {
+    }
+    
+    public int getIdTipoUsuario() {
+        return idTipoUsuario;
+    }
+
+    public Usuario(Integer idUsuario, String usuario, String correo, String contraseña, int idTipoUsuario) {
+        this.idUsuario = idUsuario;
+        this.usuario = usuario;
+        this.correo = correo;
+        this.contraseña = contraseña;
+        this.idTipoUsuario = idTipoUsuario;
+    }
+
+    public Usuario(Integer idUsuario, String usuario, String correo, String contraseña, String tipoUsuario, int idTipoUsuario) {
+        this.idUsuario = idUsuario;
+        this.usuario = usuario;
+        this.correo = correo;
+        this.contraseña = contraseña;
+        this.tipoUsuario = tipoUsuario;
+        this.idTipoUsuario = idTipoUsuario;
+    }
+    
+
+    public String getTipoUsuario() {
+        return tipoUsuario;
+    }
+
+    public void setTipoUsuario(String tipoUsuario) {
+        this.tipoUsuario = tipoUsuario;
+    }
+    
+    
+
+    public void setIdTipoUsuario(int idTipoUsuario) {
+        this.idTipoUsuario = idTipoUsuario;
     }
 
     public Usuario(Integer idUsuario) {

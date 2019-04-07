@@ -65,6 +65,8 @@ public class ActualizaReporte extends HttpServlet {
         int idLevanta = 0;
         int idAsigna = 0;
         int idCierra = 0;
+        
+        response.setContentType("text/html;charset=UTF-8");
 
         
         if(request.getParameter("folio")!=null){

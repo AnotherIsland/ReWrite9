@@ -80,6 +80,10 @@
         <servlet-name>CerrarMantenimiento</servlet-name>
         <servlet-class>soporte.CerrarMantenimiento</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>InicioEventos</servlet-name>
+        <servlet-class>soporte.InicioEventos</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Inicio</servlet-name>
         <url-pattern>/ReWrite/index.jsp</url-pattern>
@@ -167,6 +171,10 @@
     <servlet-mapping>
         <servlet-name>CerrarMantenimiento</servlet-name>
         <url-pattern>/CerrarMantenimiento</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InicioEventos</servlet-name>
+        <url-pattern>/InicioEventos</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

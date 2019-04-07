@@ -1,9 +1,12 @@
 <%-- 
-    Document   : UsOperador
-    Created on : 12/03/2019, 09:55:07 PM
+    Document   : OperadorAltaReporte
+    Created on : 7/04/2019, 03:04:21 PM
     Author     : ACIE-PC
 --%>
 
+<%@page import="soporte.ConsultaUsuario"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="model.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <!--
@@ -14,6 +17,15 @@ and open the template in the editor.
 <%
     HttpSession sesi = request.getSession();
     //if (sesi.getAttribute("ID") != null) {
+    
+    //Variables para traer clientes en select
+    Usuario userX = new Usuario();
+    String cliente = "";
+    
+    //Consulta usuarios clientes para select 
+    ArrayList <Usuario> clientes = new ArrayList();
+    ConsultaUsuario cu = new ConsultaUsuario();
+    clientes = cu.consultaTipoUsuario(1);
 %>
 <html>
     <head>
@@ -31,13 +43,11 @@ and open the template in the editor.
                     <a href="${pageContext.request.contextPath}/index.jsp" class="brand-logo"><img class="responsive-img center-align" style="padding: 10px" src="${pageContext.request.contextPath}/img/logoT.png"></a>
                     <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                     <ul class="right hide-on-med-and-down">
-                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/SOPORTE/EVENTOS/LevantarReporte.jsp">Alta Reporte</a></li>
-                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/SOPORTE/EVENTOS/VerReportes.jsp">Ver Reportes</a></li>
+                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/SOPORTE/EVENTOS/OperadorAltaReporte.jsp">Alta Reporte</a></li>
                         <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/SOPORTE/EVENTOS/InicioEventos.jsp">Cerrar Sesión</a></li>
                     </ul>
                     <ul class="sidenav" id="mobile-demo">
-                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/SOPORTE/EVENTOS/LevantarReporte.jsp">Alta Reporte</a></li>
-                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/SOPORTE/EVENTOS/VerReportes.jsp">Ver Reportes</a></li>
+                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/SOPORTE/EVENTOS/OperadorAltaReporte.jsp">Alta Reporte</a></li>
                         <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/SOPORTE/EVENTOS/InicioEventos.jsp">Cerrar Sesión</a></li>
                     </ul>
                 </div>
@@ -71,11 +81,21 @@ and open the template in the editor.
                                 <div class="row">
                                     <div class="col s5 l5 m5 xl5">
                                         <div class="input-field col s12">
-                                            <input id="usuario" type="text" name="usuario" onkeypress="valCorreo();" />
-                                            <label for="usuario">Ingresa el correo del usuario que ha reportado el asunto</label>       
+                                            <label class="small">Selecciona el correo del usuario con la incidencia:</label>  
+                                            <br><br>
+                                            <select id="usuario"  name="usuario">
+                                                <%
+                                                    for(int i = 0; i < clientes.size(); i++){
+                                                       userX = clientes.get(i);
+                                                       cliente = userX.getCorreo();
+                                                %>
+                                                    <option value="<%=cliente%>" selected><%=cliente%></option>
+                                                <%  }%>
+                                            </select>     
                                         </div>
                                     </div>
                                     <div class="col s5 l5 m5 xl5">
+                                        <br><br>
                                         <div class="input-field col s12">
                                             <input id="fecha" type="date" name="fecha" onkeypress="validap();" />
                                             <label for="fecha">Escoge la fecha del día en que se realiza el reporte</label>       

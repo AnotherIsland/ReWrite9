@@ -4,6 +4,7 @@
     Author     : ACIE-PC
 --%>
 
+<%@page import="model.Usuario"%>
 <%@page import="soporte.ConsultaReporte"%>
 <%@page import="java.sql.Date"%>
 <%@page import="model.Reporte"%>
@@ -13,11 +14,20 @@
 <!--
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
-and open the template in the editor.
+and open the template in the editor. 
 -->
 <%
     HttpSession sesi = request.getSession();
+    
     //if (sesi.getAttribute("ID") != null) {
+    
+    Usuario user = new Usuario();
+    user = (Usuario) sesi.getAttribute("usuario");
+    
+    if(user.getIdTipoUsuario() != 3){//Revisa que sea un usuario de tipo Gerente
+        RequestDispatcher rd = request.getRequestDispatcher("jsp/SOPORTE/EVENTOS/InicioEventos.jsp");
+        rd.forward(request, response);
+    }
     
     ArrayList <Reporte> repsNA = new ArrayList();//Lista de reportes no asignados
     ArrayList <Reporte> repsPen = new ArrayList();//Lista de reportes pendientes
@@ -64,7 +74,7 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/favicon.ico"/>
-        <title>ReWrite - Ayuda y soporte</title>
+        <title>ReWrite - Soporte de eventos</title>
     </head>
     <body>
         <div class="" name="header">
@@ -73,8 +83,13 @@ and open the template in the editor.
                     <a href="${pageContext.request.contextPath}/index.jsp" class="brand-logo"><img class="responsive-img center-align" style="padding: 10px" src="${pageContext.request.contextPath}/img/logoT.png"></a>
                     <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                     <ul class="right hide-on-med-and-down">
-                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/SOPORTE/EVENTOS/LevantarReporte.jsp">Alta Reporte</a></li>
-                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/SOPORTE/EVENTOS/VerReportes.jsp">Ver Reportes</a></li>
+                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/SOPORTE/EVENTOS/GerenteLevantarReporte.jsp">Alta Reporte</a></li>
+                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/SOPORTE/EVENTOS/GerenteVerReportes.jsp">Ver Reportes</a></li>
+                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/SOPORTE/EVENTOS/InicioEventos.jsp">Cerrar Sesión</a></li>
+                    </ul>
+                    <ul class="sidenav" id="mobile-demo">
+                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/SOPORTE/EVENTOS/GerenteLevantarReporte.jsp">Alta Reporte</a></li>
+                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/SOPORTE/EVENTOS/GerenteVerReportes.jsp">Ver Reportes</a></li>
                         <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/SOPORTE/EVENTOS/InicioEventos.jsp">Cerrar Sesión</a></li>
                     </ul>
                 </div>

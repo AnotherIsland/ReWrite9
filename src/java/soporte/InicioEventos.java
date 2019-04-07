@@ -3,23 +3,24 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
+package soporte;
 
 import Database.DataBase;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.ResultSet;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.Usuario;
 
 /**
  *
  * @author ACIE-PC
  */
-public class ActualizarFAQ extends HttpServlet {
+public class InicioEventos extends HttpServlet {
 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -35,6 +36,9 @@ public class ActualizarFAQ extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        RequestDispatcher rd = request.getRequestDispatcher("jsp/SOPORTE/EVENTOS/InicioEventos.jsp");
+        rd.forward(request, response);
+       
     }
 
     /**
@@ -48,36 +52,37 @@ public class ActualizarFAQ extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        String usuario = request.getParameter("username");
+        String contrasena = request.getParameter("password");
+        HttpSession sesi = request.getSession();
+        Usuario user = new Usuario();
+        String tipoUs = "";
+        String ruta = "";
+        
         response.setContentType("text/html;charset=UTF-8");
-        String pregurnta=request.getParameter("pregunta");
-        String respuesta=request.getParameter("respuesta");
         
-        DataBase objeto = new DataBase();    
+        ConsultaUsuario cu = new ConsultaUsuario();
+        user = cu.loginUsuario(usuario, contrasena);
         
-        ResultSet R;
+        sesi.setAttribute("usuario", user);
         
-        if(request.getParameter("eliminar")!=null){
-            
-            
-            
-        }else if(request.getParameter("editar")!=null){
-            
-            
-            
+        System.out.println("Usuario login: "+user.getTipoUsuario());
+        
+        tipoUs = user.getTipoUsuario();
+        
+        if(tipoUs.equals("operador")){
+            ruta = "jsp/SOPORTE/EVENTOS/OperadorAltaReporte.jsp";
+        }else if(tipoUs.equals("ingeniero")){
+            ruta = "jsp/SOPORTE/EVENTOS/IngSoporte.jsp";
+        }else if(tipoUs.equals("gerenteS")){
+            ruta = "jsp/SOPORTE/EVENTOS/GerenteVerReportes.jsp";
+        }else {
+            ruta = "jsp/SOPORTE/EVENTOS/InicioEventos.jsp";
         }
         
-      
-        
-        try {
-           objeto.connect();
-           objeto.insert("insert into FAQs(pregunta,respuesta) values ('"+pregurnta+"','"+respuesta+"'); ");
-           System.out.println("Pregunta agregada");
-        } 
-        catch (Exception e) {
-        }
-        
-        RequestDispatcher RD = request.getRequestDispatcher("jsp/SOPORTE/FAQS/Editor.jsp");
-        RD.forward(request, response);
+        RequestDispatcher rd = request.getRequestDispatcher(ruta);
+        rd.forward(request, response);
     }
 
     /**

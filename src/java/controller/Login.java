@@ -39,6 +39,9 @@ public class Login extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        RequestDispatcher rd = request.getRequestDispatcher("./jsp/Login.jsp");
+                rd.forward(request, response);
+        
     }
 
     /**
@@ -52,7 +55,7 @@ public class Login extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-                DataBase db = new DataBase();
+        DataBase db = new DataBase();
         String usuario = request.getParameter("username");
         String contrasena = request.getParameter("password");//En esta parte se quitó el método de cifrado
         String Usu = "";
@@ -88,7 +91,7 @@ public class Login extends HttpServlet {
             }
             else{
                 System.out.println("No esta el usuario registrado");
-                 RequestDispatcher rd = request.getRequestDispatcher("./jsp/Login.jsp");
+                RequestDispatcher rd = request.getRequestDispatcher("./jsp/Login.jsp");
                 rd.forward(request, response);
             }
         }
