@@ -84,6 +84,14 @@
         <servlet-name>InicioEventos</servlet-name>
         <servlet-class>soporte.InicioEventos</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EliminaFAQ</servlet-name>
+        <servlet-class>soporte.EliminaFAQ</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ActualizaFAQ</servlet-name>
+        <servlet-class>soporte.ActualizaFAQ</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Inicio</servlet-name>
         <url-pattern>/ReWrite/index.jsp</url-pattern>
@@ -175,6 +183,14 @@
     <servlet-mapping>
         <servlet-name>InicioEventos</servlet-name>
         <url-pattern>/InicioEventos</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EliminaFAQ</servlet-name>
+        <url-pattern>/EliminaFAQ</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ActualizaFAQ</servlet-name>
+        <url-pattern>/ActualizaFAQ</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

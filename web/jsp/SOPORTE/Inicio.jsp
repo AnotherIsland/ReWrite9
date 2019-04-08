@@ -75,7 +75,7 @@ and open the template in the editor.
                             <div class="row center-align">
                                 <h6 class="white-text">FAQS</h6><hr class="blue lighten-1">
                                 <div class="col s12 m12 l12 xl12 " >
-                                    <form action="${pageContext.request.contextPath}/jsp/SOPORTE/FAQS/Editor.jsp">
+                                    <form action="${pageContext.request.contextPath}/jsp/SOPORTE/FAQS/InicioFAQs.jsp">
                                     <div class="input-field col s12 center-align">
                                         <input type="submit"  class="btn waves-effect waves-light" value="INGRESAR" id="ingresar3" name="ingresar3" />
                                     </div>

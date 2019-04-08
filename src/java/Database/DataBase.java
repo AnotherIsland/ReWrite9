@@ -62,9 +62,9 @@ public class DataBase {
         this.statement.executeUpdate(update);
     }
     
-    public ResultSet delete(String delete) throws SQLException {
+    public void delete(String delete) throws SQLException {
         this.statement = (Statement) connection.createStatement();
-        return this.statement.executeQuery(delete);
+         this.statement.executeUpdate(delete);
     }
     
     public void insert(String insert) throws SQLException {

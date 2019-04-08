@@ -40,11 +40,11 @@ and open the template in the editor.
             respuestaX = res.getString("respuesta");
             idpX = res.getInt("idFAQ");
             
-            System.out.println(preguntaX);
+            //System.out.println(preguntaX);
             preguntas.add(preguntaX);
             respuestas.add(respuestaX);
             idP[j] = idpX;
-            j++;System.out.println(idpX);
+            j++;//System.out.println(idpX);
         }
         db.closeConnection();
     }
@@ -102,12 +102,20 @@ and open the template in the editor.
                                     <div class="white-text">
                                         <%for(int i = 0; i < preguntas.size(); i++){
                                             preguntaX = preguntas.get(i);
-                                            respuestaX = respuestas.get(i);%>
-                                            <form method="POST" action="${pageContext.request.contextPath}/ActualizarFAQ">
+                                            respuestaX = respuestas.get(i);
+                                            %>
+                                            <form method="POST" action="${pageContext.request.contextPath}/ActualizaFAQ">
+                                                <input type="hidden"   value=<%=(i+1)%> id="idd" name="idd" />
                                                 <br><%=(i+1)%> .- Pregunta: <input type="text" class="white-text"  id="pregunta" name="pregunta" value="<%=preguntaX%>">
                                                 <br>Respuesta:  <input type="text" class="white-text" id="respuesta" name="respuesta" value="<%=respuestaX%>"> 
                                         <br><br><input type="submit"  class="btn waves-effect waves-light" value="EDITAR" id="editar" name="editar" />
+                                            </form>
+                                               
+                                               
+                                        <form name="eliminar" method="POST" action="${pageContext.request.contextPath}/EliminaFAQ">
+                                             <input type="hidden"  visible="false" value=<%=(i+1)%> id="idd" name="idd" />
                                         <input type="submit"  class="btn waves-effect waves-light" value="ELIMINAR" id="eliminar" name="eliminar" />
+                                        </form>
                                         <form>
                                         <%}%>
                                         
