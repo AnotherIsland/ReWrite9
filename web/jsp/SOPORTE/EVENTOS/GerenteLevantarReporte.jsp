@@ -116,7 +116,7 @@ and open the template in the editor.
                                 <div class="row">
                                     <div class=" col s12">
                                         <div class="input-field col s12">
-                                        <textarea class="materialize-textarea" placeholder="" id="contenido" type="text" name="contenido" onkeypress="validap();" >
+                                        <textarea class="materialize-textarea" placeholder="" id="contenido" type="text" name="contenido" onkeypress="vNumyLetras();" >
                                         </textarea>
                                             <label for="contenido">Escribe aquí el contenido del reporte...</label>
                                         </div>

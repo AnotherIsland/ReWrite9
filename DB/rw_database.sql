@@ -289,9 +289,9 @@ INSERT INTO reporteMant(contenido,fecha_inicio,idUsuario1Levanta,idUsuario1Asign
 select * from reporteMant;
 Select * from reporteMant where fecha_conclusion is null;
 
-INSERT INTO reporte(fecha_inicio,fecha_resolucion,fecha_conclusion,etiqueta,contenido,idUsuarioLevanta,idUsuarioEscritor) VALUES('2019-09-16','2019-09-22','2019-09-23','No asignado','Contenido reporte no asignado',3,4);
+/*INSERT INTO reporte(fecha_inicio,fecha_resolucion,fecha_conclusion,etiqueta,contenido,idUsuarioLevanta,idUsuarioEscritor) VALUES('2019-09-16','2019-09-22','2019-09-23','No asignado','Contenido reporte no asignado',3,4);
 INSERT INTO reporte(fecha_inicio,fecha_resolucion,fecha_conclusion,etiqueta,contenido,idUsuarioLevanta,idUsuarioAsigna,idUsuarioEscritor) VALUES('2019-09-16','2019-09-22','2019-09-23','Pendiente','Contenido reporte pendiente',3,2,4);
 INSERT INTO reporte(fecha_inicio,fecha_resolucion,fecha_conclusion,etiqueta,contenido,idUsuarioLevanta,idUsuarioAsigna,idUsuarioCierra,idUsuarioEscritor) VALUES('2019-09-16','2019-09-22','2019-09-23','Cerrado','Contenido reporte cerrado',3,2,1,4);
-
+*/
 
 select * from usuario;

@@ -126,13 +126,13 @@ and open the template in the editor.
                                 <div class="row">
                                     
                                     <div class="input-field col s12">
-                                        <input id="pregunta" type="text" name="pregunta" onkeypress="VNumyLetras();" />
-                                        <label for="pregunta">Escribe aquí la pregunta</label>  
+                                        <input id="pregunta1" type="text" name="pregunta" onkeypress="VNumyLetras();" />
+                                        <label for="pregunta1">Escribe aquí la pregunta</label>  
                                     </div>
                                     
                                     <div class="input-field col s12">
-                                        <input id="respuesta" type="text" name="respuesta" onkeypress="VNumyLetras();" />
-                                        <label for="respuesta">Escribe aquí la respuesta</label>       
+                                        <input id="respuesta1" type="text" name="respuesta" onkeypress="VNumyLetras();" />
+                                        <label for="respuesta1">Escribe aquí la respuesta</label>       
                                     </div>  
                                     
                                 </div>

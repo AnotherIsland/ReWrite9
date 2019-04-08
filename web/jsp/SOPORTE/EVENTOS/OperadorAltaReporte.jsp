@@ -104,7 +104,7 @@ and open the template in the editor.
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s12">
-                                        <input id="contenido" type="text" name="contenido" onkeypress="validap();" />
+                                        <input id="contenido" type="text" name="contenido" onkeypress="vNumyLetras();" />
                                         <label for="comentario">Escribe aquí el contenido del reporte...</label>       
                                     </div>
                                 </div>
