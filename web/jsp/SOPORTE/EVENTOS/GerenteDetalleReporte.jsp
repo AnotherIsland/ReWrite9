@@ -172,6 +172,8 @@ and open the template in the editor.
                                                 <td><input name="fResol" id="fResol" type="date" value="<%=fResol%>"></td></tr>
                                             <%}%>
                                             <%if(etiqueta.equals("Cerrado")){ %>
+                                                <tr><th>Fecha resolucion</th>
+                                                <td><input name="fResol" id="fResol" type="date" value="<%=fResol%>"></td></tr>
                                                 <tr><th>Fecha término</th>
                                                 <td><input name="fTermino" id="fTermino" type="date" value="<%=fTermino%>"></td></tr>
                                                 <tr><th>Cerrado por:</th>
@@ -181,6 +183,7 @@ and open the template in the editor.
                                             <tr><th>Especificaciones</th>
                                                 <td><textarea class="materialize-textarea" name="especifica" id="especifica" type="text"><%=especifica%></textarea></td></tr>
                                             <tr><td><input class="waves-effect waves-light light-blue btn" type="submit" value="Guardar cambios"></td></tr>
+                                            <tr><td><input class="waves-effect waves-light light-blue btn" name="eliminar" type="submit" value="Eliminar"></td></tr>
                                         </table>
                                         </form>
                                     </div>  

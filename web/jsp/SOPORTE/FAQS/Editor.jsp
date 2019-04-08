@@ -68,20 +68,10 @@ and open the template in the editor.
                     <a href="${pageContext.request.contextPath}/index.jsp" class="brand-logo"><img class="responsive-img center-align" style="padding: 10px" src="${pageContext.request.contextPath}/img/logoT.png"></a>
                     <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                     <ul class="right hide-on-med-and-down">
-                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/index.jsp">Cerrar Sesión</a></li>
-                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/MISOBRAS/MisObras.jsp">Mis Obras</a></li>
-                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/CREAR/Crear.jsp">Crear</a></li>
-                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/AJUSTES/Ajustes.jsp">Ajustes</a></li>
-                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/EVOLUCION/Evolucion.jsp">Evolución</a></li>
-                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/SOPORTE/Reporte.jsp">Ayuda</a></li>
+                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/SOPORTE/FAQS/InicioFAQs.jsp">Cerrar Sesión</a></li>
                     </ul>
                     <ul class="sidenav" id="mobile-demo">
-                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/Login.jsp">Cerrar Sesión</a></li>
-                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/MISOBRAS/MisObras.jsp">Mis Obras</a></li>
-                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/CREAR/Crear.jsp">Crear</a></li>
-                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/AJUSTES/Ajustes.jsp">Ajustes</a></li>
-                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/EVOLUCION/Evolucion.jsp">Evolución</a></li>
-                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/SOPORTE/Reporte.jsp">Ayuda</a></li>
+                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/SOPORTE/FAQS/InicioFAQs.jsp">Cerrar Sesión</a></li>
                     </ul>
                 </div>
             </nav>
@@ -114,9 +104,9 @@ and open the template in the editor.
                                                
                                         <form name="eliminar" method="POST" action="${pageContext.request.contextPath}/EliminaFAQ">
                                              <input type="hidden"  visible="false" value=<%=(i+1)%> id="idd" name="idd" />
-                                        <input type="submit"  class="btn waves-effect waves-light" value="ELIMINAR" id="eliminar" name="eliminar" />
+                                             <br><input type="submit"  class="btn waves-effect waves-light" value="ELIMINAR" id="eliminar" name="eliminar" />
                                         </form>
-                                        <form>
+                                        
                                         <%}%>
                                         
                                     </div>
@@ -137,12 +127,12 @@ and open the template in the editor.
                                     
                                     <div class="input-field col s12">
                                         <input id="pregunta" type="text" name="pregunta" onkeypress="VNumyLetras();" />
-                                        <label for="comentario">Escribe aquí la pregunta</label>  
+                                        <label for="pregunta">Escribe aquí la pregunta</label>  
                                     </div>
                                     
                                     <div class="input-field col s12">
                                         <input id="respuesta" type="text" name="respuesta" onkeypress="VNumyLetras();" />
-                                        <label for="comentario">Escribe aquí la respuesta</label>       
+                                        <label for="respuesta">Escribe aquí la respuesta</label>       
                                     </div>  
                                     
                                 </div>

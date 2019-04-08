@@ -73,6 +73,7 @@ public class ActualizaReporte extends HttpServlet {
         
         response.setContentType("text/html;charset=UTF-8");
         
+        
         ConsultaUsuario cu = new ConsultaUsuario();
         
         //Trayendo usuario en la sesion
@@ -87,7 +88,6 @@ public class ActualizaReporte extends HttpServlet {
             ruta = "jsp/SOPORTE/EVENTOS/IngDetalleReporte.jsp";
         }
 
-        
         if(request.getParameter("folio")!=null){
             especifica = request.getParameter("especifica");
             levanta = request.getParameter("levanta");  
@@ -95,6 +95,10 @@ public class ActualizaReporte extends HttpServlet {
             etiqueta = request.getParameter("etiqueta");
             folio = request.getParameter("folio");
             idLevanta = cu.consultaUsID(levanta);
+            if(request.getParameter("eliminar")!= null){
+                etiqueta = "Eliminado";
+            }
+            
             
             update = "UPDATE reporte set etiqueta = '"+etiqueta+"', fecha_inicio = '"+fInicio+
                     "', contenido = '"+especifica+"', idUsuarioLevanta = "+idLevanta+" where idReporte = "+folio+";";
@@ -127,6 +131,10 @@ public class ActualizaReporte extends HttpServlet {
                 idAsigna = cu.consultaUsID(asigna);
                 etiqueta = "Resuelto";
                 
+                if(request.getParameter("eliminar")!= null){
+                    etiqueta = "Eliminado";
+                }
+                
                 if(fResol == null){
                     fResol = LocalDate.now().toString();
                 }
@@ -138,6 +146,9 @@ public class ActualizaReporte extends HttpServlet {
                 asigna = request.getParameter("asigna"); 
                 idAsigna = cu.consultaUsID(asigna);
                 etiqueta = "Pendiente";
+                if(request.getParameter("eliminar")!= null){
+                    etiqueta = "Eliminado";
+                }
                 update = "UPDATE reporte set etiqueta = '"+etiqueta+"', fecha_inicio = '"+fInicio+"',"
                     + "contenido = '"+especifica+"', idUsuarioLevanta = "+idLevanta+", "
                     + " idUsuarioAsigna = "+idAsigna+ " where idReporte = "+folio+";";

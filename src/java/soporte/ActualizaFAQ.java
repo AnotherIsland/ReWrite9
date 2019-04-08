@@ -58,9 +58,10 @@ public class ActualizaFAQ extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
         String pregunta=request.getParameter("pregunta");
         String respuesta=request.getParameter("respuesta");
-         String idd = request.getParameter("idd");
+        String idd = request.getParameter("idd");
          
         DataBase objeto = new DataBase();    
         

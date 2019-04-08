@@ -33,9 +33,14 @@ and open the template in the editor.
                 <div class="nav-wrapper ">
                     <a href="${pageContext.request.contextPath}/index.jsp" class="brand-logo"><img class="responsive-img center-align" style="padding: 10px" src="${pageContext.request.contextPath}/img/logoT.png"></a>
                     <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-
+                    <ul class="right hide-on-med-and-down">
+                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/SOPORTE/Inicio.jsp">Inicio</a></li>
+                    </ul>
+                    <ul class="sidenav" id="mobile-demo">
+                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/SOPORTE/Inicio.jsp">Inicio</a></li>
+                    </ul>
                 </div>
-            </nav>
+            </nav> 
         </div>
         <div class="container">
             <div class="row">
