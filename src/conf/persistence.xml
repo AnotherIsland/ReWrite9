@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="ReWritePU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>model.Relrefeensayo</class>
+    <class>model.Reldialogopersona</class>
+    <class>model.Articulo</class>
+    <class>model.Ensayo</class>
+    <class>model.Narrativo</class>
+    <class>model.Estrofa</class>
+    <class>model.Personaje</class>
+    <class>model.Relrefarti</class>
+    <class>model.Usuario</class>
+    <class>model.Lirico</class>
+    <class>model.Actos</class>
+    <class>model.Relresurefe</class>
+    <class>model.Tipoobra</class>
+    <class>model.Referencias</class>
+    <class>model.Relapendiarti</class>
+    <class>model.Dialogos</class>
+    <class>model.Relnarraperson</class>
+    <class>model.Dramatico</class>
+    <class>model.Resumen</class>
+    <class>model.Relobratipoobra</class>
+    <class>model.Relactodialo</class>
+    <class>model.Tipo</class>
+    <class>model.Relusuobra</class>
+    <class>model.Apendices</class>
+    <class>model.Relestrofatipo</class>
+    <class>model.Obra</class>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/rwdatabase?zeroDateTimeBehavior=convertToNull"/>
+      <property name="javax.persistence.jdbc.user" value="root"/>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.password" value="n0m3l0"/>
+    </properties>
+  </persistence-unit>
+</persistence>
