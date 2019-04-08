@@ -46,6 +46,7 @@ insert into usuario values(2, 'Ana', 'anita', 'Ana@gmail.com', 3);
 insert into usuario values(3, 'Daniel', 'danielito', 'Daniel@gmail.com', 2);
 insert into usuario values(4, 'Bruno', 'brunito', 'Bruno@gmail.com', 5);
 insert into usuario values(5, 'Marco', 'marquito', 'Marco@gmail.com', 6);
+insert into usuario values(6, 'Jimena', 'jimenita', 'Jimena@gmail.com', 1);
 
 
 

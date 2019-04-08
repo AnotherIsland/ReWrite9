@@ -74,10 +74,12 @@ public class InicioEventos extends HttpServlet {
         if(tipoUs.equals("operador")){
             ruta = "jsp/SOPORTE/EVENTOS/OperadorAltaReporte.jsp";
         }else if(tipoUs.equals("ingeniero")){
-            ruta = "jsp/SOPORTE/EVENTOS/IngSoporte.jsp";
+            ruta = "jsp/SOPORTE/EVENTOS/IngVerReportes.jsp";
         }else if(tipoUs.equals("gerenteS")){
             ruta = "jsp/SOPORTE/EVENTOS/GerenteVerReportes.jsp";
-        }else {
+        }else if(tipoUs.equals("editor")){
+            ruta = "jsp/SOPORTE/FAQS/Editor.jsp";
+        }else{
             ruta = "jsp/SOPORTE/EVENTOS/InicioEventos.jsp";
         }
         

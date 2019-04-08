@@ -17,6 +17,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.Usuario;
 
 /**
  *
@@ -53,14 +55,36 @@ public class AltaReporte extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        response.setContentType("text/html;charset=UTF-8");
+        
         String usuario = request.getParameter("usuario");
         String contenido = request.getParameter("contenido");
         String fecha = request.getParameter("fecha");
-        //String idLevanta = request.getParameter("idLevanta"); Traer id de quien inicia sesion en sesion
-        int idL = 3;
+        int idLevanta = 0; 
+        int idL = 0;
         int us = 0;
         DataBase db = new DataBase();
         ResultSet rs;
+        
+ 
+        //Trayendo usuario en la sesion
+        Usuario user = new Usuario();
+        HttpSession sesi = request.getSession();
+        user = (Usuario)sesi.getAttribute("usuario");
+        
+        //Asignando usuario que levanta reporte y fecha
+        idL = user.getIdUsuario();
+        
+        //Asignando ruta de regreso
+        String ruta = "";
+        if(user.getIdTipoUsuario() == 2){//Operador
+            ruta = "jsp/SOPORTE/EVENTOS/OperadorAltaReporte.jsp";
+        }else if(user.getIdTipoUsuario() == 3){//GerenteS
+            ruta = "jsp/SOPORTE/EVENTOS/GerenteLevantarReporte.jsp";
+        }else if(user.getIdTipoUsuario() == 4){//Ingeniero
+            ruta = "jsp/SOPORTE/EVENTOS/IngLevantarReporte.jsp";
+        }
+        
         
         try{
             db.connect();
@@ -84,7 +108,9 @@ public class AltaReporte extends HttpServlet {
             Logger.getLogger(AltaReporte.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        RequestDispatcher rd = request.getRequestDispatcher("jsp/SOPORTE/EVENTOS/LevantarReporte.jsp");
+        
+        
+        RequestDispatcher rd = request.getRequestDispatcher(ruta);
         rd.forward(request, response);
         
         

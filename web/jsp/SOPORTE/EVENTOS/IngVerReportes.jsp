@@ -1,9 +1,8 @@
 <%-- 
-    Document   : VerReportes
-    Created on : 3/04/2019, 12:50:24 PM
+    Document   : IngSoporte
+    Created on : 12/03/2019, 09:58:30 PM
     Author     : ACIE-PC
 --%>
-
 <%@page import="model.Usuario"%>
 <%@page import="soporte.ConsultaReporte"%>
 <%@page import="java.sql.Date"%>
@@ -28,16 +27,15 @@ and open the template in the editor.
     
     user = (Usuario) sesi.getAttribute("usuario");
     
-    if(user.getIdTipoUsuario() != 3){//Revisa que sea un usuario de tipo Gerente
+    if(user.getIdTipoUsuario() != 4){//Revisa que sea un usuario de tipo ingeniero
         RequestDispatcher rd = request.getRequestDispatcher("jsp/SOPORTE/EVENTOS/InicioEventos.jsp");
         rd.forward(request, response);
     }
     
     Reporte rep = null;
     ArrayList <Reporte> reps = new ArrayList();//Lista de reportes 
-    ArrayList <Reporte> repsNA = new ArrayList();//Lista de reportes no asignados
-    ArrayList <Reporte> repsPen = new ArrayList();//Lista de reportes pendientes
     ArrayList <Reporte> repsRes = new ArrayList();//Lista de reportes resueltos
+    ArrayList <Reporte> repsPen = new ArrayList();//Lista de reportes pendientes
     ArrayList <Reporte> repsCerr = new ArrayList();//Lista de reportes cerrados
     
     ConsultaReporte crep = new ConsultaReporte();
@@ -59,12 +57,9 @@ and open the template in the editor.
     
     try{
         db.connect();
-        res = db.query("select * from reporte;");
+        res = db.query("select * from reporte where idUsuarioAsigna ="+user.getIdUsuario());
 
         while(res.next()) {
-            System.out.println(res.getInt("idUsuarioLevanta"));
-            System.out.println(res.getInt("idUsuarioAsigna"));
-            System.out.println(res.getInt("idUsuarioCierra"));
                 levanta= crep.consultaUsuario(res.getInt("idUsuarioLevanta"));  
                 asigna= crep.consultaUsuario(res.getInt("idUsuarioAsigna"));  
                 cierra= crep.consultaUsuario(res.getInt("idUsuarioCierra")); 
@@ -82,9 +77,7 @@ and open the template in the editor.
     
     for(int i = 0; i< reps.size();i++){
         rep = reps.get(i);
-        if(rep.getEtiqueta().equals("No asignado")){
-            repsNA.add(rep);
-        } else if(rep.getEtiqueta().equals("Cerrado")){
+        if(rep.getEtiqueta().equals("Cerrado")){
             repsCerr.add(rep);
         } else if(rep.getEtiqueta().equals("Pendiente")){
             repsPen.add(rep);
@@ -93,7 +86,6 @@ and open the template in the editor.
         } 
     }
 
-    request.setAttribute("repsNA", repsNA);
     request.setAttribute("repsCerr", repsCerr);
     request.setAttribute("repsPen", repsPen);
     
@@ -115,14 +107,14 @@ and open the template in the editor.
                     <a href="${pageContext.request.contextPath}/index.jsp" class="brand-logo"><img class="responsive-img center-align" style="padding: 10px" src="${pageContext.request.contextPath}/img/logoT.png"></a>
                     <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                     <ul class="right hide-on-med-and-down">
-                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/SOPORTE/EVENTOS/GerenteLevantarReporte.jsp">Alta Reporte</a></li>
-                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/SOPORTE/EVENTOS/GerenteVerReportes.jsp">Ver Reportes</a></li>
+                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/SOPORTE/EVENTOS/IngLevantarReporte.jsp">Alta Reporte</a></li>
+                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/SOPORTE/EVENTOS/IngVerReportes.jsp">Ver Reportes</a></li>
                         <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/SOPORTE/EVENTOS/InicioEventos.jsp">Cerrar Sesión</a></li>
                         
                     </ul>
                     <ul class="sidenav" id="mobile-demo">
-                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/SOPORTE/EVENTOS/GerenteLevantarReporte.jsp">Alta Reporte</a></li>
-                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/SOPORTE/EVENTOS/GerenteVerReportes.jsp">Ver Reportes</a></li>
+                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/SOPORTE/EVENTOS/IngLevantarReporte.jsp">Alta Reporte</a></li>
+                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/SOPORTE/EVENTOS/IngVerReportes.jsp">Ver Reportes</a></li>
                         <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/SOPORTE/EVENTOS/InicioEventos.jsp">Cerrar Sesión</a></li>
                     </ul>    
                 </div>
@@ -132,7 +124,7 @@ and open the template in the editor.
             <div class="row">
                 <div class="col s12 m12 l12 xl12">
                     <div class="section grey z-depth-3 center-align">
-                        <h4 class="white-text">Reportes de eventos - Gerencia</h4>  
+                        <h4 class="white-text">Reportes de eventos - Ingeniero de soporte</h4>  
                     </div>
                     <br>
                     <div class="col s12 m12 l12 xl12 " >
@@ -140,40 +132,6 @@ and open the template in the editor.
                             <div class="row center-align">
                                 <h6>Administración de reportes</h6><hr class="blue lighten-1">
                                 <div class="col s12 m12 l12 xl12 " >
-                                    <div class="row">
-                                        <h6 class="blue1">NO ASIGNADOS<h6>
-                                        <table>
-                                            <tr>
-                                                <th>Folio</th>
-                                                <th>Etiqueta</th>                                              
-                                                <th>Levantado por:</th>
-                                                <th>Fecha inicio</th>
-                                            </tr>
-                                            <%for(int i = 0; i < repsNA.size(); i++){
-                                                rep = repsNA.get(i);
-                                                folio = rep.getIdReporte();
-                                                etiqueta = rep.getEtiqueta();
-                                                levanta = rep.getUsuarioLevanta();
-                                                fInicio = rep.getFecha_inicio();
-                                                
-                                            %>
-                                            
-                                            <tr>
-                                                <td><%=folio%></td>
-                                                <td><%=etiqueta%></td>
-                                                <td><%=levanta%></td>
-                                                <td><%=fInicio%></td>
-                                                <td>
-                                                    <form action="${pageContext.request.contextPath}/jsp/SOPORTE/EVENTOS/GerenteDetalleReporte.jsp" method="POST">
-                                                    <input type="text" name="folio" id="folio" value="<%=folio%>" hidden   />
-                                                    <input type="text" name="etiqueta" id="etiqueta" value="<%=etiqueta%>" hidden   />
-                                                    <input type="submit" class="waves-effect waves-light light-blue btn" value="Revisar"/>
-                                                    </form>
-                                                </td> 
-                                            </tr>
-                                            <%}%>
-                                        </table>
-                                    </div>
                                     <div class="row" >
                                         <h6 class="blue2">PENDIENTES<h6>
                                         <table>
@@ -183,6 +141,7 @@ and open the template in the editor.
                                                 <th>Levantado por:</th>
                                                 <th>Asignado a:</th>
                                                 <th>Fecha inicio</th>
+
                                             </tr>
                                             <%for(int i = 0; i < repsPen.size(); i++){
                                                 rep = repsPen.get(i);
@@ -190,7 +149,11 @@ and open the template in the editor.
                                                 etiqueta = rep.getEtiqueta();
                                                 levanta = rep.getUsuarioLevanta();
                                                 asigna = rep.getUsuarioAsigna();
+                                                //cierra = rep.getUsuarioCierra();
                                                 fInicio = rep.getFecha_inicio();
+                                                //fResol = rep.getFecha_resolucion();
+                                                //fTermino = rep.getFecha_conclusion();
+                                               
                                             %>
                                             <tr>
                                                 <td><%=folio%></td>
@@ -199,7 +162,7 @@ and open the template in the editor.
                                                 <td><%=asigna%></td>
                                                 <td><%=fInicio%></td>
                                                 <td>
-                                                    <form action="${pageContext.request.contextPath}/jsp/SOPORTE/EVENTOS/GerenteDetalleReporte.jsp" method="POST">
+                                                    <form action="${pageContext.request.contextPath}/jsp/SOPORTE/EVENTOS/IngDetalleReporte.jsp" method="POST">
                                                     <input type="text" name="folio" id="folio" value="<%=folio%>" hidden />
                                                     <input type="text" name="etiqueta" id="etiqueta" value="<%=etiqueta%>" hidden />
                                                     <input type="submit" class="waves-effect waves-light light-blue btn" value="Revisar"/>
@@ -208,8 +171,9 @@ and open the template in the editor.
                                             </tr>
                                             <%}%>
                                         </table>
+                                        
                                     </div>
-                                        <div class="row" >
+                                    <div class="row" >
                                         <h6 class="blue2">RESUELTOS<h6>
                                         <table>
                                             <tr>
@@ -226,8 +190,11 @@ and open the template in the editor.
                                                 etiqueta = rep.getEtiqueta();
                                                 levanta = rep.getUsuarioLevanta();
                                                 asigna = rep.getUsuarioAsigna();
+                                                //cierra = rep.getUsuarioCierra();
                                                 fInicio = rep.getFecha_inicio();
-                                                fResol = rep.getFecha_resolucion(); 
+                                                fResol = rep.getFecha_resolucion();
+                                                //fTermino = rep.getFecha_conclusion();
+                                               
                                             %>
                                             <tr>
                                                 <td><%=folio%></td>
@@ -237,7 +204,7 @@ and open the template in the editor.
                                                 <td><%=fInicio%></td>
                                                 <td><%=fResol%></td>
                                                 <td>
-                                                    <form action="${pageContext.request.contextPath}/jsp/SOPORTE/EVENTOS/GerenteDetalleReporte.jsp" method="POST">
+                                                    <form action="${pageContext.request.contextPath}/jsp/SOPORTE/EVENTOS/IngDetalleReporte.jsp" method="POST">
                                                     <input type="text" name="folio" id="folio" value="<%=folio%>" hidden />
                                                     <input type="text" name="etiqueta" id="etiqueta" value="<%=etiqueta%>" hidden />
                                                     <input type="submit" class="waves-effect waves-light light-blue btn" value="Revisar"/>
@@ -246,7 +213,8 @@ and open the template in the editor.
                                             </tr>
                                             <%}%>
                                         </table>
-                                    </div> 
+                                        
+                                    </div>    
                                     <div class="row" >
                                         <h6 class="blue3">CERRADOS<h6>
                                         <table>
@@ -282,7 +250,7 @@ and open the template in the editor.
                                                 <td><%=fResol%></td>
                                                 <td><%=fTermino%></td>
                                                 <td>
-                                                    <form action="${pageContext.request.contextPath}/jsp/SOPORTE/EVENTOS/GerenteDetalleReporte.jsp" method="POST">
+                                                    <form action="${pageContext.request.contextPath}/jsp/SOPORTE/EVENTOS/IngDetalleReporte.jsp" method="POST">
                                                     <input type="text" name="folio" id="folio" value="<%=folio%>" hidden   />
                                                     <input type="text" name="etiqueta" id="etiqueta" value="<%=etiqueta%>" hidden   />
                                                     <input type="submit" class="waves-effect waves-light light-blue btn" value="Revisar"/>

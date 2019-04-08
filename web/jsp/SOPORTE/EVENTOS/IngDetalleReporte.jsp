@@ -1,6 +1,6 @@
 <%-- 
-    Document   : DetalleReporte
-    Created on : 3/04/2019, 09:13:05 PM
+    Document   : IngDetalleReporte
+    Created on : 7/04/2019, 09:01:45 PM
     Author     : ACIE-PC
 --%>
 
@@ -25,12 +25,11 @@ and open the template in the editor.
     Usuario user = new Usuario();
     user = (Usuario) sesi.getAttribute("usuario");
     
-    if(user.getIdTipoUsuario() != 3){//Revisa que sea un usuario de tipo Gerente
+    if(user.getIdTipoUsuario() != 4){//Revisa que sea un usuario de tipo ingeniero
         RequestDispatcher rd = request.getRequestDispatcher("jsp/SOPORTE/EVENTOS/InicioEventos.jsp");
         rd.forward(request, response);
     }
     
-    ArrayList <Reporte> repsNA = new ArrayList();//Lista de reportes no asignados
     ArrayList <Reporte> repsPen = new ArrayList();//Lista de reportes pendientes
     ArrayList <Reporte> repsCerr = new ArrayList();//Lista de reportes cerrados
     
@@ -76,11 +75,6 @@ and open the template in the editor.
     ConsultaUsuario cu = new ConsultaUsuario();
     clientes = cu.consultaTipoUsuario(1);
     
-    //Para select de asignar
-    String asignarT = "";
-    String ing = "";
-    ArrayList <Usuario> ings = new ArrayList();
-    ings = cu.consultaTipoUsuario(4);
     
 
 %>
@@ -100,13 +94,13 @@ and open the template in the editor.
                     <a href="${pageContext.request.contextPath}/index.jsp" class="brand-logo"><img class="responsive-img center-align" style="padding: 10px" src="${pageContext.request.contextPath}/img/logoT.png"></a>
                     <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                     <ul class="right hide-on-med-and-down">
-                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/SOPORTE/EVENTOS/GerenteLevantarReporte.jsp">Alta Reporte</a></li>
-                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/SOPORTE/EVENTOS/GerenteVerReportes.jsp">Ver Reportes</a></li>
+                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/SOPORTE/EVENTOS/IngLevantarReporte.jsp">Alta Reporte</a></li>
+                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/SOPORTE/EVENTOS/IngVerReportes.jsp">Ver Reportes</a></li>
                         <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/SOPORTE/EVENTOS/InicioEventos.jsp">Cerrar Sesión</a></li>
                     </ul>
                     <ul class="sidenav" id="mobile-demo">
-                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/SOPORTE/EVENTOS/GerenteLevantarReporte.jsp">Alta Reporte</a></li>
-                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/SOPORTE/EVENTOS/GerenteVerReportes.jsp">Ver Reportes</a></li>
+                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/SOPORTE/EVENTOS/IngLevantarReporte.jsp">Alta Reporte</a></li>
+                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/SOPORTE/EVENTOS/IngVerReportes.jsp">Ver Reportes</a></li>
                         <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/SOPORTE/EVENTOS/InicioEventos.jsp">Cerrar Sesión</a></li>
                     </ul>
                 </div>
@@ -133,40 +127,19 @@ and open the template in the editor.
                                                 <td>
                                                 <select id="etiqueta"  name="etiqueta">
                                                     <option value="<%=etiqueta%>" selected><%=etiqueta%></option>
-                                                    <option value="No asignado">No asignado</option>
                                                     <option value="Pendiente">Pendiente</option>
-                                                    <option value="Cerrado">Cerrado</option>
                                                     <option value="Resuelto">Resuelto</option>
+                                                    <option value="Cerrado">Cerrado</option>
                                                 </select>
                                                 </td></tr>
                                             <tr><th>Fecha inicio</th>
                                                 <td><input name="fInicio" id="fInicio" type="date" value="<%=fInicio%>"></td></tr>
                                             <tr><th>Levantado por:</th>
                                                 <td><input name="levanta" id="levanta" type="text" value="<%=levanta%>"></td></tr>
-                                            
-                                            <tr><%if(etiqueta.equals("No asignado")){
-                                                    asignarT = "Asignar a:";
-                                                %>
-                                                    <th><%=asignarT%></th>
-                                                    <td><select id="asigna"  name="asigna">
-                                                        <option value="" selected disabled>Elige un ingeniero de soporte</option>
-                                                        <%
-                                                            for(int i = 0; i < ings.size(); i++){
-                                                               userX = ings.get(i);
-                                                               ing = userX.getUsuario();
-                                                        %>
-                                                        <option value="<%=ing%>" ><%=ing%></option>
-                                                        <%  }%>
-                                                    </select> 
-                                                    </td>
-                                                <%
-                                                } else if(etiqueta.equals("Pendiente") || etiqueta.equals("Cerrado")|| etiqueta.equals("Resuelto")){
-                                                    asignarT = "Asignado a:";%>
-                                                <th><%=asignarT%></th>
-                                                <td><input name="asigna" id="asigna" type="text" value="<%=asigna%>"></td>
-                                                
-                                                <%} %>
-                                                </tr>
+                                            <tr><th>Asignado a:</th>
+                                                <td><input name="asigna" id="asigna" type="text" value="<%=asigna%>"></td></tr>
+                                            <tr><th>Especificaciones</th>
+                                                <td><textarea class="materialize-textarea" name="especifica" id="especifica" type="text"><%=especifica%></textarea></td></tr>
                                             <%if(etiqueta.equals("Resuelto")){ %>
                                                 <tr><th>Fecha resolucion</th>
                                                 <td><input name="fResol" id="fResol" type="date" value="<%=fResol%>"></td></tr>
@@ -177,9 +150,6 @@ and open the template in the editor.
                                                 <tr><th>Cerrado por:</th>
                                                 <td><input name="cierra" id="cierra" type="text" value="<%=cierra%>"></td></tr>
                                             <%}%>
-                                            
-                                            <tr><th>Especificaciones</th>
-                                                <td><textarea class="materialize-textarea" name="especifica" id="especifica" type="text"><%=especifica%></textarea></td></tr>
                                             <tr><td><input class="waves-effect waves-light light-blue btn" type="submit" value="Guardar cambios"></td></tr>
                                         </table>
                                         </form>

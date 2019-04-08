@@ -1,6 +1,6 @@
 <%-- 
-    Document   : UsOperador
-    Created on : 12/03/2019, 09:55:07 PM
+    Document   : IngLevantarReporte
+    Created on : 7/04/2019, 09:02:20 PM
     Author     : ACIE-PC
 --%>
 
@@ -18,11 +18,11 @@ and open the template in the editor.
     HttpSession sesi = request.getSession();
     //if (sesi.getAttribute("ID") != null) {
     
-    //Revisa que sea un usuario de tipo Gerente
+    //Revisa que sea un usuario de tipo ingeniero
     Usuario user = new Usuario();
     user = (Usuario) sesi.getAttribute("usuario");
     
-    if(user.getIdTipoUsuario() != 3){
+    if(user.getIdTipoUsuario() != 4){
         RequestDispatcher rd = request.getRequestDispatcher("jsp/SOPORTE/EVENTOS/InicioEventos.jsp");
         rd.forward(request, response);
     }
@@ -52,13 +52,13 @@ and open the template in the editor.
                     <a href="${pageContext.request.contextPath}/index.jsp" class="brand-logo"><img class="responsive-img center-align" style="padding: 10px" src="${pageContext.request.contextPath}/img/logoT.png"></a>
                     <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                     <ul class="right hide-on-med-and-down">
-                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/SOPORTE/EVENTOS/GerenteLevantarReporte.jsp">Alta Reporte</a></li>
-                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/SOPORTE/EVENTOS/GerenteVerReportes.jsp">Ver Reportes</a></li>
+                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/SOPORTE/EVENTOS/IngLevantarReporte.jsp">Alta Reporte</a></li>
+                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/SOPORTE/EVENTOS/IngVerReportes.jsp">Ver Reportes</a></li>
                         <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/SOPORTE/EVENTOS/InicioEventos.jsp">Cerrar Sesión</a></li>
                     </ul>
                     <ul class="sidenav" id="mobile-demo">
-                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/SOPORTE/EVENTOS/GerenteLevantarReporte.jsp">Alta Reporte</a></li>
-                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/SOPORTE/EVENTOS/GerenteVerReportes.jsp">Ver Reportes</a></li>
+                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/SOPORTE/EVENTOS/IngLevantarReporte.jsp">Alta Reporte</a></li>
+                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/SOPORTE/EVENTOS/IngVerReportes.jsp">Ver Reportes</a></li>
                         <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/SOPORTE/EVENTOS/InicioEventos.jsp">Cerrar Sesión</a></li>
                     </ul>
                 </div>
@@ -68,7 +68,7 @@ and open the template in the editor.
             <div class="row">
                 <div class="col s12 m12 l12 xl12">
                     <div class="section white z-depth-3 center-align">
-                        <h4>Reportes de eventos - Gerencia</h4>  
+                        <h4>Reportes de eventos - Ingeniero de soporte</h4>  
                     </div>
 
                     <br><br>
