@@ -77,22 +77,10 @@ and open the template in the editor.
     
     for(int i = 0; i< reps.size();i++){
         rep = reps.get(i);
-        if(rep.getEtiqueta().equals("No asignado")){
-            repsNA.add(rep);
-        } else if(rep.getEtiqueta().equals("Cerrado")){
+        if(rep.getEtiqueta().equals("Cerrado")){
             repsCerr.add(rep);
-        } else if(rep.getEtiqueta().equals("Pendiente")){
-            repsPen.add(rep);
-        } else if(rep.getEtiqueta().equals("Resuelto")){
-            repsRes.add(rep);
         } 
     }
-
-    request.setAttribute("repsNA", repsNA);
-    request.setAttribute("repsCerr", repsCerr);
-    request.setAttribute("repsPen", repsPen);
-    
-    
 %>
 <html>
     <head>
