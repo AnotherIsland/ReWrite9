@@ -4,6 +4,7 @@
     Author     : ACIE-PC
 --%>
 
+<%@page import="model.Usuario"%>
 <%@page import="java.sql.SQLException"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.sql.ResultSet"%>
@@ -18,6 +19,16 @@ and open the template in the editor.
 <%
     HttpSession sesi = request.getSession();
     //if (sesi.getAttribute("ID") != null) {
+    
+    Usuario user = new Usuario();
+    
+    user = (Usuario) sesi.getAttribute("usuario");
+    
+    if(user.getIdTipoUsuario() != 6){//Revisa que sea un usuario de tipo Gerente
+        RequestDispatcher rd = request.getRequestDispatcher("jsp/SOPORTE/EVENTOS/InicioEventos.jsp");
+        rd.forward(request, response);
+    }
+    
     
     DataBase db = new DataBase();
     ResultSet res;
@@ -69,10 +80,14 @@ and open the template in the editor.
                     <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                     <ul class="right hide-on-med-and-down">
                         <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/SOPORTE/FAQS/InicioFAQs.jsp">Cerrar Sesión</a></li>
+                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/SOPORTE/FAQS/VerReportes.jsp">Ver Reportes</a></li>
+                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/SOPORTE/FAQS/Editor.jsp">FAQS</a></li>
                     </ul>
                     <ul class="sidenav" id="mobile-demo">
                         <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/SOPORTE/FAQS/InicioFAQs.jsp">Cerrar Sesión</a></li>
-                    </ul>
+                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/SOPORTE/FAQS/VerReportes.jsp">Ver Reportes</a></li>
+                        <li><a class=" text-accent-4" href="${pageContext.request.contextPath}/jsp/SOPORTE/FAQS/Editor.jsp">FAQS</a></li>
+                    </ul> 
                 </div>
             </nav>
         </div>
