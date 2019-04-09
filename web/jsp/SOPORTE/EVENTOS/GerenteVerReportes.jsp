@@ -62,9 +62,6 @@ and open the template in the editor.
         res = db.query("select * from reporte;");
 
         while(res.next()) {
-            System.out.println(res.getInt("idUsuarioLevanta"));
-            System.out.println(res.getInt("idUsuarioAsigna"));
-            System.out.println(res.getInt("idUsuarioCierra"));
                 levanta= crep.consultaUsuario(res.getInt("idUsuarioLevanta"));  
                 asigna= crep.consultaUsuario(res.getInt("idUsuarioAsigna"));  
                 cierra= crep.consultaUsuario(res.getInt("idUsuarioCierra")); 

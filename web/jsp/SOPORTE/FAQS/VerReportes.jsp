@@ -28,16 +28,13 @@ and open the template in the editor.
     
     user = (Usuario) sesi.getAttribute("usuario");
     
-    if(user.getIdTipoUsuario() != 6){//Revisa que sea un usuario de tipo Gerente
+    if(user.getIdTipoUsuario() != 6){//Revisa que sea un usuario de tipo editor
         RequestDispatcher rd = request.getRequestDispatcher("jsp/SOPORTE/Login.jsp");
         rd.forward(request, response);
     }
     
     Reporte rep = null;
     ArrayList <Reporte> reps = new ArrayList();//Lista de reportes 
-    ArrayList <Reporte> repsNA = new ArrayList();//Lista de reportes no asignados
-    ArrayList <Reporte> repsPen = new ArrayList();//Lista de reportes pendientes
-    ArrayList <Reporte> repsRes = new ArrayList();//Lista de reportes resueltos
     ArrayList <Reporte> repsCerr = new ArrayList();//Lista de reportes cerrados
     
     ConsultaReporte crep = new ConsultaReporte();
@@ -63,9 +60,6 @@ and open the template in the editor.
         res = db.query("select * from reporte;");
 
         while(res.next()) {
-            System.out.println(res.getInt("idUsuarioLevanta"));
-            System.out.println(res.getInt("idUsuarioAsigna"));
-            System.out.println(res.getInt("idUsuarioCierra"));
                 levanta= crep.consultaUsuario(res.getInt("idUsuarioLevanta"));  
                 asigna= crep.consultaUsuario(res.getInt("idUsuarioAsigna"));  
                 cierra= crep.consultaUsuario(res.getInt("idUsuarioCierra")); 
