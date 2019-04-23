@@ -8,7 +8,7 @@
 <%
     HttpSession sesi = request.getSession();
     
-    /*if (sesi.getAttribute("ID") != null) {
+    /*if (sesi.getAttribute("ID") != null) {*/
     String sello = "";    
     if (request.getAttribute("sello") != null) {
         sello = request.getAttribute("sello").toString();
@@ -49,10 +49,8 @@
                     </ul>
                 </div>
             </nav>
-
         </div>
         <div class="container">
-
             <div class="row"> 
                 <div class="section grey col s3 m3 l3 xl3"><!--Sidebar para consejos y revisiones-->
                     <h2 class="white-text">Lírica</h2>
@@ -70,7 +68,7 @@
                             <li>
                                 <div class="collapsible-header"><i class="material-icons">book</i>Rima</div>
                                 <div class="collapsible-body">
-                                    <span class="white-text">consejo</span><!--aquí va el consejo-->
+                                    <span class="white-text" >consejo</span><!--aquí va el consejo-->
                                 </div>
                             </li>
                             <li>
@@ -111,8 +109,9 @@
                     <form action="${pageContext.request.contextPath}/GuardarObra" method="POST">
                         <input type="text" name="tipo" id="tipo" value="lirica" hidden="true">
                         <input type="submit" class="btn waves-effect waves-light right" name="guardar" id="guardar" value="Guardar"><br><br>
-                        <div contenteditable="true" class="oculto">
-                            <input type="button" class="btn waves-effect waves-light right" name="revisar" id="revisar" value="Revisar" onclick="revEnsayo();"><br><br>
+                        <input type="button" class="btn waves-effect waves-light right" name="revisar" id="revisar" value="Revisar" onclick="cuentaSilabas()"><br><br>
+                        <div contenteditable="true" class="oculto" >
+                            
                             <p>Este es un ejemplo de un texto.
                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                                 sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -122,6 +121,7 @@
                                 Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
                                 deserunt mollit anim id est laborum.</p>
                         </div>
+                        <input type="text" id="prueba" name="prueba">
                         <hr>
                             <label for=""><h6>Sello</h6></label>
                             <p><%=sello%></p>
@@ -169,12 +169,13 @@
         </div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/materialize.min.js"></script>
-        <script type="text/javascript" src="${pageContext.request.contextPath}/js/init.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/js/lirica.js"></script>
+        
     </body>
 </html>
 <% /*} 
     else {
     RequestDispatcher rd = request.getRequestDispatcher("../Login.jsp");
-                rd.forward(request, response);*/
-}%>
+                rd.forward(request, response);
+}*/%>
 
