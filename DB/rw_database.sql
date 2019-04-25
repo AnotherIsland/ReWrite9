@@ -64,6 +64,9 @@ LOCK TABLES `tipoobra` WRITE;
 UNLOCK TABLES;
 insert into tipoobra values (1, 'ensayo');
 insert into tipoobra values (2, 'resumen');
+insert into tipoobra values (3, 'narrativo');
+insert into tipoobra values (4, 'lirico');
+insert into tipoobra values (5, 'lienzo');
 
 DROP TABLE IF EXISTS `obra`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -104,7 +107,7 @@ DROP TABLE IF EXISTS `lienzo`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `lienzo` (
-  `idLienzo` int(11) NOT NULL,
+  `idLienzo` int(11) NOT NULL auto_increment,
   `contenido` longtext,
   `idObra7` int(11) DEFAULT NULL,
   PRIMARY KEY (`idLienzo`),
@@ -164,7 +167,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `narrativo`;
 CREATE TABLE `narrativo` (
-  `idNarrativo` int(11) NOT NULL,
+  `idNarrativo` int(11) NOT NULL auto_increment,
   `exposicion` text,
   `desarrollo` longtext,
   `climax` longtext,
@@ -180,7 +183,8 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `lirico`;
 CREATE TABLE `lirico` (
-  `idLirico` int(11) NOT NULL,
+  `idLirico` int(11) NOT NULL auto_increment,
+  `contenido` longtext,
   `idObra5` int(11) DEFAULT NULL,
   PRIMARY KEY (`idLirico`),
   CONSTRAINT `idObra5` FOREIGN KEY (`idObra5`) REFERENCES `obra` (`idObra`) ON DELETE NO ACTION ON UPDATE NO ACTION
