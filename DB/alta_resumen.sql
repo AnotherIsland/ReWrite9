@@ -9,7 +9,9 @@ BEGIN
 DECLARE ID INT;
 DECLARE validar INT;
 DECLARE ID1 INT;
-call alta_obra(_titulo);
+DECLARE _tipo INT;
+SET _tipo = 2;
+call alta_obra(_titulo,_tipo);
 
 	SELECT (max(idResumen)+1) INTO ID FROM resumen limit 1;
 	SELECT (max(idObra)) INTO ID1 FROM obra limit 1;

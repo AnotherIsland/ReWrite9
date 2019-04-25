@@ -1,7 +1,8 @@
 drop procedure if exists `alta_obra`;
 DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `alta_obra`(
-in _titulo varchar(45)
+in _titulo varchar(45),
+in _tipo INT
 )
 BEGIN
 	DECLARE validar INT;
@@ -10,7 +11,7 @@ BEGIN
 	if validar = 0 THEN
     SELECT (max(idObra)+1) INTO ID1 FROM obra limit 1;
 	#the value estados_id its a auto_increment value, just call to add the value...
-	INSERT INTO obra(idObra,tipo, titulo, fecha) VALUES(ID1,2, _titulo,current_timestamp);
+	INSERT INTO obra(idObra,tipo, titulo, fecha) VALUES(ID1,_tipo, _titulo,current_timestamp);
     
     ELSE
 		SELECT CONCAT('La obra: ',_titulo,' no se puede crear justo ahora. Intentar más tarde.') ESTADO;

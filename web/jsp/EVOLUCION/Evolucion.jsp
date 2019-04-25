@@ -4,6 +4,9 @@
     Author     : Axolotech
 --%>
 
+<%@page import="java.sql.SQLException"%>
+<%@page import="Database.DataBase"%>
+<%@page import="java.sql.ResultSet"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -16,9 +19,69 @@
   <title>ReWrite - Evolución</title>
 </head>
 <body>
-    <%
+    <% 
         HttpSession sesi = request.getSession();
-        if (sesi.getAttribute("ID") != null) {
+        String idUs = sesi.getAttribute("idUsuario").toString();
+        /*if (sesi.getAttribute("ID") != null) {*/
+        
+        DataBase db = new DataBase();
+        ResultSet rs = null;
+        
+        int numObras = 0;
+        int numRes = 0;
+        int numEns = 0;
+        int numLir = 0;
+        int numLie = 0;
+        int numNar = 0;
+ 
+        try {
+                db.connect();
+                rs = db.query("select count(*) from obra inner join tipoobra on obra.tipo = tipoobra.idtipoObra "
+                        + "inner join relobrausu on relobrausu.idObra = obra.idObra "
+                        + "where idUsuario = "+idUs+";");
+                while(rs.next()){
+                   numObras = rs.getInt("count(*)");                  
+                } 
+                
+                rs = db.query("select count(*) from obra inner join tipoobra on obra.tipo = tipoobra.idtipoObra "
+                        + "inner join relobrausu on relobrausu.idObra = obra.idObra "
+                        + "where tipoobra.tipoObra = 'resumen' and idUsuario = "+idUs+";");
+                while(rs.next()){
+                   numRes = rs.getInt("count(*)");                  
+                }
+                
+                rs = db.query("select count(*) from obra inner join tipoobra on obra.tipo = tipoobra.idtipoObra "
+                        + "inner join relobrausu on relobrausu.idObra = obra.idObra "
+                        + "where tipoobra.tipoObra = 'ensayo' and idUsuario = "+idUs+";");
+                while(rs.next()){
+                   numEns = rs.getInt("count(*)");                  
+                }
+                
+                rs = db.query("select count(*) from obra inner join tipoobra on obra.tipo = tipoobra.idtipoObra "
+                        + "inner join relobrausu on relobrausu.idObra = obra.idObra "
+                        + "where tipoobra.tipoObra = 'narrativo' and idUsuario = "+idUs+";");
+                while(rs.next()){
+                   numNar = rs.getInt("count(*)");                  
+                }
+                
+                rs = db.query("select count(*) from obra inner join tipoobra on obra.tipo = tipoobra.idtipoObra "
+                        + "inner join relobrausu on relobrausu.idObra = obra.idObra "
+                        + "where tipoobra.tipoObra = 'lirica' and idUsuario = "+idUs+";");
+                while(rs.next()){
+                   numLir = rs.getInt("count(*)");                  
+                }
+                
+                rs = db.query("select count(*) from obra inner join tipoobra on obra.tipo = tipoobra.idtipoObra "
+                        + "inner join relobrausu on relobrausu.idObra = obra.idObra "
+                        + "where tipoobra.tipoObra = 'lienzo' and idUsuario = "+idUs+";");
+                while(rs.next()){
+                   numLie = rs.getInt("count(*)");                  
+                }
+                
+                db.closeConnection();
+            } catch (SQLException error) {
+                System.out.println(error.toString());
+            }
         %>
 <div class="" name="header">
   <nav>
@@ -53,7 +116,15 @@
           <div class="row">
             <h5 class="white-text">Obras realizadas</h5><hr class="blue lighten-1">
             <div class="col s12 m12 l12 xl12 " >
-                <div class="center"><img class="responsive-img" src="${pageContext.request.contextPath}/img/graph1.png"></div>
+                <div class="center">
+                    <canvas id="myChart" class="white-text"></canvas>
+                    <input name="total" id="total" value="<%=numObras%>" hidden/>
+                    <input name="lie" id="lie" value="<%=numLie%>" hidden/>
+                    <input name="ens" id="ens" value="<%=numEns%>" hidden/>
+                    <input name="nar" id="nar" value="<%=numNar%>" hidden/>
+                    <input name="lir" id="lir" value="<%=numLir%>" hidden/>
+                    <input name="res" id="res" value="<%=numRes%>" hidden/>
+                   </div>
             </div>
           </div>
           <div class="row">
@@ -64,14 +135,16 @@
           </div>
   </div><br><br>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0">        </script>
+<script src="../../js/evolucion.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/materialize.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/init.js"></script>
-<% } 
+<% /*} 
     else {
     RequestDispatcher rd = request.getRequestDispatcher("../Login.jsp");
                 rd.forward(request, response);
-}%>
+}*/%>
 </body>
 </html>
 
