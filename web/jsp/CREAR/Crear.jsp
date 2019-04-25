@@ -73,7 +73,7 @@ and open the template in the editor.
                                     </div>
                                 </div>
                             </div>
-                            <div class="col s10 m4 l3 xl3 offset-xl2 offset-l2 ">
+                            <!--<div class="col s10 m4 l3 xl3 ">
                                 <h5>Textos Científicos</h5>
                                 <div class="card z-depth-3">
                                     <div class="card-image">
@@ -84,10 +84,9 @@ and open the template in the editor.
                                         <span class="card-title">Artículo de investigación</span>
                                         <p></p>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col s10 m4 l3 xl3">
-                                <br><br>
+                            </div>-->
+                            <div class="col s10 m4 l3 xl3 offset-l3 offset-m3 offset-s3 offset-xl3">
+                                <h5>Textos Escolares</h5>
                                 <div class="card z-depth-3">
                                     <div class="card-image">
                                         <img src="../../img/plantilla.png">
@@ -95,6 +94,19 @@ and open the template in the editor.
                                     </div>
                                     <div class="card-content">
                                         <span class="card-title">Resumen</span>
+                                        <p></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col s10 m4 l3 xl3">
+                                <br><br>
+                                <div class="card z-depth-3">
+                                    <div class="card-image">
+                                        <img src="../../img/plantilla.png">
+                                        <a class="btn-floating halfway-fab waves-effect waves-light " href="Ensayo.jsp"><i class="material-icons">add</i></a>
+                                    </div>
+                                    <div class="card-content">
+                                        <span class="card-title">Ensayo</span>
                                         <p></p>
                                     </div>
                                 </div>

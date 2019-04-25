@@ -6,6 +6,7 @@
 package controller;
 
 import Database.DataBase;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
@@ -127,7 +128,6 @@ public class MisObras extends HttpServlet {
                 squery = "select * from obra inner join resumen on idObra = idObra1 where idObra =" + idObra + ";";
             }
             
-            
             crea = new creaPDF();
             path = "G:/RW_ElBuenisimo/pdf/" + titulo + ".pdf";
 
@@ -140,11 +140,20 @@ public class MisObras extends HttpServlet {
                         desa = rs.getString("desarrollo");
                         conclu = rs.getString("conclusion");
                         //refe = rs.getString("refe");
-                        crea.ensayoPDF(titulo,intro,desa,conclu,refe,path);
+                        ByteArrayOutputStream output = new ByteArrayOutputStream();
+                        output = crea.ensayoPDF(titulo,intro,desa,conclu,refe,path);                      
+                        response.addHeader("Content-Type", "application/force-download"); 
+                        response.addHeader("Content-Disposition", "attachment; filename="+titulo);
+                        response.getOutputStream().write(output.toByteArray());
                     } else if (tipo.equals("2")) {//Resumen
                         contenido = rs.getString("contenido");
                         //refe = rs.getString("refe");
-                        crea.resumenPDF(titulo,contenido,refe,path);
+                        
+                        ByteArrayOutputStream output = new ByteArrayOutputStream();
+                        output = crea.resumenPDF(titulo,contenido,refe,path);                      
+                        response.addHeader("Content-Type", "application/force-download"); 
+                        response.addHeader("Content-Disposition", "attachment; filename="+titulo);
+                        response.getOutputStream().write(output.toByteArray());
                     }
                 }
                 db.closeConnection();
@@ -152,8 +161,8 @@ public class MisObras extends HttpServlet {
                 System.out.println(error.toString());
             }
         }
-        RequestDispatcher rd = request.getRequestDispatcher("jsp/MISOBRAS/MisObras.jsp");
-        rd.forward(request, response);
+        //RequestDispatcher rd = request.getRequestDispatcher("jsp/MISOBRAS/MisObras.jsp");
+        //rd.forward(request, response);
     }
 
     /**
