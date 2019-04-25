@@ -131,7 +131,7 @@ public class Servicio {
         String resu="";
         try{
             db.connect();
-            db.update("update usuario set contraseña = '"+contraN+"' where idUsuario="+ID+" ;");
+            db.update("update usuario set pass = '"+contraN+"' where idUsuario="+ID+" ;");
             resu="actualizado :)";
             db.closeConnection();
         }

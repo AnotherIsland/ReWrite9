@@ -53,7 +53,7 @@ public class EnviaCorreo extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        request.setCharacterEncoding("UTF-8");
         DataBase db = new DataBase();
         ResultSet rs;
         AdminSello asello = new AdminSello();

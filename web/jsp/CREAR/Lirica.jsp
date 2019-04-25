@@ -7,6 +7,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     HttpSession sesi = request.getSession();
+    request.setCharacterEncoding("UTF-8");
+    response.setContentType("text/html;charset=UTF-8");
     
     /*if (sesi.getAttribute("ID") != null) {*/
     String sello = "";    

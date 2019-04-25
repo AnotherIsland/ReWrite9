@@ -8,6 +8,8 @@
 <%@page import="javax.servlet.http.HttpSession"%>
 <%
     HttpSession sesi = request.getSession();
+    request.setCharacterEncoding("UTF-8");
+    response.setContentType("text/html;charset=UTF-8");
     
     if (sesi.getAttribute("ID") != null) {
     String sello = "";    

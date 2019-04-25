@@ -18,6 +18,8 @@ and open the template in the editor.
 -->
 <%
     HttpSession sesi = request.getSession();
+    request.setCharacterEncoding("UTF-8");
+    response.setContentType("text/html;charset=UTF-8");
     //if (sesi.getAttribute("ID") != null) {
     
     Usuario user = new Usuario();

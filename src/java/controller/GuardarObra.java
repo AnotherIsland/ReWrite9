@@ -58,7 +58,7 @@ public class GuardarObra extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
 
         DataBase db = new DataBase();
@@ -69,7 +69,7 @@ public class GuardarObra extends HttpServlet {
 
         //Variables que dependen del tipo de texto
         String tipo = request.getParameter("tipo");
-        String titulo = request.getParameter("titulo");
+        String titulo = java.net.URLDecoder.decode(request.getParameter("titulo"), "ISO-8859-1");
         String sello = request.getParameter("sello");
         String intro = "";
         String desa = "";

@@ -28,6 +28,7 @@ public class Ajustes extends HttpServlet {
 
     private String usuario1 = "";
     private String pass = "";
+    private String correo = "";
     private int us = 0;
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -55,7 +56,7 @@ public class Ajustes extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
         
         DataBase db = new DataBase();
@@ -68,12 +69,13 @@ public class Ajustes extends HttpServlet {
         
         try{
             db.connect();
-            rs = db.query("select idUsuario,usuario from usuario where usuario = '"+usuario1+"' or correo = '"+usuario1+"'");
+            rs = db.query("select * from usuario where usuario = '"+usuario1+"' or correo = '"+usuario1+"'");
                 
             if(rs.next()) {
                 us = rs.getInt("idUsuario");
                 System.out.println("El usuario es: "+us);
                 usuario1 = rs.getNString("usuario");
+                correo = rs.getNString("correo");
             }
             db.closeConnection();
         }
@@ -81,10 +83,8 @@ public class Ajustes extends HttpServlet {
             System.out.println(error.toString());
         }
         
-        
         String id = "";
         id = Integer.toString(us);
-                 
         
         String emai = request.getParameter("correo");
         String usuario=request.getParameter("usuario");
@@ -94,17 +94,21 @@ public class Ajustes extends HttpServlet {
          
         if(usuario!=null){
             System.out.println(serv.actUsuario(usuario, id));
+            sesi.removeAttribute("username");
+            sesi.setAttribute("username", usuario);
         }
-        if(emai!=null){        
-        
-        System.out.println(serv.actCorreo(emai, id));
+        if(emai!=null){  
+            System.out.println(serv.actCorreo(emai, id));
+            sesi.removeAttribute("Email");
+            sesi.setAttribute("Email", emai);
         }
         if(Cnueva!=null){
+            System.out.println(serv.actContra(Cnueva,Cvieja, id));
+            sesi.removeAttribute("pass");
+            sesi.setAttribute("pass", Cnueva);
+        }                 
         
-        System.out.println(serv.actContra(serv.cifrado(Cnueva),serv.cifrado(Cvieja), id));
-        }
-        
-           RequestDispatcher rd = request.getRequestDispatcher("jsp/AJUSTES/Ajustes.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("jsp/AJUSTES/Ajustes.jsp");
                 rd.forward(request, response);
     }
 
