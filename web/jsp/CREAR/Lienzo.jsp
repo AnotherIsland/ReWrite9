@@ -105,9 +105,10 @@
     </div>
     <div class="section white col s8 m8 l8 xl8"><!--contenido principal donde se escribe-->
       <div>
-        <form name="form1" id="form1">
-            <input type="text" name="tipo" id="tipo" value="lienzo" hidden="true">
+        <form action="${pageContext.request.contextPath}/GuardarObra" method="POST">
             <input type="button" class="btn waves-effect waves-light right" name="revisar" id="revisar" value="Revisar" onclick="revEnsayo();"><br><br>
+            <input type="text" name="titulo" class="input-field oculto " placeholder="Título" >
+            <input type="text" name="tipo" id="tipo" value="lienzo" hidden="true">
             <input type="text" name="contenido" id="contenido" class="input-field oculto " placeholder="Escribe aquí..." >
             <input type="submit" class="btn waves-effect waves-light" name="guardar" id="guardar" value="Guardar"><br><br>
         </form>

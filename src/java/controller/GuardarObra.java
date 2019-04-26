@@ -86,6 +86,20 @@ public class GuardarObra extends HttpServlet {
         //Obtiene parámetros según tipo de Obra
         if (tipo.equals("lienzo")) {
             contenido = request.getParameter("contenido");
+            regreso = "jsp/CREAR/Lienzo.jsp";
+
+            try {//Da de alta lirico 
+                db.connect();
+                CallableStatement call = db.procedure("{call alta_lienzo (?,?)}");
+                call.setString(1, titulo);
+                call.setString(2, contenido);
+                call.execute();
+                call.close();
+
+                db.closeConnection();
+            } catch (SQLException error) {
+                System.out.println(error.toString());
+            }
 
         } else if (tipo.equals("ensayo")) {
             intro = request.getParameter("intro");
