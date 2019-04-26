@@ -21,10 +21,23 @@ public class Resumen implements Serializable {
     private Integer idResumen;
     private String contenido;
     private String claves;
+    private String referencias;
+
+ 
     private Integer idReferencias;
 
     public Resumen() {
+        
     }
+
+    public Resumen(Integer idResumen, String contenido, String claves, String referencias) {
+        this.idResumen = idResumen;
+        this.contenido = contenido;
+        this.claves = claves;
+        this.referencias = referencias;
+    }
+    
+    
 
     public Resumen(Integer idResumen) {
         this.idResumen = idResumen;
@@ -36,6 +49,14 @@ public class Resumen implements Serializable {
 
     public void setIdResumen(Integer idResumen) {
         this.idResumen = idResumen;
+    }
+    
+       public String getReferencias() {
+        return referencias;
+    }
+
+    public void setReferencias(String referencias) {
+        this.referencias = referencias;
     }
 
     public String getContenido() {

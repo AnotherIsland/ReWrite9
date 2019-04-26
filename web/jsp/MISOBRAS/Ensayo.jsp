@@ -5,6 +5,14 @@
 --%>
 
 
+<%@page import="model.Ensayo"%>
+<%@page import="model.Resumen"%>
+<%@page import="controller.AdminObras"%>
+<%@page import="java.sql.SQLException"%>
+<%@page import="Database.DataBase"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="model.Obra"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="javax.servlet.http.HttpSession"%>
 <%
@@ -16,6 +24,28 @@
     String sello = "";    
     if (request.getAttribute("sello") != null) {
         sello = request.getAttribute("sello").toString();
+    }
+    
+    Obra obraX = null;
+    Ensayo ens = null;
+    AdminObras ao = new AdminObras();
+    String titulo = "";
+    String intro = "";
+    String desa = "";
+    String conclu = "";
+    String refe = "";
+
+    
+    if(request.getParameter("idObra") != null){
+        
+        obraX = ao.buscaObraporID(Integer.parseInt(request.getParameter("idObra")));
+               
+        ens = ao.getEns();
+        titulo = obraX.getTitulo();
+        intro = ens.getIntro();
+        desa = ens.getDesarrollo();
+        conclu = ens.getConclusion();
+        refe = ens.getReferencias();
     }
 %>
 <!DOCTYPE html>
@@ -141,12 +171,12 @@
                         <form name="form1" id="form1" action="${pageContext.request.contextPath}/GuardarObra" method="POST">
                             <input type="text" name="tipo" id="tipo" value="ensayo" hidden="true">
                             <input type="button" class="btn waves-effect waves-light right" name="revisar" id="revisar" value="Revisar" onclick="revEnsayo();"><br><br>
-                            <input type="text" name="titulo" id="titulo" class="input-field oculto " placeholder="Título"  >
-                            <input type="text" name="intro" id="intro" class="input-field oculto " placeholder="Introducción" >
-                            <input type="text" name="desarrollo" id="desarrollo" class="input-field oculto " placeholder="Desarrollo" >
-                            <input type="text" name="conclusion" id="conclusion" class="input-field oculto " placeholder="Conclusión" >
+                            <input type="text" name="titulo" id="titulo" class="input-field oculto " placeholder="Título" value="<%=titulo%>"  >
+                            <input type="text" name="intro" id="intro" class="input-field oculto " placeholder="Introducción" value="<%=intro%>">
+                            <input type="text" name="desarrollo" id="desarrollo" class="input-field oculto " placeholder="Desarrollo" value="<%=desa%>">
+                            <input type="text" name="conclusion" id="conclusion" class="input-field oculto " placeholder="Conclusión" value="<%=conclu%>">
                             <label for="referencias"><h6>Referencias</h6></label>
-                            <div type="text" id="referencias" name="referencias" class="input-field oculto">
+                            <div type="text" id="referencias" name="referencias" class="input-field oculto" value="<%=refe%>">
                                 <!--Aquí se generan las referencias-->
                             </div>
                             <hr>

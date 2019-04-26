@@ -28,6 +28,9 @@ public class Ensayo implements Serializable {
     
     private String conclusion;
  
+    private String referencias;
+
+
 
 
     public Ensayo() {
@@ -36,6 +39,16 @@ public class Ensayo implements Serializable {
     public Ensayo(Integer idEnsayo) {
         this.idEnsayo = idEnsayo;
     }
+
+    public Ensayo(Integer idEnsayo, String intro, String desarrollo, String conclusion, String referencias) {
+        this.idEnsayo = idEnsayo;
+        this.intro = intro;
+        this.desarrollo = desarrollo;
+        this.conclusion = conclusion;
+        this.referencias = referencias;
+    }
+    
+    
 
     public Integer getIdEnsayo() {
         return idEnsayo;
@@ -59,6 +72,14 @@ public class Ensayo implements Serializable {
 
     public void setDesarrollo(String desarrollo) {
         this.desarrollo = desarrollo;
+    }
+    
+        public String getReferencias() {
+        return referencias;
+    }
+
+    public void setReferencias(String referencias) {
+        this.referencias = referencias;
     }
 
     public String getConclusion() {

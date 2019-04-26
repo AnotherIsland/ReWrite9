@@ -13,10 +13,10 @@ DECLARE _tipo INT;
 SET _tipo = 2;
 call alta_obra(_titulo,_tipo);
 
-	SELECT (max(idResumen)+1) INTO ID FROM resumen limit 1;
+	SELECT (max(idresumen)+1) INTO ID FROM resumen limit 1;
 	SELECT (max(idObra)) INTO ID1 FROM obra limit 1;
 	
-    INSERT INTO resumen(idResumen, contenido, idObra1, claves) VALUES (ID, _contenido, ID1, _claves);
+    INSERT INTO resumen(idresumen, contenido, idObra1, claves) VALUES (ID, _contenido, ID1, _claves);
     
 
 END$$

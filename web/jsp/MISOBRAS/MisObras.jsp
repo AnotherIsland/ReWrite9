@@ -121,12 +121,31 @@ and open the template in the editor.
                     fecha = obraX.getFecha();
                     tipo = obraX.getTipo();
                     idObra = obraX.getIdObra();
+                    int type = Integer.parseInt(tipo);
+                    String tipoo = "";
+                    
+                    if(type == 1){
+                        tipoo = "Ensayo";
+                    }else if(type == 2){
+                        tipoo = "Resumen";
+                    }else if(type == 3){
+                        tipoo = "Narrativo";
+                    }else if(type == 4){
+                        tipoo = "Lirica";
+                    }else if(type == 5){
+                        tipoo = "Lienzo";
+                    }
                 %>
               <div class="col s4 m4 l4 xl4 ">
                 <div class="card sticky-action">
                   <div class="card-image">
                     <img src="${pageContext.request.contextPath}/img/plantilla.png">
-                    <a class="btn-floating halfway-fab waves-effect waves-light"><i class="material-icons">create</i></a>
+                    <form action="${pageContext.request.contextPath}/jsp/MISOBRAS/<%=tipoo%>.jsp" method="POST" >
+                        <input name="idObra" type="text" value="<%=idObra%>" hidden/>
+                        <button class="btn-floating halfway-fab waves-effect waves-light">
+                            <i class="material-icons">create</i>
+                        </button>
+                    </form>
                   </div>
                   <div class="card-content">
                     <span class="card-title black-text"><%=titulo%></span><!--Traer titulo de la obra-->
@@ -147,27 +166,6 @@ and open the template in the editor.
               
             </div>
           </div>
-          <!--<div class="row">
-            <h5 class="white-text">Todas mis obras</h5><hr class="blue lighten-1">
-            <div class="col s12 m12 l12 xl12 " >
-              <div class="col s4 m4 l4 xl4 ">
-                <div class="card sticky-action">
-                  <div class="card-image">
-                    <img src="${pageContext.request.contextPath}/img/plantilla.png">
-                    <a class="btn-floating halfway-fab waves-effect waves-light"><i class="material-icons">create</i></a>
-                  </div>
-                  <div class="card-content">
-                    <span class="card-title black-text">Mi primer poema</span>
-                  </div>
-                  <div class="card-action">
-                    <a class=" blue-text " href="#">Descargar PDF<i class="material-icons">file_download</i></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>-->
-
-
         </div>
       </div>
 

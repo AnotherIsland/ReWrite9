@@ -107,7 +107,7 @@ DROP TABLE IF EXISTS `lienzo`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `lienzo` (
-  `idLienzo` int(11) NOT NULL auto_increment,
+  `idlienzo` int(11) NOT NULL auto_increment,
   `contenido` longtext,
   `idObra7` int(11) DEFAULT NULL,
   PRIMARY KEY (`idLienzo`),
@@ -122,7 +122,7 @@ DROP TABLE IF EXISTS `resumen`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `resumen` (
-  `idResumen` int(11) NOT NULL auto_increment,
+  `idresumen` int(11) NOT NULL auto_increment,
   `contenido` mediumtext,
   `idObra1` int(11) DEFAULT NULL,
   `claves` longtext,
@@ -167,7 +167,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `narrativo`;
 CREATE TABLE `narrativo` (
-  `idNarrativo` int(11) NOT NULL auto_increment,
+  `idnarrativo` int(11) NOT NULL auto_increment,
   `exposicion` text,
   `desarrollo` longtext,
   `climax` longtext,
@@ -183,7 +183,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `lirico`;
 CREATE TABLE `lirico` (
-  `idLirico` int(11) NOT NULL auto_increment,
+  `idlirico` int(11) NOT NULL auto_increment,
   `contenido` longtext,
   `idObra5` int(11) DEFAULT NULL,
   PRIMARY KEY (`idLirico`),
@@ -224,7 +224,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `articulo`;
 CREATE TABLE `articulo` (
-  `idArticulo` int(11) NOT NULL,
+  `idarticulo` int(11) NOT NULL,
   `resumen` tinytext,
   `autores` tinytext,
   `materiales` text,

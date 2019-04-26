@@ -33,6 +33,15 @@ public class Narrativo implements Serializable {
     public Narrativo() {
     }
 
+    public Narrativo(Integer idNarrativo, String exposicion, String desarrollo, String climax, String desenlace ) {
+        this.idNarrativo = idNarrativo;
+        this.exposicion = exposicion;
+        this.desarrollo = desarrollo;
+        this.desenlace = desenlace;
+        this.climax = climax;
+    }
+     
+
     public Narrativo(Integer idNarrativo) {
         this.idNarrativo = idNarrativo;
     }

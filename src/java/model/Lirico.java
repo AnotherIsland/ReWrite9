@@ -21,6 +21,15 @@ public class Lirico implements Serializable {
     private Integer idLirico;
  
     private Estrofa idEstrofa;
+    
+    private String contenido;
+
+    public Lirico(Integer idLirico, String contenido) {
+        this.idLirico = idLirico;
+        this.contenido = contenido;
+    }
+    
+    
 
 
     public Lirico() {
