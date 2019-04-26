@@ -132,7 +132,7 @@ public class MisObras extends HttpServlet {
             }
             
             crea = new creaPDF();
-            path = "G:/RW_ElBuenisimo/pdf/" + titulo + ".pdf";
+            path = "D:/ACIE/respaldo-usb/6° semestre/PA/RW_9/ReWrite_SinWS/ReWrite8/" + titulo + ".pdf";
 
             try {
                 db.connect();
@@ -142,7 +142,7 @@ public class MisObras extends HttpServlet {
                         intro = rs.getString("intro");
                         desa = rs.getString("desarrollo");
                         conclu = rs.getString("conclusion");
-                        //refe = rs.getString("refe");
+                        refe = rs.getString("refe");
                         ByteArrayOutputStream output = new ByteArrayOutputStream();
                         output = crea.ensayoPDF(titulo,intro,desa,conclu,refe,path);                      
                         response.addHeader("Content-Type", "application/force-download"); 
@@ -150,7 +150,7 @@ public class MisObras extends HttpServlet {
                         response.getOutputStream().write(output.toByteArray());
                     } else if (tipo.equals("2")) {//Resumen
                         contenido = rs.getString("contenido");
-                        //refe = rs.getString("refe");
+                        refe = rs.getString("refe");
                         
                         ByteArrayOutputStream output = new ByteArrayOutputStream();
                         output = crea.resumenPDF(titulo,contenido,refe,path);                      

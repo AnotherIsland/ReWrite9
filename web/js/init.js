@@ -63,10 +63,18 @@ function agregaPalabra(pal) {
     var pala = '';
     var guarda = '';
     var bandera = 0;
+    var inputP = null;
+    var numP = 1;
     if (pal.value !== '') {
         palabra = document.createElement('li');
         icon = document.createElement('i');
         span = document.createElement('span');
+        inputP = document.createElement('input');
+        
+        if (document.getElementsByClassName('palabra').length !== 0) {
+            numP = document.getElementsByClassName('palabra').length + 1 ;
+            console.log(numP);
+        }
 
         palabra.setAttribute('class', 'white-text');
         icon.setAttribute('class', 'tiny material-icons');
@@ -83,10 +91,15 @@ function agregaPalabra(pal) {
                 guarda = guarda + pala.charAt(i);
         }
         span.innerHTML = guarda;
+        
+        inputP.setAttribute('value',guarda);
+        inputP.setAttribute('name','pClaveI'+numP);
+        inputP.setAttribute('hidden','true');
 
         palabra.appendChild(icon);
         palabra.appendChild(span);
         document.getElementById('listaClaves').appendChild(palabra);
+        document.getElementById('form1').appendChild(inputP);
         pal.value = '';
     } else {
         return false;
@@ -208,14 +221,15 @@ function revResumen() {
     
     //Revisa si hay referencias en el documento
     if (document.getElementsByClassName('pRef').length !== 0) {
-        numRef = document.getElementsByClassName('pRef').length;
+        var numRef = document.getElementsByClassName('pRef').length;
         console.log(numRef);
     }
     //Añade input de numero de ref
+    /*var inputNRef;
     inputNRef.value = numRef;
     inputNRef.setAttribute('name','numRef');
     inputNRef.setAttribute('hidden','true');
-    document.getElementById('referencias').appendChild(inputNRef);
+    document.getElementById('referencias').appendChild(inputNRef);*/
 }
 //Funcionalidad de referencias
 function newRef(ref) {
@@ -380,9 +394,13 @@ function agregaRef(submit) {//Añade por primera vez referencia creada en form
     btn.type = 'button';
     icon.setAttribute('class', 'material-icons');
     icon.innerHTML = 'create';
+    
+    var aux;
 
     //Hacer input con type button y value editar
+    aux = (numRef / 8) + '.- ' + autor + '. (' + anio + '). <i>' + titulo + '</i>' + otros;
     ref.innerHTML = (numRef / 8) + '.- ' + autor + '. (' + anio + '). <i>' + titulo + '</i>' + otros;
+    
     ref.id = 'pRef' + (numRef / 8);
     ref.setAttribute('class', 'pRef');
     btn.appendChild(icon);
@@ -394,9 +412,10 @@ function agregaRef(submit) {//Añade por primera vez referencia creada en form
     divRefs.removeChild(document.getElementById('refe' + (numRef / 8)));
     
     //Añade input escondido para mandar ref
-    inputR.value = ref.innerHTML;
+    inputR.setAttribute('value',aux);
     inputR.setAttribute('name','vRef'+(numRef / 8));
     inputR.setAttribute('hidden','true');
+    
     document.getElementById('referencias').appendChild(inputR);
     
 

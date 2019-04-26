@@ -105,16 +105,17 @@ public class GuardarObra extends HttpServlet {
             intro = request.getParameter("intro");
             desa = request.getParameter("desarrollo");
             conclu = request.getParameter("conclusion");
-            refe = request.getParameter("referencias");
+            refe = manejaRef(request);
             regreso = "jsp/CREAR/Ensayo.jsp";
 
             try {//Da de alta ensayo 
                 db.connect();
-                CallableStatement call = db.procedure("{call alta_ensayo (?,?,?,?)}");
+                CallableStatement call = db.procedure("{call alta_ensayo (?,?,?,?,?)}");
                 call.setString(1, titulo);
                 call.setString(2, intro);
                 call.setString(3, desa);
-                call.setString(4, conclu + "\n Referencias: " + refe);
+                call.setString(4, conclu);
+                call.setString(5, refe);
                 call.execute();
                 call.close();
 
@@ -124,17 +125,18 @@ public class GuardarObra extends HttpServlet {
             }
         } else if (tipo.equals("resumen")) {
 
-            refe = request.getParameter("referencias");
+            refe = manejaRef(request);
             contenido = request.getParameter("contenido");
-            claves = request.getParameter("claves");
+            claves =  manejaClaves(request);
             regreso = "jsp/CREAR/Resumen.jsp";
 
             try {//Da de alta la resumen 
                 db.connect();
-                CallableStatement call = db.procedure("{call alta_resumen (?,?,?)}");
+                CallableStatement call = db.procedure("{call alta_resumen (?,?,?,?)}");
                 call.setString(1, titulo);
                 call.setString(2, contenido);
                 call.setString(3, claves);
+                call.setString(4, refe);
                 call.execute();
                 call.close();
 
@@ -237,6 +239,56 @@ public class GuardarObra extends HttpServlet {
             Logger.getLogger(GuardarObra.class.getName()).log(Level.SEVERE, null, ex);
         }
         return _sello;
+    }
+    
+    private String manejaRef(HttpServletRequest request){
+        
+        boolean sigue = false;
+        int cuenta = 1;
+        String refes = "";
+        String param = "";
+        
+        
+        if(request.getParameter("vRef1")!= null){
+            sigue = true;
+        }
+        
+        while(sigue){
+            param = "vRef" + cuenta;
+            if(request.getParameter(param)!=null){
+                refes = refes + "&" + request.getParameter("vRef"+cuenta);
+                cuenta++;
+                System.out.println("Referencias: "+refes);
+            }else {
+                sigue = false;
+            }   
+        }
+        return refes;
+    }
+    
+    private String manejaClaves(HttpServletRequest request){
+        
+        boolean sigue = false;
+        int cuenta = 1;
+        String refes = "";
+        String param = "";
+        
+        
+        if(request.getParameter("pClaveI1")!= null){
+            sigue = true;
+        }
+        
+        while(sigue){
+            param = "pClaveI" + cuenta;
+            if(request.getParameter(param)!=null){
+                refes = refes + "&" + request.getParameter("pClaveI"+cuenta);
+                cuenta++;
+                System.out.println("Claves: "+refes);
+            }else {
+                sigue = false;
+            }   
+        }
+        return refes;
     }
 
  
