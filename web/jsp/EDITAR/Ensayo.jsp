@@ -1,8 +1,9 @@
 <%-- 
-    Document   : Narrativo
-    Created on : 17/11/2018, 07:02:35 AM
+    Document   : Ensayo
+    Created on : 17/11/2018, 07:00:24 AM
     Author     : Axolotech
 --%>
+
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="javax.servlet.http.HttpSession"%>
@@ -28,7 +29,7 @@
 
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css">
         <!--<script type="text/javascript" src="../../js/main.js"></script>-->
-        <title>ReWrite - Narrativo</title>
+        <title>ReWrite - Ensayo</title>
     </head>
     <body >
         <div class="" name="header">
@@ -59,7 +60,7 @@
             <div class="row"> 
 
                 <div class="section grey col s3 m3 l3 xl3"><!--Sidebar para consejos y revisiones-->
-                    <h2 class="white-text">Narrativo</h2>
+                    <h2 class="white-text">Ensayo</h2>
                     <div class="row"> 
                         <br>
                         <h6 class="white-text">Aquí tenemos unos muy buenos consejos para ti. </h6><br>
@@ -111,6 +112,20 @@
                     </div>
                     <div class="row">
                         <h6 class="white-text">Otras herramientas</h6><br>
+
+                        <button id="nuevaRef" class="btn-floating btn-large waves-effect waves-light blue" onclick="mostrarTipoRef();">
+                            <i class="material-icons">add</i>
+                        </button><label class="white-text" for="nuevaRef"> Nueva referencia</label>
+                        <div class="input-field col s12 m12 l12 xl12" id="tipoRef" name="tipoRef" hidden ><!--aparece sólo cuando se da clic en nueva referencia-->
+                            <form>
+                                <select id="tipoReferencia" name="tipoReferencia" onchange="newRef(this);">
+                                    <option class="white-text" value="" disabled selected>Elige uno..</option>
+                                    <option value="1">Bibliográfica</option>
+                                    <option value="2">Artículo Web</option>
+                                </select>
+                            </form>
+                        </div>
+                        <br><br>
                         <!--Compartir obra y despliega vínculo-->
                         <button id="compartir" class="btn-floating btn-large waves-effect waves-light blue" onclick="mostrarCompartir();">
                             <i class="material-icons">person_add</i>
@@ -124,17 +139,19 @@
                 <div class="section white lienzo col s8 m8 l8 xl8"><!--contenido principal donde se escribe-->
                     <div>
                         <form name="form1" id="form1" action="${pageContext.request.contextPath}/GuardarObra" method="POST">
-                            <input type="text" name="tipo" id="tipo" value="narrativo" hidden="true">
-                            <input type="button" class="btn waves-effect waves-light right" name="revisar" id="revisar" value="Revisar" onclick="revNarrativo();"><br><br>
-                            <input type="text" name="titulo" class="input-field oculto " placeholder="Título" >
-                            <input type="text" name="intro" class="input-field oculto " placeholder="Exposición" >
-                            <input type="text" name="desarrollo" class="input-field oculto " placeholder="Desarrollo" >
-                            <input type="text" name="desarrollo" class="input-field oculto " placeholder="Climax" >
-                            <input type="text" name="conclusion" class="input-field oculto " placeholder="Desenlace" >
-                            
-                            <div class="oculto" id="sello" name="sello" contenteditable>
-
+                            <input type="text" name="tipo" id="tipo" value="ensayo" hidden="true">
+                            <input type="button" class="btn waves-effect waves-light right" name="revisar" id="revisar" value="Revisar" onclick="revEnsayo();"><br><br>
+                            <input type="text" name="titulo" id="titulo" class="input-field oculto " placeholder="Título"  >
+                            <input type="text" name="intro" id="intro" class="input-field oculto " placeholder="Introducción" >
+                            <input type="text" name="desarrollo" id="desarrollo" class="input-field oculto " placeholder="Desarrollo" >
+                            <input type="text" name="conclusion" id="conclusion" class="input-field oculto " placeholder="Conclusión" >
+                            <label for="referencias"><h6>Referencias</h6></label>
+                            <div type="text" id="referencias" name="referencias" class="input-field oculto">
+                                <!--Aquí se generan las referencias-->
                             </div>
+                            <hr>
+                            <label for=""><h6>Sello</h6></label>
+                            <input type="text" name="selloF" id="selloF" class="input-field oculto" disabled="true" value="<%=sello%>">
                             <input type="submit" class="btn waves-effect waves-light" name="guardar" id="guardar" value="Guardar"><br><br>
                         </form>
                             

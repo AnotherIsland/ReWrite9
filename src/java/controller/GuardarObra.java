@@ -69,7 +69,7 @@ public class GuardarObra extends HttpServlet {
 
         //Variables que dependen del tipo de texto
         String tipo = request.getParameter("tipo");
-        String titulo = java.net.URLDecoder.decode(request.getParameter("titulo"), "ISO-8859-1");
+        String titulo = request.getParameter("titulo");
         String sello = request.getParameter("sello");
         String intro = "";
         String desa = "";
@@ -77,6 +77,9 @@ public class GuardarObra extends HttpServlet {
         String refe = "";
         String contenido = "";
         String claves = "";
+        String expo = "";
+        String dese = "";
+        String clim = "";
         int idObra = 0;
         String regreso = "";
 
@@ -126,14 +129,53 @@ public class GuardarObra extends HttpServlet {
                 System.out.println(error.toString());
             }
 
-        } else if (tipo.equals("lirico")) {
+        } else if (tipo.equals("lirica")) {
+            
+            contenido = request.getParameter("contenido");
+            regreso = "jsp/CREAR/Lirica.jsp";
+
+            try {//Da de alta lirico 
+                db.connect();
+                CallableStatement call = db.procedure("{call alta_lirico (?,?)}");
+                call.setString(1, titulo);
+                call.setString(2, contenido);
+                call.execute();
+                call.close();
+
+                db.closeConnection();
+            } catch (SQLException error) {
+                System.out.println(error.toString());
+            }
 
         } else if (tipo.equals("narrativo")) {
+            
+            intro = request.getParameter("intro");
+            desa = request.getParameter("desarrollo");
+            dese = request.getParameter("desenlace");
+            clim = request.getParameter("climax");
+            regreso = "jsp/CREAR/Narrativo.jsp";
+
+            try {//Da de alta Narrativo 
+                db.connect();
+                CallableStatement call = db.procedure("{call alta_narrativo (?,?,?,?,?)}");
+                call.setString(1, titulo);
+                call.setString(2, intro);
+                call.setString(3, desa);
+                call.setString(4, clim);
+                call.setString(5, dese);
+                call.execute();
+                call.close();
+
+                db.closeConnection();
+            } catch (SQLException error) {
+                System.out.println(error.toString());
+            }
+
 
         } else if (tipo.equals("dramatico")) {
-
+            
         } else if (tipo.equals("articulo")) {
-
+            
         }
         //Da de alta obra en relacion a usuario en tabla relobrausu
         try {
