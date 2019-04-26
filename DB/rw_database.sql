@@ -123,9 +123,10 @@ DROP TABLE IF EXISTS `resumen`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `resumen` (
   `idresumen` int(11) NOT NULL auto_increment,
-  `contenido` mediumtext,
+  `contenido` longtext,
   `idObra1` int(11) DEFAULT NULL,
   `claves` longtext,
+  `referencias` longtext,
   PRIMARY KEY (`idResumen`),
   CONSTRAINT `idObra1` FOREIGN KEY (`idObra1`) REFERENCES `obra` (`idObra`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -141,6 +142,7 @@ CREATE TABLE `ensayo` (
   `intro` mediumtext,
   `desarrollo` mediumtext,
   `conclusion` mediumtext,
+  `referencias` longtext,
   PRIMARY KEY (`idensayo`),
   CONSTRAINT `idObra2` FOREIGN KEY (`idObra2`) REFERENCES `obra` (`idObra`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
