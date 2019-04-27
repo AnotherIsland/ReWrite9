@@ -256,7 +256,7 @@ public class GuardarObra extends HttpServlet {
         while(sigue){
             param = "vRef" + cuenta;
             if(request.getParameter(param)!=null){
-                refes = refes + "&" + request.getParameter("vRef"+cuenta);
+                refes = refes + request.getParameter("vRef"+cuenta) + "&" ;
                 cuenta++;
                 System.out.println("Referencias: "+refes);
             }else {
@@ -281,7 +281,7 @@ public class GuardarObra extends HttpServlet {
         while(sigue){
             param = "pClaveI" + cuenta;
             if(request.getParameter(param)!=null){
-                refes = refes + "&" + request.getParameter("pClaveI"+cuenta);
+                refes = refes + request.getParameter("pClaveI"+cuenta) + "&" ;
                 cuenta++;
                 System.out.println("Claves: "+refes);
             }else {

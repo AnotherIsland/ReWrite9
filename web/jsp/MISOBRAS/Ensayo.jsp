@@ -34,6 +34,8 @@
     String desa = "";
     String conclu = "";
     String refe = "";
+    ArrayList<String> refs = new ArrayList();
+    int num = 0;
 
     
     if(request.getParameter("idObra") != null){
@@ -46,6 +48,8 @@
         desa = ens.getDesarrollo();
         conclu = ens.getConclusion();
         refe = ens.getReferencias();
+        
+        refs = ao.traeRefes(refe);
     }
 %>
 <!DOCTYPE html>
@@ -168,7 +172,7 @@
                 </div>
                 <div class="section white lienzo col s8 m8 l8 xl8"><!--contenido principal donde se escribe-->
                     <div>
-                        <form name="form1" id="form1" action="${pageContext.request.contextPath}/GuardarObra" method="POST">
+                        <form name="form1" id="form1" action="${pageContext.request.contextPath}/ActualizarObra" method="POST">
                             <input type="text" name="tipo" id="tipo" value="ensayo" hidden="true">
                             <input type="button" class="btn waves-effect waves-light right" name="revisar" id="revisar" value="Revisar" onclick="revEnsayo();"><br><br>
                             <input type="text" name="titulo" id="titulo" class="input-field oculto " placeholder="Título" value="<%=titulo%>"  >
@@ -178,6 +182,15 @@
                             <label for="referencias"><h6>Referencias</h6></label>
                             <div type="text" id="referencias" name="referencias" class="input-field oculto" value="<%=refe%>">
                                 <!--Aquí se generan las referencias-->
+                                <div type="text" id="referencias" name="referencias" class="input-field oculto" >
+                                <% for(int p = 0; p < refs.size(); p++){
+                                    refe = refs.get(p);
+                                    num = p + 1;
+                                %>
+                                <p id="pRef<%=num%>" class="pRef"><%=refe%></p>
+                                <input value="<%=refe%>" hidden="true" name="vRef<%=num%>"/>
+                                    <%}%>
+                              </div>
                             </div>
                             <hr>
                             <label for=""><h6>Sello</h6></label>

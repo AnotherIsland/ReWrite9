@@ -4,6 +4,10 @@
     Author     : Axolotech
 --%>
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="controller.AdminObras"%>
+<%@page import="model.Resumen"%>
+<%@page import="model.Obra"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     HttpSession sesi = request.getSession();
@@ -14,6 +18,31 @@
     String sello = "";    
     if (request.getAttribute("sello") != null) {
         sello = request.getAttribute("sello").toString();
+    }
+    
+    Obra obraX = null;
+    Resumen res = null;
+    AdminObras ao = new AdminObras();
+    String titulo = "";
+    String cont = "";
+    String clav = "";
+    String refe = "";
+    ArrayList<String> clavs = new ArrayList();
+    ArrayList<String> refs = new ArrayList();
+    int num = 0;
+    
+    if(request.getParameter("idObra") != null){
+        
+        obraX = ao.buscaObraporID(Integer.parseInt(request.getParameter("idObra")));
+               
+        res = ao.getRes();
+        titulo = obraX.getTitulo();
+        cont = res.getContenido();
+        clav = res.getClaves();
+        refe = res.getReferencias();
+        
+        clavs = ao.traeClaves(clav);
+        refs = ao.traeRefes(refe);
     }
 %>
 <!DOCTYPE html>
@@ -85,6 +114,16 @@
                         <li class="white-text">
                         <input type="text" class="white-text" onkeypress="validap();" placeholder="Añade una palabra" onblur="agregaPalabra(this);">
                         </li>
+                        <% for(int p = 0; p < clavs.size(); p++){
+                            clav = clavs.get(p);
+                            num = p + 1;
+                        %>
+                        <li class="white-text">
+                            <i class="tiny material-icons">check</i>
+                            <span class="palabra"><%=clav%></span> 
+                        </li>
+                        
+                        <%}%>
                     </ul>
                 </div>
                 <br>
@@ -126,17 +165,28 @@
     </div>
 
     <div class="section lienzo white col s8 m8 l8 xl8"><!--contenido principal donde se escribe-->
-        <form name="form1" id="form1" action="${pageContext.request.contextPath}/GuardarObra" method="POST">
+        <form name="form1" id="form1" action="${pageContext.request.contextPath}/ActualizarObra" method="POST">
           <input type="button" class="btn waves-effect waves-light right" name="revisar" id="revisar"
                  value="Revisar" onclick="revResumen();"/><br><br>
           <input type="text" name="tipo" id="tipo" value="resumen" hidden="true">
-          <input type="text" class="input-field oculto" placeholder="Título" name="titulo" id="titulo" />
+          <input type="text" class="input-field oculto" placeholder="Título" name="titulo" id="titulo" value="<%=titulo%>"/>
           <label for="contenido"><h6>Contenido</h6></label>
-          <input class="input-field oculto" id="contenido" name="contenido" onchange="revResumen();"/>
+          <input class="input-field oculto" id="contenido" name="contenido" onchange="revResumen();" value="<%=cont%>"/>
           <label for="referencias"><h6>Referencias</h6></label><br>
-          <div type="text" id="referencias" name="referencias" class="input-field oculto">
-            
+          <div type="text" id="referencias" name="referencias" class="input-field oculto" >
+            <% for(int p = 0; p < refs.size(); p++){
+                refe = refs.get(p);
+                num = p + 1;
+            %>
+            <p id="pRef<%=num%>" class="pRef"><%=refe%></p>
+            <input value="<%=refe%>" hidden="true" name="vRef<%=num%>"/>
+                <%}%>
           </div>
+          <% for(int p = 0; p < clavs.size(); p++){
+                clav = clavs.get(p);
+            %>
+            <input value="<%=clav%>" hidden="true" name="pClaveI<%=num%>"/> 
+            <%}%>
           <div class="oculto" id="sello" name="sello" >
               <hr>
                             <label for=""><h6>Sello</h6></label>

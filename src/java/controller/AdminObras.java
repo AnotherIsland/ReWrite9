@@ -166,12 +166,13 @@ public class AdminObras {
                     intro = rs.getString("intro");
                     desa = rs.getString("desarrollo");
                     conclu = rs.getString("conclusion");
-                    //refe = rs.getString("referencias");
+                    refe = rs.getString("referencias");
                     _ens = new Ensayo(rs.getInt("idensayo"),intro,desa,conclu,refe);
                     System.out.println("Ensayo"+rs.getInt("idensayo")+"_intro: "+intro+"_Desa: "+desa+"_Con: "+conclu+"_Ref: "+refe );
                 }else if(type == 2){//Resumen
                     contenido = rs.getString("contenido");
                     claves = rs.getString("claves");
+                    refe = rs.getString("referencias");
                     _res = new Resumen(rs.getInt("idresumen"),contenido,claves,refe);
                     System.out.println("Resumen"+rs.getInt("idresumen")+"_cont: "+contenido+"_claves: "+claves );
                 }else if(type == 3){//Narrativo
@@ -199,6 +200,37 @@ public class AdminObras {
             System.out.println(error.toString());
         }
         
+    }
+    
+    public ArrayList<String> traeClaves(String claves){
+        ArrayList<String> clavs = new ArrayList();
+        String guarda = "";
+        
+        for(int y = 0; y < claves.length();y++){ 
+            if(claves.charAt(y)!='&'){
+                guarda = guarda + claves.charAt(y);
+            } else {
+                clavs.add(guarda);
+                guarda = "";
+            }
+        }
+        return clavs;
+    }
+    
+    public ArrayList<String> traeRefes(String refes){
+        ArrayList<String> refs = new ArrayList();
+        String guarda = "";
+        
+        for(int y = 0; y < refes.length();y++){ 
+            if(refes.charAt(y)!='&'){
+                guarda = guarda + refes.charAt(y);
+            } else {
+                refs.add(guarda);
+                System.out.println(guarda);
+                guarda = "";
+            }
+        }
+        return refs;
     }
     
 }
