@@ -86,7 +86,7 @@ public class GuardarObra extends HttpServlet {
         //Obtiene parámetros según tipo de Obra
         if (tipo.equals("lienzo")) {
             contenido = request.getParameter("contenido");
-            regreso = "jsp/CREAR/Lienzo.jsp";
+            regreso = "jsp/MISOBRAS/Lienzo.jsp";
 
             try {//Da de alta lirico 
                 db.connect();
@@ -106,7 +106,7 @@ public class GuardarObra extends HttpServlet {
             desa = request.getParameter("desarrollo");
             conclu = request.getParameter("conclusion");
             refe = manejaRef(request);
-            regreso = "jsp/CREAR/Ensayo.jsp";
+            regreso = "jsp/MISOBRAS/Ensayo.jsp";
 
             try {//Da de alta ensayo 
                 db.connect();
@@ -128,7 +128,7 @@ public class GuardarObra extends HttpServlet {
             refe = manejaRef(request);
             contenido = request.getParameter("contenido");
             claves =  manejaClaves(request);
-            regreso = "jsp/CREAR/Resumen.jsp";
+            regreso = "jsp/MISOBRAS/Resumen.jsp";
 
             try {//Da de alta la resumen 
                 db.connect();
@@ -148,7 +148,7 @@ public class GuardarObra extends HttpServlet {
         } else if (tipo.equals("lirica")) {
             
             contenido = request.getParameter("contenido");
-            regreso = "jsp/CREAR/Lirica.jsp";
+            regreso = "jsp/MISOBRAS/Lirica.jsp";
 
             try {//Da de alta lirico 
                 db.connect();
@@ -165,11 +165,11 @@ public class GuardarObra extends HttpServlet {
 
         } else if (tipo.equals("narrativo")) {
             
-            intro = request.getParameter("intro");
+            intro = request.getParameter("exposicion");
             desa = request.getParameter("desarrollo");
             dese = request.getParameter("desenlace");
             clim = request.getParameter("climax");
-            regreso = "jsp/CREAR/Narrativo.jsp";
+            regreso = "jsp/MISOBRAS/Narrativo.jsp";
 
             try {//Da de alta Narrativo 
                 db.connect();

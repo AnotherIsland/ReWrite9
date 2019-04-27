@@ -157,7 +157,9 @@ and open the template in the editor.
                           <input name="fecha" type="text" value="<%=fecha%>" hidden/>
                           <input name="idObra" type="text" value="<%=idObra%>" hidden/>
                           <input name="tipo" type="text" value="<%=tipo%>" hidden/>
-                          <input class=" blue-text" name="descargaPDF" type="submit" value="Descargar PDF"><i class="material-icons">file_download</i>
+                          <i class="material-icons">file_download</i>
+                          <input class="waves-effect waves-light btn" name="descargaPDF" type="submit" value="Descargar PDF">
+                          
                       </form>
                       
                   </div>

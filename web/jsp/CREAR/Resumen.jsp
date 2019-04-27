@@ -132,7 +132,7 @@
           <input type="text" name="tipo" id="tipo" value="resumen" hidden="true">
           <input type="text" class="input-field oculto" placeholder="Título" name="titulo" id="titulo" />
           <label for="contenido"><h6>Contenido</h6></label>
-          <input class="input-field oculto" id="contenido" name="contenido" onchange="revResumen();"/>
+          <textarea class="input-field oculto materialize-textarea"  id="contenido" name="contenido" onchange="revResumen();"></textarea>
           <label for="referencias"><h6>Referencias</h6></label><br>
           <div type="text" id="referencias" name="referencias" class="input-field oculto">
             

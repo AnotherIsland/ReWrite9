@@ -4,6 +4,9 @@
     Author     : Axolotech
 --%>
 
+<%@page import="controller.AdminObras"%>
+<%@page import="model.Lienzo"%>
+<%@page import="model.Obra"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     HttpSession sesi = request.getSession();
@@ -14,6 +17,22 @@
     String sello = "";    
     if (request.getAttribute("sello") != null) {
         sello = request.getAttribute("sello").toString();
+    }
+    
+    Obra obraX = null;
+    Lienzo lie = null;
+    AdminObras ao = new AdminObras();
+    String titulo = "";
+    String cont = "";
+  
+    if(request.getParameter("idObra") != null){
+        
+        obraX = ao.buscaObraporID(Integer.parseInt(request.getParameter("idObra")));
+               
+        lie = ao.getLie();
+        titulo = obraX.getTitulo();
+        cont = lie.getContenido();
+        
     }
 %>
 <!DOCTYPE html>
@@ -79,10 +98,7 @@
             <div class="collapsible-header"><i class="material-icons">description</i>Estructura</div>
             <div class="collapsible-body"><!--aquí va el consejo-->
               <ul>
-                <li class="white-text">Introducción</li>
-                <li class="white-text">Desarrollo</li>
-                <li class="white-text">Conclusión</li>
-                <li class="white-text">Referencias</li>
+                
               </ul>
             </div>
           </li>
@@ -105,11 +121,12 @@
     </div>
     <div class="section white col s8 m8 l8 xl8"><!--contenido principal donde se escribe-->
       <div>
-        <form name="form1" id="form1">
-            <input type="text" name="tipo" id="tipo" value="lienzo" hidden="true">
-            <input type="button" class="btn waves-effect waves-light right" name="revisar" id="revisar" value="Revisar" onclick="revEnsayo();"><br><br>
-            <input type="text" name="contenido" id="contenido" class="input-field oculto " placeholder="Escribe aquí..." >
-            <input type="submit" class="btn waves-effect waves-light" name="guardar" id="guardar" value="Guardar"><br><br>
+        <form action="${pageContext.request.contextPath}/ActualizarObra" method="POST">
+            <input type="button" class="btn waves-effect waves-light right" name="revisar" id="revisar" value="Revisar" onclick="revEnsayo();" /><br><br>
+            <input type="text" name="titulo" class="input-field oculto " placeholder="Título" value="<%=titulo%>" />
+            <input type="text" name="tipo" id="tipo" value="lienzo" hidden="true" />
+            <textarea class="input-field oculto materialize-textarea"  name="contenido" id="contenido"   placeholder="Escribe aquí..." ><%=cont%></textarea>
+            <input type="submit" class="btn waves-effect waves-light" name="guardar" id="guardar" value="Guardar" /><br><br>
         </form>
       </div>
     </div>

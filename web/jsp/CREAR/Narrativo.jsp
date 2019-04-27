@@ -127,15 +127,18 @@
                             <input type="text" name="tipo" id="tipo" value="narrativo" hidden="true">
                             <input type="button" class="btn waves-effect waves-light right" name="revisar" id="revisar" value="Revisar" onclick="revNarrativo();"><br><br>
                             <input type="text" name="titulo" class="input-field oculto " placeholder="Título" >
-                            <input type="text" name="intro" class="input-field oculto " placeholder="Exposición" >
-                            <input type="text" name="desarrollo" class="input-field oculto " placeholder="Desarrollo" >
-                            <input type="text" name="desarrollo" class="input-field oculto " placeholder="Climax" >
-                            <input type="text" name="conclusion" class="input-field oculto " placeholder="Desenlace" >
+                            <textarea class="input-field oculto materialize-textarea" name="exposicion"  placeholder="Exposición" ></textarea>
+                            <textarea class="input-field oculto materialize-textarea" name="desarrollo"  placeholder="Desarrollo" ></textarea>
+                            <textarea class="input-field oculto materialize-textarea" name="climax"  placeholder="Climax" ></textarea>
+                            <textarea class="input-field oculto materialize-textarea" name="desenlace"  placeholder="Desenlace" ></textarea>
                             
-                            <div class="oculto" id="sello" name="sello" contenteditable>
-
+                            <div class="oculto" id="sello" name="sello" >
+                                <hr>
+                                <label for=""><h6>Sello</h6></label>
+                                <input type="text" name="selloF" id="selloF" class="input-field oculto" disabled="true" value="<%=sello%>">
                             </div>
                             <input type="submit" class="btn waves-effect waves-light" name="guardar" id="guardar" value="Guardar"><br><br>
+                            
                         </form>
                             
                     </div>

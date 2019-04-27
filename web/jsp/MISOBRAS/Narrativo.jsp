@@ -4,6 +4,9 @@
     Author     : Axolotech
 --%>
 
+<%@page import="controller.AdminObras"%>
+<%@page import="model.Narrativo"%>
+<%@page import="model.Obra"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="javax.servlet.http.HttpSession"%>
 <%
@@ -15,6 +18,29 @@
     String sello = "";    
     if (request.getAttribute("sello") != null) {
         sello = request.getAttribute("sello").toString();
+    }
+    
+    Obra obraX = null;
+    Narrativo nar = null;
+    AdminObras ao = new AdminObras();
+    String titulo = "";
+    String expo = "";
+    String desa = "";
+    String clim = "";
+    String dese = "";
+    int num = 0;
+    
+    if(request.getParameter("idObra") != null){
+        
+        obraX = ao.buscaObraporID(Integer.parseInt(request.getParameter("idObra")));
+               
+        nar = ao.getNar();
+        titulo = obraX.getTitulo();
+        expo = nar.getExposicion();
+        desa = nar.getDesarrollo();
+        clim = nar.getClimax();
+        dese = nar.getDesenlace();
+       
     }
 %>
 <!DOCTYPE html>
@@ -126,11 +152,11 @@
                         <form name="form1" id="form1" action="${pageContext.request.contextPath}/GuardarObra" method="POST">
                             <input type="text" name="tipo" id="tipo" value="narrativo" hidden="true">
                             <input type="button" class="btn waves-effect waves-light right" name="revisar" id="revisar" value="Revisar" onclick="revNarrativo();"><br><br>
-                            <input type="text" name="titulo" class="input-field oculto " placeholder="Título" >
-                            <input type="text" name="intro" class="input-field oculto " placeholder="Exposición" >
-                            <input type="text" name="desarrollo" class="input-field oculto " placeholder="Desarrollo" >
-                            <input type="text" name="desarrollo" class="input-field oculto " placeholder="Climax" >
-                            <input type="text" name="conclusion" class="input-field oculto " placeholder="Desenlace" >
+                            <input type="text" name="titulo" class="input-field oculto " placeholder="Título" value="<%=titulo%>" >
+                            <textarea class="input-field oculto materialize-textarea" name="intro"  placeholder="Exposición" ><%=expo%></textarea>
+                            <textarea class="input-field oculto materialize-textarea" name="desarrollo"  placeholder="Desarrollo" ><%=desa%></textarea>
+                            <textarea class="input-field oculto materialize-textarea" name="desarrollo"  placeholder="Climax" ><%=clim%></textarea>
+                            <textarea class="input-field oculto materialize-textarea" name="conclusion"  placeholder="Desenlace" ><%=dese%></textarea>
                             
                             <div class="oculto" id="sello" name="sello" contenteditable>
 

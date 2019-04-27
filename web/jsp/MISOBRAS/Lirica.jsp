@@ -4,6 +4,9 @@
     Author     : Axolotech
 --%>
 
+<%@page import="controller.AdminObras"%>
+<%@page import="model.Obra"%>
+<%@page import="model.Lirico"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     HttpSession sesi = request.getSession();
@@ -14,6 +17,22 @@
     String sello = "";    
     if (request.getAttribute("sello") != null) {
         sello = request.getAttribute("sello").toString();
+    }
+    
+    Obra obraX = null;
+    Lirico lir = null;
+    AdminObras ao = new AdminObras();
+    String titulo = "";
+    String cont = "";
+  
+    if(request.getParameter("idObra") != null){
+        
+        obraX = ao.buscaObraporID(Integer.parseInt(request.getParameter("idObra")));
+               
+        lir = ao.getLir();
+        titulo = obraX.getTitulo();
+        cont = lir.getContenido();
+        
     }
 %>
 <!DOCTYPE html>
@@ -114,8 +133,8 @@
                         <input type="submit" class="btn waves-effect waves-light right" name="guardar" id="guardar" value="Guardar"><br><br>
                         <input type="button" class="btn waves-effect waves-light right" name="revisar" id="revisar" value="Revisar" onclick="cuentaSilabas()"><br><br>
                         
-                        <input type="text" name="titulo" class="input-field oculto " placeholder="Título" >
-                        <input type="text" name="contenido" class="input-field oculto " placeholder="Escribe aquí tu poema..." >
+                        <input type="text" name="titulo" class="input-field oculto " placeholder="Título" value="<%=titulo%>" />
+                        <textarea class="materialize-textarea input-field oculto" name="contenido" placeholder="Escribe aquí tu poema..." ><%=cont%></textarea>
                         
                         
                         <hr>

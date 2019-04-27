@@ -1,8 +1,3 @@
-<%-- 
-    Document   : Lienzo
-    Created on : 17/11/2018, 07:00:52 AM
-    Author     : Axolotech
---%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
@@ -105,11 +100,11 @@
     </div>
     <div class="section white col s8 m8 l8 xl8"><!--contenido principal donde se escribe-->
       <div>
-        <form action="${pageContext.request.contextPath}/GuardarObra" method="POST">
-            <input type="button" class="btn waves-effect waves-light right" name="revisar" id="revisar" value="Revisar" onclick="revEnsayo();"><br><br>
-            <input type="text" name="titulo" class="input-field oculto " placeholder="Título" >
+          <form action="${pageContext.request.contextPath}/GuardarObra" method="POST">
             <input type="text" name="tipo" id="tipo" value="lienzo" hidden="true">
-            <input type="text" name="contenido" id="contenido" class="input-field oculto " placeholder="Escribe aquí..." >
+            <input type="button" class="btn waves-effect waves-light right" name="revisar" id="revisar" value="Revisar" onclick="revEnsayo();"><br><br>
+            <input type="text" name="titulo" class="input-field oculto " placeholder="Título">
+            <textarea class="input-field oculto materialize-textarea" name="contenido" id="contenido" class="input-field oculto materialize-textarea" placeholder="Escribe aquí..." ></textarea>
             <input type="submit" class="btn waves-effect waves-light" name="guardar" id="guardar" value="Guardar"><br><br>
         </form>
       </div>

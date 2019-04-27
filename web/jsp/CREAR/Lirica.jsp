@@ -4,6 +4,10 @@
     Author     : Axolotech
 --%>
 
+<%@page import="model.Lirico"%>
+<%@page import="controller.AdminObras"%>
+<%@page import="model.Lienzo"%>
+<%@page import="model.Obra"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     HttpSession sesi = request.getSession();
@@ -14,6 +18,22 @@
     String sello = "";    
     if (request.getAttribute("sello") != null) {
         sello = request.getAttribute("sello").toString();
+    }
+    
+    Obra obraX = null;
+    Lirico lir = null;
+    AdminObras ao = new AdminObras();
+    String titulo = "";
+    String cont = "";
+  
+    if(request.getParameter("idObra") != null){
+        
+        obraX = ao.buscaObraporID(Integer.parseInt(request.getParameter("idObra")));
+               
+        lir = ao.getLir();
+        titulo = obraX.getTitulo();
+        cont = lir.getContenido();
+        
     }
 %>
 <!DOCTYPE html>
@@ -111,16 +131,17 @@
                             
                     <form action="${pageContext.request.contextPath}/GuardarObra" method="POST">
                         <input type="text" name="tipo" id="tipo" value="lirica" hidden="true">
-                        <input type="submit" class="btn waves-effect waves-light right" name="guardar" id="guardar" value="Guardar"><br><br>
+                        <br>
                         <input type="button" class="btn waves-effect waves-light right" name="revisar" id="revisar" value="Revisar" onclick="cuentaSilabas()"><br><br>
                         
                         <input type="text" name="titulo" class="input-field oculto " placeholder="Título" >
-                        <input type="text" name="contenido" class="input-field oculto " placeholder="Escribe aquí tu poema..." >
+                        <textarea class="input-field oculto materialize-textarea" name="contenido" placeholder="Escribe aquí tu poema..." ></textarea>
                         
                         
                         <hr>
-                            <label for=""><h6>Sello</h6></label>
-                            <p><%=sello%></p>
+                            <label for="selloF"><h6>Sello</h6></label>
+                            <input type="text" name="selloF" id="selloF" class="input-field oculto" disabled="true" value="<%=sello%>">
+                            <input type="submit" class="btn waves-effect waves-light right" name="guardar" id="guardar" value="Guardar">
                     </form>
                 </div>
                 <ul id="slide-out" class="sidenav">

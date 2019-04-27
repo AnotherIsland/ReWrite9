@@ -142,9 +142,9 @@
                             <input type="text" name="tipo" id="tipo" value="ensayo" hidden="true">
                             <input type="button" class="btn waves-effect waves-light right" name="revisar" id="revisar" value="Revisar" onclick="revEnsayo();"><br><br>
                             <input type="text" name="titulo" id="titulo" class="input-field oculto " placeholder="Título"  >
-                            <input type="text" name="intro" id="intro" class="input-field oculto " placeholder="Introducción" >
-                            <input type="text" name="desarrollo" id="desarrollo" class="input-field oculto " placeholder="Desarrollo" >
-                            <input type="text" name="conclusion" id="conclusion" class="input-field oculto " placeholder="Conclusión" >
+                            <textarea name="intro" id="intro" class="input-field oculto materialize-textarea" placeholder="Introducción" ></textarea>
+                            <textarea name="desarrollo" id="desarrollo" class="input-field oculto materialize-textarea" placeholder="Desarrollo" ></textarea>
+                            <textarea name="conclusion" id="conclusion" class="input-field oculto materialize-textarea" placeholder="Conclusión" ></textarea>
                             <label for="referencias"><h6>Referencias</h6></label>
                             <div type="text" id="referencias" name="referencias" class="input-field oculto">
                                 <!--Aquí se generan las referencias-->
