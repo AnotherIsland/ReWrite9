@@ -92,6 +92,10 @@
         <servlet-name>ActualizaFAQ</servlet-name>
         <servlet-class>soporte.ActualizaFAQ</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ActualizarObra</servlet-name>
+        <servlet-class>controller.ActualizarObra</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Inicio</servlet-name>
         <url-pattern>/ReWrite/index.jsp</url-pattern>
@@ -191,6 +195,10 @@
     <servlet-mapping>
         <servlet-name>ActualizaFAQ</servlet-name>
         <url-pattern>/ActualizaFAQ</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ActualizarObra</servlet-name>
+        <url-pattern>/ActualizarObra</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

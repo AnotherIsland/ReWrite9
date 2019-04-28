@@ -30,10 +30,17 @@
     ArrayList<String> clavs = new ArrayList();
     ArrayList<String> refs = new ArrayList();
     int num = 0;
-    
-    if(request.getParameter("idObra") != null){
+    String idObra = "";
+
+    if(request.getParameter("idObra") != null ||request.getAttribute("idObra")!= null ){
         
-        obraX = ao.buscaObraporID(Integer.parseInt(request.getParameter("idObra")));
+        if(request.getParameter("idObra") != null){
+            idObra = request.getParameter("idObra");
+        }else{
+            idObra = request.getAttribute("idObra").toString();
+        }
+        
+        obraX = ao.buscaObraporID(Integer.parseInt(idObra));
                
         res = ao.getRes();
         titulo = obraX.getTitulo();
@@ -168,10 +175,11 @@
         <form name="form1" id="form1" action="${pageContext.request.contextPath}/ActualizarObra" method="POST">
           <input type="button" class="btn waves-effect waves-light right" name="revisar" id="revisar"
                  value="Revisar" onclick="revResumen();"/><br><br>
+          <input type="text" name="idObra" id="idObra" value="<%=idObra%>" hidden="true">
           <input type="text" name="tipo" id="tipo" value="resumen" hidden="true">
           <input type="text" class="input-field oculto" placeholder="Título" name="titulo" id="titulo" value="<%=titulo%>"/>
           <label for="contenido"><h6>Contenido</h6></label>
-          <input class="input-field oculto" id="contenido" name="contenido" onchange="revResumen();" value="<%=cont%>"/>
+          <textarea class="materialize-textarea input-field oculto" id="contenido" name="contenido" onchange="revResumen();"><%=cont%></textarea>
           <label for="referencias"><h6>Referencias</h6></label><br>
           <div type="text" id="referencias" name="referencias" class="input-field oculto" >
             <% for(int p = 0; p < refs.size(); p++){

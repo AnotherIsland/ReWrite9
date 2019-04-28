@@ -7,6 +7,7 @@ package controller;
 
 import Database.DataBase;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,17 +21,18 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import security.AdminSello;
 
-
 /**
  *
  * @author ACIE-PC
  */
-public class GuardarObra extends HttpServlet {
-
+public class ActualizarObra extends HttpServlet {
+    
     String _texto = null;
     String _bloque = null;
     String _sello = null;
     AdminSello asello = null;
+
+    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -44,7 +46,8 @@ public class GuardarObra extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        RequestDispatcher rd = request.getRequestDispatcher("jsp/Login.jsp");
+        rd.forward(request, response);
     }
 
     /**
@@ -81,22 +84,25 @@ public class GuardarObra extends HttpServlet {
         String dese = "";
         String clim = "";
         int idObra = 0;
+        int idObraTipo = 0;
         String regreso = "";
+        AdminObras ao = new AdminObras();
+        
+        idObra = Integer.parseInt(request.getParameter("idObra"));
 
         //Obtiene parámetros según tipo de Obra
         if (tipo.equals("lienzo")) {
             contenido = request.getParameter("contenido");
             regreso = "jsp/MISOBRAS/Lienzo.jsp";
+            
+            idObraTipo = ao.buscaObraPorTipo("lienzo", "idObra7", idObra, 5);
 
-            try {//Da de alta lirico 
+            try {//Actualiza lienzo 
                 db.connect();
-                CallableStatement call = db.procedure("{call alta_lienzo (?,?)}");
-                call.setString(1, titulo);
-                call.setString(2, contenido);
-                call.execute();
-                call.close();
-
+                db.update("UPDATE lienzo SET contenido = '"+contenido+"'"
+                        + "  WHERE idlienzo = "+idObraTipo);
                 db.closeConnection();
+                System.out.println("Obra actualizada");
             } catch (SQLException error) {
                 System.out.println(error.toString());
             }
@@ -107,19 +113,16 @@ public class GuardarObra extends HttpServlet {
             conclu = request.getParameter("conclusion");
             refe = manejaRef(request);
             regreso = "jsp/MISOBRAS/Ensayo.jsp";
+            
+            idObraTipo = ao.buscaObraPorTipo("ensayo", "idObra2", idObra, 1);
 
-            try {//Da de alta ensayo 
+            try {//Actualiza ensayo 
                 db.connect();
-                CallableStatement call = db.procedure("{call alta_ensayo (?,?,?,?,?)}");
-                call.setString(1, titulo);
-                call.setString(2, intro);
-                call.setString(3, desa);
-                call.setString(4, conclu);
-                call.setString(5, refe);
-                call.execute();
-                call.close();
-
+                db.update("UPDATE ensayo SET intro = '"+intro+"',"
+                        + " desarrollo= '"+desa+"', conclusion= '"+conclu+"',"
+                        + " referencias= '"+refe+"' WHERE idensayo = "+idObraTipo);
                 db.closeConnection();
+                System.out.println("Obra actualizada");
             } catch (SQLException error) {
                 System.out.println(error.toString());
             }
@@ -129,17 +132,15 @@ public class GuardarObra extends HttpServlet {
             contenido = request.getParameter("contenido");
             claves =  manejaClaves(request);
             regreso = "jsp/MISOBRAS/Resumen.jsp";
+            
+            idObraTipo = ao.buscaObraPorTipo("resumen", "idObra1", idObra, 2);
 
-            try {//Da de alta la resumen 
+            try {//Actualiza  la resumen 
                 db.connect();
-                CallableStatement call = db.procedure("{call alta_resumen (?,?,?,?)}");
-                call.setString(1, titulo);
-                call.setString(2, contenido);
-                call.setString(3, claves);
-                call.setString(4, refe);
-                call.execute();
-                call.close();
-
+                db.update("UPDATE resumen SET contenido = '"+contenido+"',"
+                        + " claves= '"+claves+"', referencias= '"+refe+"'"
+                                + " WHERE idresumen = "+idObraTipo);
+                System.out.println("Obra actualizada");
                 db.closeConnection();
             } catch (SQLException error) {
                 System.out.println(error.toString());
@@ -149,15 +150,14 @@ public class GuardarObra extends HttpServlet {
             
             contenido = request.getParameter("contenido");
             regreso = "jsp/MISOBRAS/Lirica.jsp";
+            
+            idObraTipo = ao.buscaObraPorTipo("lirico", "idObra5", idObra, 4);
 
-            try {//Da de alta lirico 
+            try {//Actualiza  lirico 
                 db.connect();
-                CallableStatement call = db.procedure("{call alta_lirico (?,?)}");
-                call.setString(1, titulo);
-                call.setString(2, contenido);
-                call.execute();
-                call.close();
-
+                db.update("UPDATE lirico SET contenido = '"+contenido+"'"
+                        + "  WHERE idlirico = "+idObraTipo);
+                System.out.println("Obra actualizada");
                 db.closeConnection();
             } catch (SQLException error) {
                 System.out.println(error.toString());
@@ -170,19 +170,16 @@ public class GuardarObra extends HttpServlet {
             dese = request.getParameter("desenlace");
             clim = request.getParameter("climax");
             regreso = "jsp/MISOBRAS/Narrativo.jsp";
+            
+            idObraTipo = ao.buscaObraPorTipo("narrativo", "idObra4", idObra, 4);
 
-            try {//Da de alta Narrativo 
+            try {//Actualiza  Narrativo 
                 db.connect();
-                CallableStatement call = db.procedure("{call alta_narrativo (?,?,?,?,?)}");
-                call.setString(1, titulo);
-                call.setString(2, intro);
-                call.setString(3, desa);
-                call.setString(4, clim);
-                call.setString(5, dese);
-                call.execute();
-                call.close();
-
+                db.update("UPDATE narrativo SET exposicion = '"+intro+"',"
+                        + " desarrollo= '"+desa+"', climax= '"+clim+"',"
+                        + " descenlace= '"+dese+"' WHERE idnarrativo = "+idObraTipo);
                 db.closeConnection();
+                System.out.println("Obra actualizada");
             } catch (SQLException error) {
                 System.out.println(error.toString());
             }
@@ -193,18 +190,16 @@ public class GuardarObra extends HttpServlet {
         } else if (tipo.equals("articulo")) {
             
         }
-        //Da de alta obra en relacion a usuario en tabla relobrausu
-        try {
-            db.connect();
-            rs = db.query("Select idObra from obra where titulo ='"+titulo+"';");
-            if(rs.next()){
-                idObra = rs.getInt("idObra");
-                db.insert("Insert into relobrausu(idObra,idUsuario) values("+idObra+","+idUs+");");
-            }                      
-            db.closeConnection();
-        } catch (SQLException error) {
-            System.out.println(error.toString());
-        }
+        
+        try {//Actualiza titulo de Obra
+                db.connect();
+                db.update("UPDATE obra SET titulo = '"+titulo+"' WHERE idObra = "+idObra);
+                db.closeConnection();
+                System.out.println("Obra actualizada");
+            } catch (SQLException error) {
+                System.out.println(error.toString());
+            }
+            
 
         sello = creaSello(usuario);
 
@@ -224,7 +219,7 @@ public class GuardarObra extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
+    
     private String creaSello(String bloque){
         _texto = "";
         _bloque = "";
@@ -290,7 +285,5 @@ public class GuardarObra extends HttpServlet {
         }
         return refes;
     }
-
- 
 
 }

@@ -29,10 +29,18 @@
     String clim = "";
     String dese = "";
     int num = 0;
-    
-    if(request.getParameter("idObra") != null){
+    String idObra = "";
+
+    if(request.getParameter("idObra") != null ||request.getAttribute("idObra")!= null ){
         
-        obraX = ao.buscaObraporID(Integer.parseInt(request.getParameter("idObra")));
+        if(request.getParameter("idObra") != null){
+            idObra = request.getParameter("idObra");
+        }else{
+            idObra = request.getAttribute("idObra").toString();
+        }
+        
+        obraX = ao.buscaObraporID(Integer.parseInt(idObra));
+               
                
         nar = ao.getNar();
         titulo = obraX.getTitulo();
@@ -149,14 +157,15 @@
                 </div>
                 <div class="section white lienzo col s8 m8 l8 xl8"><!--contenido principal donde se escribe-->
                     <div>
-                        <form name="form1" id="form1" action="${pageContext.request.contextPath}/GuardarObra" method="POST">
+                        <form name="form1" id="form1" action="${pageContext.request.contextPath}/ActualizarObra" method="POST">
                             <input type="text" name="tipo" id="tipo" value="narrativo" hidden="true">
+                            <input type="text" name="idObra" id="idObra" value="<%=idObra%>" hidden="true">
                             <input type="button" class="btn waves-effect waves-light right" name="revisar" id="revisar" value="Revisar" onclick="revNarrativo();"><br><br>
                             <input type="text" name="titulo" class="input-field oculto " placeholder="Título" value="<%=titulo%>" >
-                            <textarea class="input-field oculto materialize-textarea" name="intro"  placeholder="Exposición" ><%=expo%></textarea>
+                            <textarea class="input-field oculto materialize-textarea" name="exposicion"  placeholder="Exposición" ><%=expo%></textarea>
                             <textarea class="input-field oculto materialize-textarea" name="desarrollo"  placeholder="Desarrollo" ><%=desa%></textarea>
-                            <textarea class="input-field oculto materialize-textarea" name="desarrollo"  placeholder="Climax" ><%=clim%></textarea>
-                            <textarea class="input-field oculto materialize-textarea" name="conclusion"  placeholder="Desenlace" ><%=dese%></textarea>
+                            <textarea class="input-field oculto materialize-textarea" name="climax"  placeholder="Climax" ><%=clim%></textarea>
+                            <textarea class="input-field oculto materialize-textarea" name="desenlace"  placeholder="Desenlace" ><%=dese%></textarea>
                             
                             <div class="oculto" id="sello" name="sello" contenteditable>
 

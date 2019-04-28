@@ -28,6 +28,15 @@ public class AdminObras {
     private Lirico _lir = null;
     private Narrativo _nar = null;
     private Lienzo _lie = null;
+    private int _idObraTipo = 0;
+
+    public int getIdObraTipo() {
+        return _idObraTipo;
+    }
+
+    public void setIdObraTipo(int idObraTipo) {
+        this._idObraTipo = idObraTipo;
+    }
 
     public Obra getObra() {
         return _obra;
@@ -136,7 +145,7 @@ public class AdminObras {
         return _obra;
     }
     
-    public void buscaObraPorTipo(String tipoo, String idObraTipo, int idObra, int type){
+    public int buscaObraPorTipo(String tipoo, String idObraTipo, int idObra, int type){
         
         DataBase db = new DataBase();
         ResultSet rs = null;
@@ -160,7 +169,8 @@ public class AdminObras {
                     + " where idObra ="+idObra);
             while(rs.next()){
                 System.out.println("Tipo de obra consultado: "+tipoo);
-                
+                _idObraTipo = rs.getInt("id"+tipoo);
+                System.out.println("ID por tipo de obra: "+_idObraTipo);
                 //tipoo = rs.getString("tipo");
                 if(type == 1){//Ensayo
                     intro = rs.getString("intro");
@@ -199,7 +209,7 @@ public class AdminObras {
         } catch (SQLException error) {
             System.out.println(error.toString());
         }
-        
+        return _idObraTipo;
     }
     
     public ArrayList<String> traeClaves(String claves){

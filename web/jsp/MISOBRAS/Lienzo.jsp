@@ -25,9 +25,18 @@
     String titulo = "";
     String cont = "";
   
-    if(request.getParameter("idObra") != null){
+    String idObra = "";
+
+    if(request.getParameter("idObra") != null ||request.getAttribute("idObra")!= null ){
         
-        obraX = ao.buscaObraporID(Integer.parseInt(request.getParameter("idObra")));
+        if(request.getParameter("idObra") != null){
+            idObra = request.getParameter("idObra");
+        }else{
+            idObra = request.getAttribute("idObra").toString();
+        }
+        
+        obraX = ao.buscaObraporID(Integer.parseInt(idObra));
+               
                
         lie = ao.getLie();
         titulo = obraX.getTitulo();
@@ -125,6 +134,7 @@
             <input type="button" class="btn waves-effect waves-light right" name="revisar" id="revisar" value="Revisar" onclick="revEnsayo();" /><br><br>
             <input type="text" name="titulo" class="input-field oculto " placeholder="Título" value="<%=titulo%>" />
             <input type="text" name="tipo" id="tipo" value="lienzo" hidden="true" />
+            <input type="text" name="idObra" id="idObra" value="<%=idObra%>" hidden="true">
             <textarea class="input-field oculto materialize-textarea"  name="contenido" id="contenido"   placeholder="Escribe aquí..." ><%=cont%></textarea>
             <input type="submit" class="btn waves-effect waves-light" name="guardar" id="guardar" value="Guardar" /><br><br>
         </form>

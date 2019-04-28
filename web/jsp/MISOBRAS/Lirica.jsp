@@ -24,10 +24,18 @@
     AdminObras ao = new AdminObras();
     String titulo = "";
     String cont = "";
-  
-    if(request.getParameter("idObra") != null){
+     String idObra = "";
+
+    if(request.getParameter("idObra") != null ||request.getAttribute("idObra")!= null ){
         
-        obraX = ao.buscaObraporID(Integer.parseInt(request.getParameter("idObra")));
+        if(request.getParameter("idObra") != null){
+            idObra = request.getParameter("idObra");
+        }else{
+            idObra = request.getAttribute("idObra").toString();
+        }
+        
+        obraX = ao.buscaObraporID(Integer.parseInt(idObra));
+               
                
         lir = ao.getLir();
         titulo = obraX.getTitulo();
@@ -128,10 +136,11 @@
 
                 <div class="section white col s8 m8 l8 xl8"><!--contenido principal donde se escribe-->
                             
-                    <form action="${pageContext.request.contextPath}/GuardarObra" method="POST">
+                    <form action="${pageContext.request.contextPath}/ActualizarObra" method="POST">
                         <input type="text" name="tipo" id="tipo" value="lirica" hidden="true">
+                        <input type="text" name="idObra" id="idObra" value="<%=idObra%>" hidden="true">
                         <input type="submit" class="btn waves-effect waves-light right" name="guardar" id="guardar" value="Guardar"><br><br>
-                        <input type="button" class="btn waves-effect waves-light right" name="revisar" id="revisar" value="Revisar" onclick="cuentaSilabas()"><br><br>
+                        <br>
                         
                         <input type="text" name="titulo" class="input-field oculto " placeholder="Título" value="<%=titulo%>" />
                         <textarea class="materialize-textarea input-field oculto" name="contenido" placeholder="Escribe aquí tu poema..." ><%=cont%></textarea>
@@ -139,7 +148,8 @@
                         
                         <hr>
                             <label for=""><h6>Sello</h6></label>
-                            <p><%=sello%></p>
+                            <input type="text" name="selloF" id="selloF" class="input-field oculto" disabled="true" value="<%=sello%>"><br>
+                            <input type="button" class="btn waves-effect waves-light left" name="revisar" id="revisar" value="Revisar" onclick="cuentaSilabas()"><br><br>
                     </form>
                 </div>
                 <ul id="slide-out" class="sidenav">

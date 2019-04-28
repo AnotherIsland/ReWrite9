@@ -36,11 +36,17 @@
     String refe = "";
     ArrayList<String> refs = new ArrayList();
     int num = 0;
+    String idObra = "";
 
-    
-    if(request.getParameter("idObra") != null){
+    if(request.getParameter("idObra") != null ||request.getAttribute("idObra")!= null ){
         
-        obraX = ao.buscaObraporID(Integer.parseInt(request.getParameter("idObra")));
+        if(request.getParameter("idObra") != null){
+            idObra = request.getParameter("idObra");
+        }else{
+            idObra = request.getAttribute("idObra").toString();
+        }
+        
+        obraX = ao.buscaObraporID(Integer.parseInt(idObra));
                
         ens = ao.getEns();
         titulo = obraX.getTitulo();
@@ -50,6 +56,7 @@
         refe = ens.getReferencias();
         
         refs = ao.traeRefes(refe);
+        
     }
 %>
 <!DOCTYPE html>
@@ -174,6 +181,7 @@
                     <div>
                         <form name="form1" id="form1" action="${pageContext.request.contextPath}/ActualizarObra" method="POST">
                             <input type="text" name="tipo" id="tipo" value="ensayo" hidden="true">
+                            <input type="text" name="idObra" id="idObra" value="<%=idObra%>" hidden="true">
                             <input type="button" class="btn waves-effect waves-light right" name="revisar" id="revisar" value="Revisar" onclick="revEnsayo();"><br><br>
                             <input type="text" name="titulo" id="titulo" class="input-field oculto " placeholder="Título" value="<%=titulo%>"  >
                             <textarea class="input-field oculto materialize-textarea" name="intro" id="intro" class="input-field oculto " placeholder="Introducción" ><%=intro%></textarea>
