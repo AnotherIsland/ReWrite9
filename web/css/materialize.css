@@ -11,6 +11,10 @@
     color: #4CAF50!important;
     font-size: 12px;
 }
+.btnNada{
+    border: none !important;
+    background-color: transparent !important;
+}
     
 .palabra{
     color: #FFFFFF;

@@ -4,6 +4,7 @@
     Author     : Student
 --%>
 
+<%@page import="controller.AdminObras"%>
 <%@page import="Database.DataBase"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.util.ArrayList"%>
@@ -53,8 +54,6 @@ and open the template in the editor.
                     fecha = rs.getString("fecha");
                     tipo = rs.getString("tipo");
 
-                    //System.out.println("Obra: "+idObra+" titulo: "+titulo+" tipo: "+tipo+" fecha: "+fecha);
-
                     obraX = new Obra(idObra, titulo, fecha, tipo);
                     obras.add(obraX);
                 }                      
@@ -63,8 +62,15 @@ and open the template in the editor.
                 System.out.println(error.toString());
             }
             
+            //Para buscar una obra específica
+            String busca = "";
+            boolean buscando = false;
+            AdminObras ao = new AdminObras();
             
-
+            if(request.getParameter("search")!=null){
+                buscando = true;
+            }
+            
         %>
 <html>
 <head>
@@ -159,9 +165,7 @@ and open the template in the editor.
                           <input name="tipo" type="text" value="<%=tipo%>" hidden/>
                           <i class="material-icons">file_download</i>
                           <input class="waves-effect waves-light btn" name="descargaPDF" type="submit" value="Descargar PDF">
-                          
                       </form>
-                      
                   </div>
                 </div>
               </div><%}%>
@@ -173,30 +177,87 @@ and open the template in the editor.
 
       <div class="col s5 m5 l4 xl4 " >
         <div class="section white z-depth-3">
-          <form>
+            <form method="POST" action="${pageContext.request.contextPath}/jsp/MISOBRAS/MisObras.jsp">
+                
             <div class="input-field">
-              <input id="search" type="search" placeholder="Buscar..." required>
-              <i class="material-icons">close</i>
-            </div><br>
-            <div class="input-field" id="select">
+              <input id="search" name="search" type="text" required />
+              <label for="search"> 
+                  <button class="btnNada"><i class="material-icons">search</i></button>
+                  &nbsp;&nbsp;Buscar
+              </label>
+              
+            </div>
+            <!--<div class="input-field" id="select">
               <select>
                 <option value="1" selected>A-z</option>
                 <option value="2">Z-a</option>
                 <option value="3">Fecha</option>
               </select>
               <label>Ordenar por...</label>
-            </div>
-            <br><br>
-          </form>
+            </div>-->
+            <br>
+            </form>
+            <%if(buscando){
+                if(!request.getParameter("search").equals("")){
+                    busca = request.getParameter("search");
+                
+                    for (int i = 0; i < obras.size(); i++) {
+                        obraX = obras.get(i);
+                        if(obraX.getTitulo().equals(busca)) {
+                            System.out.println("Se encontró la obra: "+busca);
+                            break;
+                        } 
+                    }
+                    titulo = obraX.getTitulo();
+                    fecha = obraX.getFecha();
+                    tipo = obraX.getTipo();
+                    idObra = obraX.getIdObra();
+                    int type = Integer.parseInt(tipo);
+                    String tipoo = "";
+                    
+                    if(type == 1){
+                        tipoo = "Ensayo";
+                    }else if(type == 2){
+                        tipoo = "Resumen";
+                    }else if(type == 3){
+                        tipoo = "Narrativo";
+                    }else if(type == 4){
+                        tipoo = "Lirica";
+                    }else if(type == 5){
+                        tipoo = "Lienzo";
+                    }
+              %>
+              <div class="card sticky-action">
+                  <div class="card-image">
+                    <img src="${pageContext.request.contextPath}/img/plantilla.png">
+                    <form action="${pageContext.request.contextPath}/jsp/MISOBRAS/<%=tipoo%>.jsp" method="POST" >
+                        <input name="idObra" type="text" value="<%=idObra%>" hidden/>
+                        <button class="btn-floating halfway-fab waves-effect waves-light">
+                            <i class="material-icons">create</i>
+                        </button>
+                    </form>
+                  </div>
+                  <div class="card-content">
+                    <span class="card-title black-text"><%=titulo%></span><!--Traer titulo de la obra-->
+                    <p><%=fecha%></p>
+                  </div>
+                  <div class="card-action">
+                      <form action="${pageContext.request.contextPath}/MisObras" method="POST" >
+                          <input name="title" type="text" value="<%=titulo%>" hidden />
+                          <input name="fecha" type="text" value="<%=fecha%>" hidden/>
+                          <input name="idObra" type="text" value="<%=idObra%>" hidden/>
+                          <input name="tipo" type="text" value="<%=tipo%>" hidden/>
+                          <i class="material-icons">file_download</i>
+                          <input class="waves-effect waves-light btn" name="descargaPDF" type="submit" value="Descargar PDF">
+                      </form>
+                  </div>
+                </div>
+              <%}
+              }%>
         </div>
 
       </div>
 
-      <div class="row">
-
-
-
-      </div>
     </div>
   </div>
 </div>

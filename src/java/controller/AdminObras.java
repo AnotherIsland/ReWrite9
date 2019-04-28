@@ -86,6 +86,25 @@ public class AdminObras {
         this._lie = _lie;
     }
     
+    public int buscaObraporTitulo(String titulo, int idUsuario ){
+        DataBase db = new DataBase();
+        ResultSet rs = null;
+        int idObra = 0;
+        
+        try {
+            db.connect();
+            rs = db.query("Select idObra from obra where titulo ='"+titulo+"';");
+            if(rs.next()){
+                idObra = rs.getInt("idObra");
+            }                      
+            db.closeConnection();
+        } catch (SQLException error) {
+            System.out.println(error.toString());
+        }
+        
+        return idObra;
+    }
+    
     
     
     public Obra buscaObraporID(int idObra){
