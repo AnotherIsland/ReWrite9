@@ -63,9 +63,11 @@ public class GuardarObra extends HttpServlet {
 
         DataBase db = new DataBase();
         ResultSet rs = null;
+        ResultSet res = null;
         HttpSession sesi = request.getSession();
         String usuario = sesi.getAttribute("Email").toString();
         String idUs = sesi.getAttribute("idUsuario").toString();
+        AdminObras aos = new AdminObras();
 
         //Variables que dependen del tipo de texto
         String tipo = request.getParameter("tipo");
@@ -90,10 +92,11 @@ public class GuardarObra extends HttpServlet {
 
             try {//Da de alta lirico 
                 db.connect();
-                CallableStatement call = db.procedure("{call alta_lienzo (?,?)}");
+                CallableStatement call = db.procedure("{call alta_lienzo (?,?,?)}");
                 call.setString(1, titulo);
                 call.setString(2, contenido);
-                call.execute();
+                call.setString(3, idUs);
+                call.execute();                
                 call.close();
 
                 db.closeConnection();
@@ -193,19 +196,10 @@ public class GuardarObra extends HttpServlet {
         } else if (tipo.equals("articulo")) {
             
         }
-        //Da de alta obra en relacion a usuario en tabla relobrausu
-        try {
-            db.connect();
-            rs = db.query("Select idObra from obra where titulo ='"+titulo+"';");
-            if(rs.next()){
-                idObra = rs.getInt("idObra");
-                db.insert("Insert into relobrausu(idObra,idUsuario) values("+idObra+","+idUs+");");
-            }                      
-            db.closeConnection();
-        } catch (SQLException error) {
-            System.out.println(error.toString());
-        }
-
+       
+        
+        idObra = aos.buscaObraporTitulo(titulo, Integer.parseInt(idUs));
+        
         sello = creaSello(usuario);
 
         request.setAttribute("sello", sello);
@@ -231,7 +225,7 @@ public class GuardarObra extends HttpServlet {
         
         asello = new AdminSello();
 
-        //generaLlaves();
+        asello.generaLlaves();
         try {
             _sello = asello.cifra(bloque);
             System.out.println(_sello);

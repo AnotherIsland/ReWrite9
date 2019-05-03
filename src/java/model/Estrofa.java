@@ -8,8 +8,7 @@ package model;
 import java.io.Serializable;
 import java.util.Collection;
 
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
+
 
 /**
  *
@@ -49,10 +48,7 @@ public class Estrofa implements Serializable {
         this.versos = versos;
     }
 
-    @XmlTransient
-    public Collection<Lirico> getLiricoCollection() {
-        return liricoCollection;
-    }
+
 
     public void setLiricoCollection(Collection<Lirico> liricoCollection) {
         this.liricoCollection = liricoCollection;

@@ -7,8 +7,6 @@ package model;
 
 import java.io.Serializable;
 import java.util.Collection;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *

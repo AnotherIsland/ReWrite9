@@ -93,7 +93,8 @@ public class AdminObras {
         
         try {
             db.connect();
-            rs = db.query("Select idObra from obra where titulo ='"+titulo+"';");
+            rs = db.query("select * from obra inner join relobrausu on relobrausu.idObra = obra.idObra"
+                    + " where idUsuario ="+idUsuario+" and obra.titulo = '"+titulo+"';");
             if(rs.next()){
                 idObra = rs.getInt("idObra");
             }                      
@@ -261,5 +262,39 @@ public class AdminObras {
         }
         return refs;
     }
+    
+    public ArrayList<Obra> buscaObrasIdUsuario(int idUs){
+        
+        //Datos a obtener de la obra
+            ArrayList <Obra> obras = new ArrayList();
+            Obra obraX = null;
+            int idObra = 0;
+            String titulo = "";
+            String fecha = "";
+            String tipo = "";
+            ResultSet rs = null;
+            DataBase db = new DataBase();
+
+            try {
+                db.connect();
+                rs = db.query("select * from obra inner join relobrausu on relobrausu.idObra = obra.idObra where idUsuario ="+idUs+";");
+                while(rs.next()){
+                    idObra = rs.getInt("idObra");
+                    titulo = rs.getString("titulo");
+                    fecha = rs.getString("fecha");
+                    tipo = rs.getString("tipo");
+
+                    obraX = new Obra(idObra, titulo, fecha, tipo);
+                    obras.add(obraX);
+                }                      
+                db.closeConnection();
+            } catch (SQLException error) {
+                System.out.println(error.toString());
+            }
+        return obras;
+        
+    }
+    
+    
     
 }

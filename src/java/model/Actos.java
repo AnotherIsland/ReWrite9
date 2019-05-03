@@ -8,9 +8,6 @@ package model;
 import java.io.Serializable;
 import java.util.Collection;
 
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-
 /**
  *
  * @author victor
@@ -51,10 +48,6 @@ public class Actos implements Serializable {
         this.escenario = escenario;
     }
 
-    @XmlTransient
-    public Collection<Dramatico> getDramaticoCollection() {
-        return dramaticoCollection;
-    }
 
     public void setDramaticoCollection(Collection<Dramatico> dramaticoCollection) {
         this.dramaticoCollection = dramaticoCollection;

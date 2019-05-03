@@ -9,8 +9,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
+
 
 /**
  *
