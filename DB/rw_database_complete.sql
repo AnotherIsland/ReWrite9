@@ -1,4 +1,21 @@
-'cliente');
+drop database if exists rw_database;
+create database rw_database;
+use rw_database;
+
+DROP TABLE IF EXISTS `tipousuario`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tipousuario` (
+	`idTipoUsuario` int(11),
+    `tipoUsu` varchar (45),
+    primary key (`idTipoUsuario`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+LOCK TABLES `tipousuario` WRITE;
+/*!40000 ALTER TABLE `tipousuario` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tipousuario` ENABLE KEYS */;
+UNLOCK TABLES;
+
+insert into tipousuario values(1, 'cliente');
 insert into tipousuario values(2, 'operador');
 insert into tipousuario values(3, 'gerenteS');
 insert into tipousuario values(4, 'ingeniero');

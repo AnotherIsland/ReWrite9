@@ -295,9 +295,165 @@ INSERT INTO reporteMant(contenido,fecha_inicio,idUsuario1Levanta,idUsuario1Asign
 select * from reporteMant;
 Select * from reporteMant where fecha_conclusion is null;
 
-/*INSERT INTO reporte(fecha_inicio,fecha_resolucion,fecha_conclusion,etiqueta,contenido,idUsuarioLevanta,idUsuarioEscritor) VALUES('2019-09-16','2019-09-22','2019-09-23','No asignado','Contenido reporte no asignado',3,4);
-INSERT INTO reporte(fecha_inicio,fecha_resolucion,fecha_conclusion,etiqueta,contenido,idUsuarioLevanta,idUsuarioAsigna,idUsuarioEscritor) VALUES('2019-09-16','2019-09-22','2019-09-23','Pendiente','Contenido reporte pendiente',3,2,4);
-INSERT INTO reporte(fecha_inicio,fecha_resolucion,fecha_conclusion,etiqueta,contenido,idUsuarioLevanta,idUsuarioAsigna,idUsuarioCierra,idUsuarioEscritor) VALUES('2019-09-16','2019-09-22','2019-09-23','Cerrado','Contenido reporte cerrado',3,2,1,4);
-*/
-
 select * from usuario;
+
+drop procedure if exists `alta_usuario`;
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `alta_usuario`(
+	in _usuario varchar(45),
+    in _correo varchar (45),
+    in _pass varchar (45)
+    )
+BEGIN
+DECLARE validar INT;
+	DECLARE ID INT;
+    SELECT COUNT(*) INTO validar FROM usuario WHERE correo=_correo;
+	if validar = 0 THEN
+	SELECT (max(idUsuario)+1) INTO ID FROM usuario limit 1;
+	#the value estados_id its a auto_increment value, just call to add the value...
+	INSERT INTO usuario(idUsuario,usuario, pass, correo, idTipoUsuario0) VALUES(ID,_usuario,_pass,_correo, 1);
+
+	ELSE
+		SELECT CONCAT('El correo: ',_correo,' ya está en uso.') ESTADO;
+	END IF;
+END$$
+DELIMITER ;
+
+drop procedure if exists `alta_obra`;
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `alta_obra`(
+in _titulo varchar(45),
+in _tipo INT
+)
+BEGIN
+	DECLARE validar INT;
+	DECLARE ID1 INT;
+    SELECT COUNT(*) INTO validar FROM obra WHERE fecha=current_timestamp;
+	if validar = 0 THEN
+    SELECT (max(idObra)+1) INTO ID1 FROM obra limit 1;
+	#the value estados_id its a auto_increment value, just call to add the value...
+	INSERT INTO obra(idObra,tipo, titulo, fecha) VALUES(ID1,_tipo, _titulo,current_timestamp);
+    
+    ELSE
+		SELECT CONCAT('La obra: ',_titulo,' no se puede crear justo ahora. Intentar más tarde.') ESTADO;
+	END IF;
+END$$
+DELIMITER ;
+
+drop procedure if exists `alta_resumen`;
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `alta_resumen`(
+in _titulo varchar (45),
+in _contenido mediumtext,
+in _claves longtext,
+in _referencias longtext
+)
+BEGIN
+DECLARE ID INT;
+DECLARE validar INT;
+DECLARE ID1 INT;
+DECLARE _tipo INT;
+SET _tipo = 2;
+call alta_obra(_titulo,_tipo);
+
+	SELECT (max(idresumen)+1) INTO ID FROM resumen limit 1;
+	SELECT (max(idObra)) INTO ID1 FROM obra limit 1;
+	
+    INSERT INTO resumen(idresumen, contenido, idObra1, claves, referencias) VALUES (ID, _contenido, ID1, _claves, _referencias);
+    
+
+END$$
+DELIMITER ;
+
+drop procedure if exists `alta_narrativo`;
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `alta_narrativo`(
+in _titulo varchar (45),
+in _expo text,
+in _desa longtext,
+in _climax longtext,
+in _des text
+)
+BEGIN
+DECLARE ID INT;
+DECLARE validar INT;
+DECLARE ID1 INT;
+DECLARE _tipo INT;
+SET _tipo = 3;
+call alta_obra(_titulo,_tipo);
+
+SELECT (max(idnarrativo)+1) INTO ID FROM narrativo limit 1;
+	SELECT (max(idObra)) INTO ID1 FROM obra limit 1;
+	
+    INSERT INTO narrativo(idnarrativo, exposicion, desarrollo, climax, descenlace, idObra4)
+    VALUES (ID, _expo, _desa, _climax, _des, ID1);
+END$$
+DELIMITER ;
+
+drop procedure if exists `alta_lirico`;
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `alta_lirico`(
+in _titulo varchar (45),
+in _conte longtext
+)
+BEGIN
+DECLARE ID INT;
+DECLARE validar INT;
+DECLARE ID1 INT;
+DECLARE _tipo INT;
+SET _tipo = 4;
+call alta_obra(_titulo,_tipo);
+
+SELECT (max(idlirico)+1) INTO ID FROM lirico limit 1;
+	SELECT (max(idObra)) INTO ID1 FROM obra limit 1;
+	
+    INSERT INTO lirico(idlirico, contenido, idObra5) VALUES (ID, _conte, ID1);
+END$$
+DELIMITER ;
+
+drop procedure if exists `alta_lienzo`;
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `alta_lienzo`(
+in _titulo varchar (45),
+in _conte longtext
+)
+BEGIN
+DECLARE ID INT;
+DECLARE validar INT;
+DECLARE ID1 INT;
+DECLARE _tipo INT;
+SET _tipo = 5;
+call alta_obra(_titulo,_tipo);
+
+SELECT (max(idlienzo)+1) INTO ID FROM lienzo limit 1;
+	SELECT (max(idObra)) INTO ID1 FROM obra limit 1;
+	
+    INSERT INTO lienzo(idlienzo, contenido, idObra7) VALUES (ID, _conte, ID1);
+END$$
+DELIMITER ;
+
+drop procedure if exists `alta_ensayo`;
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `alta_ensayo`(
+in _titulo varchar (45),
+in _introdu mediumtext, 
+in _desa mediumtext,
+in _conc mediumtext,
+in _referencias longtext
+)
+BEGIN
+DECLARE ID INT;
+DECLARE validar INT;
+DECLARE ID1 INT;
+DECLARE _tipo INT;
+SET _tipo = 1;
+call alta_obra(_titulo,_tipo);
+
+SELECT (max(idensayo)+1) INTO ID FROM ensayo limit 1;
+	SELECT (max(idObra)) INTO ID1 FROM obra limit 1;
+	
+    INSERT INTO ensayo(idensayo, idObra2, intro, desarrollo, conclusion, referencias) VALUES (ID, ID1, _introdu, _desa, _conc, _referencias);
+
+END$$
+DELIMITER ;
+
