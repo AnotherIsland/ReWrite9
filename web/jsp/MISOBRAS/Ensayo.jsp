@@ -24,6 +24,7 @@
     String sello = "";    
     if (request.getAttribute("sello") != null) {
         sello = request.getAttribute("sello").toString();
+        request.setAttribute("sello", sello);
     }
     
     Obra obraX = null;
@@ -202,7 +203,7 @@
                             </div>
                             <hr>
                             <label for=""><h6>Sello</h6></label>
-                            <input type="text" name="selloF" id="selloF" class="input-field oculto" disabled="true" value="<%=sello%>">
+                            <input type="text" name="sello" id="sello" class="input-field oculto" disabled="true" value="<%=sello%>">
                             <input type="submit" class="btn waves-effect waves-light" name="guardar" id="guardar" value="Guardar"><br><br>
                         </form>
                             

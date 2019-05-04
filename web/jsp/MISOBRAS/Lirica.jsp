@@ -17,6 +17,7 @@
     String sello = "";    
     if (request.getAttribute("sello") != null) {
         sello = request.getAttribute("sello").toString();
+        request.setAttribute("sello", sello);
     }
     
     Obra obraX = null;

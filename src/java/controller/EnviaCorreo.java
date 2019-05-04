@@ -61,14 +61,26 @@ public class EnviaCorreo extends HttpServlet {
         String password = request.getParameter("password");
         String emai = request.getParameter("email");
         String clave = "";
+        String guarda = "";
         
         try {
-            asello.generaLlaves();//Comentar después de iniciar sistema
+            //asello.generaLlaves();//Comentar después de iniciar sistema
             clave = asello.cifra(emai);
             //clave = generar(password, emai, "registro", "VALIDADO");
         } catch (Exception ex) {
             Logger.getLogger(EnviaCorreo.class.getName()).log(Level.SEVERE, null, ex);
         }
+        System.out.println(clave);
+        
+        
+        //Quitando + a clave 
+        for(int k = 0; k < clave.length();k++){
+            if(clave.charAt(k)!='+'){
+                guarda = guarda + clave.charAt(k);
+            }
+        }
+        
+        clave = guarda;
         System.out.println(clave);
         
         try{
@@ -81,7 +93,7 @@ public class EnviaCorreo extends HttpServlet {
         cEmail cmail = new cEmail();
         cmail.mandaMAil(emai, "VERIFICA TU CUENTA EN REWRITE "+emai+". ", "Te enviamos este mensaje para que confirmes tu registro en ReWrite,\n"
                             + "para hacerlo, ingresa al siguiente link e inicia sesión. ¡Bienvenido! \n\n"
-                            + "http://localhost:8080/ReWrite8/Registroo?cv="+clave);
+                            + "http://localhost:8080/ReWrite9/Registroo?cv="+clave);
         
         RequestDispatcher rd = request.getRequestDispatcher("./jsp/RegistroPendiente.jsp");
         rd.forward(request, response);

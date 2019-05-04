@@ -17,7 +17,9 @@
     String sello = "";    
     if (request.getAttribute("sello") != null) {
         sello = request.getAttribute("sello").toString();
+        request.setAttribute("sello", sello);
     }
+    
     
     Obra obraX = null;
     Lienzo lie = null;
@@ -133,9 +135,19 @@
         <form action="${pageContext.request.contextPath}/ActualizarObra" method="POST">
             <input type="button" class="btn waves-effect waves-light right" name="revisar" id="revisar" value="Revisar" onclick="revEnsayo();" /><br><br>
             <input type="text" name="titulo" class="input-field oculto " placeholder="Título" value="<%=titulo%>" />
+            <%if(request.getAttribute("existe")!=null){
+                request.removeAttribute("existe");
+            %>
+            <div class="chip">
+                    Oops, ya tenías una obra con el mismo título, intenta con otro. 
+            <i class="close material-icons">close</i>
+            </div>
+            <%}%>
             <input type="text" name="tipo" id="tipo" value="lienzo" hidden="true" />
             <input type="text" name="idObra" id="idObra" value="<%=idObra%>" hidden="true">
             <textarea class="input-field oculto materialize-textarea"  name="contenido" id="contenido"   placeholder="Escribe aquí..." ><%=cont%></textarea>
+            <label for=""><h6>Sello</h6></label>
+            <input type="text" name="sello" id="sello" class="input-field oculto" disabled="true" value="<%=sello%>">
             <input type="submit" class="btn waves-effect waves-light" name="guardar" id="guardar" value="Guardar" /><br><br>
         </form>
       </div>

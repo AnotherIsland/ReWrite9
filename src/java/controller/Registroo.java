@@ -46,11 +46,11 @@ public class Registroo extends HttpServlet {
         String emai = "";
         String usuario = "";
         String query = "";
-        //String cv = request.getParameter("cv");
+        String cv = request.getParameter("cv");
         String clave = "";
-        //System.out.println(cv);
+        System.out.println(cv);
 
-        /*if (cv != null) {
+        if (cv != null) {
             query = "Select * from usuarioNR where clave = '" +cv+"';";
             
             try {
@@ -67,9 +67,9 @@ public class Registroo extends HttpServlet {
                 System.out.println(e.getMessage());
             }
         
-         */
+        /*
         password = request.getParameter("password");
-        emai = request.getParameter("email");
+        emai = request.getParameter("email");*/
 
         for (int i = 0; i < emai.length(); i++) {
             if (!Character.toString(emai.charAt(i)).equals("@")) {
@@ -93,7 +93,7 @@ public class Registroo extends HttpServlet {
             System.out.println(error.toString());
         }
 
-        //}
+        }
         RequestDispatcher rd = request.getRequestDispatcher("./jsp/Login.jsp");
         rd.forward(request, response);
     }

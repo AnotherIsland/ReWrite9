@@ -32,7 +32,7 @@ public class GuardarObra extends HttpServlet {
     String _sello = null;
     AdminSello asello = null;
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -84,7 +84,15 @@ public class GuardarObra extends HttpServlet {
         String clim = "";
         int idObra = 0;
         String regreso = "";
-
+        
+        //Verifica si existe obra con mismo nombre
+        idObra = aos.buscaObraporTitulo(titulo, Integer.parseInt(idUs));
+        
+        if(idObra!=0){
+            //Si existe una obra con el mismo título, pide otro título
+            request.setAttribute("existe", 1);
+        }
+            
         //Obtiene parámetros según tipo de Obra
         if (tipo.equals("lienzo")) {
             contenido = request.getParameter("contenido");
@@ -113,12 +121,13 @@ public class GuardarObra extends HttpServlet {
 
             try {//Da de alta ensayo 
                 db.connect();
-                CallableStatement call = db.procedure("{call alta_ensayo (?,?,?,?,?)}");
+                CallableStatement call = db.procedure("{call alta_ensayo (?,?,?,?,?,?)}");
                 call.setString(1, titulo);
                 call.setString(2, intro);
                 call.setString(3, desa);
                 call.setString(4, conclu);
                 call.setString(5, refe);
+                call.setString(6, idUs);
                 call.execute();
                 call.close();
 
@@ -135,11 +144,12 @@ public class GuardarObra extends HttpServlet {
 
             try {//Da de alta la resumen 
                 db.connect();
-                CallableStatement call = db.procedure("{call alta_resumen (?,?,?,?)}");
+                CallableStatement call = db.procedure("{call alta_resumen (?,?,?,?,?)}");
                 call.setString(1, titulo);
                 call.setString(2, contenido);
                 call.setString(3, claves);
                 call.setString(4, refe);
+                call.setString(5, idUs);
                 call.execute();
                 call.close();
 
@@ -149,15 +159,16 @@ public class GuardarObra extends HttpServlet {
             }
 
         } else if (tipo.equals("lirica")) {
-            
+
             contenido = request.getParameter("contenido");
             regreso = "jsp/MISOBRAS/Lirica.jsp";
 
             try {//Da de alta lirico 
                 db.connect();
-                CallableStatement call = db.procedure("{call alta_lirico (?,?)}");
+                CallableStatement call = db.procedure("{call alta_lirico (?,?,?)}");
                 call.setString(1, titulo);
                 call.setString(2, contenido);
+                call.setString(3, idUs);
                 call.execute();
                 call.close();
 
@@ -167,7 +178,7 @@ public class GuardarObra extends HttpServlet {
             }
 
         } else if (tipo.equals("narrativo")) {
-            
+
             intro = request.getParameter("exposicion");
             desa = request.getParameter("desarrollo");
             dese = request.getParameter("desenlace");
@@ -176,12 +187,13 @@ public class GuardarObra extends HttpServlet {
 
             try {//Da de alta Narrativo 
                 db.connect();
-                CallableStatement call = db.procedure("{call alta_narrativo (?,?,?,?,?)}");
+                CallableStatement call = db.procedure("{call alta_narrativo (?,?,?,?,?,?)}");
                 call.setString(1, titulo);
                 call.setString(2, intro);
                 call.setString(3, desa);
                 call.setString(4, clim);
                 call.setString(5, dese);
+                call.setString(6, idUs);
                 call.execute();
                 call.close();
 
@@ -189,24 +201,24 @@ public class GuardarObra extends HttpServlet {
             } catch (SQLException error) {
                 System.out.println(error.toString());
             }
-
-
         } else if (tipo.equals("dramatico")) {
-            
+
         } else if (tipo.equals("articulo")) {
-            
+
         }
-       
-        
+
         idObra = aos.buscaObraporTitulo(titulo, Integer.parseInt(idUs));
-        
+
         sello = creaSello(usuario);
 
         request.setAttribute("sello", sello);
         request.setAttribute("idObra", idObra);
         
+            
+        
+        
         RequestDispatcher rd = request.getRequestDispatcher(regreso);
-        rd.forward(request, response);
+            rd.forward(request, response);
     }
 
     /**
@@ -225,7 +237,7 @@ public class GuardarObra extends HttpServlet {
         
         asello = new AdminSello();
 
-        asello.generaLlaves();
+        //asello.generaLlaves();
         try {
             _sello = asello.cifra(bloque);
             System.out.println(_sello);
