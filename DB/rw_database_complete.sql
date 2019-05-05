@@ -478,3 +478,14 @@ CREATE TABLE FAQs(
 );
 
 insert into FAQs(pregunta,respuesta) values ('¿Como cierro sesion?','Dando clic en la barra superior izquierda.');
+
+use rw_database;
+DROP TABLE IF EXISTS `usuarioNR`;
+CREATE TABLE usuarioNR(
+	`idUsuarioNR` int(11) auto_increment,
+    `pass` varchar (250),
+    `correo` varchar (250),
+    `clave` varchar (500),
+    primary key (`idUsuarioNR`)
+);
+

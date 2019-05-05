@@ -12,7 +12,12 @@
         sesi.invalidate();
     }
     
+    String cp = "";
 
+    if(request.getParameter("cp")!=null){//Revisa sea la petición para compartir
+        cp = request.getParameter("cp");
+    }
+    
 %>
 <!DOCTYPE html>
 <html>
@@ -52,6 +57,7 @@
         <div class="">
           <h3>Inicia Sesión</h3>
           <form action="${pageContext.request.contextPath}/Login" method="post" name="formI" id="formI">
+              <input type="text" name="cp" id="cp" hidden="true" value="<%=cp%>">
             <div class="row">
               <div class="input-field col s12">
                 <input id="username" type="text" name="username" class="validate" onkeypress="valCorreo();">

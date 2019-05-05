@@ -96,6 +96,14 @@
         <servlet-name>ActualizarObra</servlet-name>
         <servlet-class>controller.ActualizarObra</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Compartir</servlet-name>
+        <servlet-class>controller.Compartir</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EnviaConsejo</servlet-name>
+        <servlet-class>controller.EnviaConsejo</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Inicio</servlet-name>
         <url-pattern>/ReWrite/index.jsp</url-pattern>
@@ -199,6 +207,14 @@
     <servlet-mapping>
         <servlet-name>ActualizarObra</servlet-name>
         <url-pattern>/ActualizarObra</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Compartir</servlet-name>
+        <url-pattern>/Compartir</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EnviaConsejo</servlet-name>
+        <url-pattern>/EnviaConsejo</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
