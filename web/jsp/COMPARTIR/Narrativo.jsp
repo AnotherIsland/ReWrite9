@@ -16,6 +16,7 @@
     
     if (sesi.getAttribute("ID") != null) {
     String sello = "";    
+    int idUs = Integer.parseInt(sesi.getAttribute("idUsuario").toString());
     if (request.getAttribute("sello") != null) {
         sello = request.getAttribute("sello").toString();
     }
@@ -96,48 +97,53 @@
                     <h2 class="white-text">Narrativo</h2>
                     <div class="row"> 
                         <br>
-                        <h6 class="white-text">Aquí tenemos unos muy buenos consejos para ti. </h6><br>
+                        <h6 class="white-text">Deja aquí tu consejo según la categoría.</h6><br>
                         
                         <ul class="collapsible">
                             <li>
                                 <div class="collapsible-header"><i class="material-icons">assignment_turned_in</i>Ortografía y gramática</div>
                                 <div class="collapsible-body">
-                                    <span class="white-text">consejo</span><!--aquí va el consejo-->
+                                    <form action="${pageContext.request.contextPath}/EnviaConsejo" method="POST">
+                                        <input type="text" name="idObra" id="idObra" value="<%=idObra%>" hidden="true">
+                                        <input type="text"  name="consejo" onkeypress="vNumyLetras();" class="white-text" placeholder="Escribe aquí..."/>
+                                        <input type="text" hidden name="idUs" id="idUs" value="<%=idUs%>" />
+                                        <input type="text" hidden name="categoria" value="ortografia"/>
+                                        <input type="submit" value="ENVIAR CONSEJO" class="btn waves-effect waves-light" />
+                                    </form>
                                 </div>
                             </li>
                             <li>
                                 <div class="collapsible-header"><i class="material-icons">photo_filter</i>Claridad</div>
                                 <div class="collapsible-body">
-                                    <span class="white-text">consejo</span><!--aquí va el consejo-->
+                                    <form action="${pageContext.request.contextPath}/EnviaConsejo" method="POST">
+                                        <input type="text" name="idObra" id="idObra" value="<%=idObra%>" hidden="true">
+                                        <input type="text"  name="consejo" onkeypress="vNumyLetras();" class="white-text" placeholder="Escribe aquí..."/>
+                                        <input type="text" hidden name="idUs" id="idUs" value="<%=idUs%>" />
+                                        <input type="text" hidden name="categoria" value="claridad"/>
+                                        <input type="submit" value="ENVIAR CONSEJO" class="btn waves-effect waves-light" />
+                                    </form>
                                 </div>
                             </li>
                             <li>
                                 <div class="collapsible-header"><i class="material-icons">description</i>Estructura</div>
                                 <div class="collapsible-body"><!--aquí va el consejo-->
-                                    <ul>
-                                        <li class="white-text">Introducción</li>
-                                        <li class="white-text">Desarrollo</li>
-                                        <li class="white-text">Conclusión</li>
-                                        <li class="white-text">Referencias</li>
-                                    </ul>
-
-                                    <p class="white-text">Estructura las ideas según:</p>
-                                    <ol>
-                                        <li class="white-text">Idea Principal</li>
-                                        <li class="white-text">Idea secundaria
-                                            <ol>
-                                                <li class="white-text">Sustento</li>
-                                                <li class="white-text">Sustento</li>
-                                            </ol>
-                                        </li>
-                                        <li class="white-text">Idea secundaria
-                                            <ol>
-                                                <li class="white-text">Sustento</li>
-                                                <li class="white-text">Sustento</li>
-                                            </ol>
-                                        </li>
-                                        <li class="white-text">Referencias</li>
-                                    </ol>
+                                    <form action="${pageContext.request.contextPath}/EnviaConsejo" method="POST">
+                                        <input type="text"  name="consejo" onkeypress="vNumyLetras();" class="white-text" placeholder="Escribe aquí..."/>
+                                        <input type="text" hidden name="idUs" id="idUs" value="<%=idUs%>" />
+                                        <input type="text" hidden name="categoria" value="estructura"/>
+                                        <input type="submit" value="ENVIAR CONSEJO" class="btn waves-effect waves-light" />
+                                    </form>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="collapsible-header"><i class="material-icons">description</i>Trama</div>
+                                <div class="collapsible-body"><!--aquí va el consejo-->
+                                    <form action="${pageContext.request.contextPath}/EnviaConsejo" method="POST">
+                                        <input type="text"  name="consejo" onkeypress="vNumyLetras();" class="white-text" placeholder="Escribe aquí..."/>
+                                        <input type="text" hidden name="idUs" id="idUs" value="<%=idUs%>" />
+                                        <input type="text" hidden name="categoria" value="trama"/>
+                                        <input type="submit" value="ENVIAR CONSEJO" class="btn waves-effect waves-light" />
+                                    </form>
                                 </div>
                             </li>
                         </ul>
@@ -161,18 +167,22 @@
                             <input type="text" name="tipo" id="tipo" value="narrativo" hidden="true">
                             <input type="text" name="idObra" id="idObra" value="<%=idObra%>" hidden="true">
                             <input type="button" class="btn waves-effect waves-light right" name="revisar" id="revisar" value="Revisar" onclick="revNarrativo();"><br><br>
-                            <input type="text" name="titulo" class="input-field oculto " placeholder="Título" value="<%=titulo%>" >
-                            <textarea class="input-field oculto materialize-textarea" name="exposicion"  placeholder="Exposición" ><%=expo%></textarea>
-                            <textarea class="input-field oculto materialize-textarea" name="desarrollo"  placeholder="Desarrollo" ><%=desa%></textarea>
-                            <textarea class="input-field oculto materialize-textarea" name="climax"  placeholder="Climax" ><%=clim%></textarea>
-                            <textarea class="input-field oculto materialize-textarea" name="desenlace"  placeholder="Desenlace" ><%=dese%></textarea>
-                            
+                            <input hidden type="text" name="titulo" class="input-field oculto " placeholder="Título" value="<%=titulo%>" >
+                            <p><%=titulo%></p>
+                            <textarea hidden class="input-field oculto materialize-textarea" name="exposicion"  placeholder="Exposición" ><%=expo%></textarea>
+                            <textarea hidden class="input-field oculto materialize-textarea" name="desarrollo"  placeholder="Desarrollo" ><%=desa%></textarea>
+                            <textarea hidden class="input-field oculto materialize-textarea" name="climax"  placeholder="Climax" ><%=clim%></textarea>
+                            <textarea hidden class="input-field oculto materialize-textarea" name="desenlace"  placeholder="Desenlace" ><%=dese%></textarea>
+                            <p><%=expo%></p>
+                            <p><%=desa%></p>
+                            <p><%=clim%></p>
+                            <p><%=dese%></p>
                             <hr>
-                            <div class="oculto" id="sello" name="sello" contenteditable> 
+                            <div class="oculto" id="sello" name="sello" >     
                                 <label for=""><h6>Sello</h6></label>
                                 <input type="text" name="sello" id="sello" class="input-field oculto" disabled="true" value="<%=sello%>">
                             </div>
-                            <input type="submit" class="btn waves-effect waves-light" name="guardar" id="guardar" value="Guardar"><br><br>
+                            <br><br>
                         </form>
                             
                     </div>

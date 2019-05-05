@@ -9,23 +9,19 @@ import Database.DataBase;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import security.AdminSello;
+import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author ACIE-PC
+ * @author ACIE
  */
-@WebServlet(name = "EnviaCorreo", urlPatterns = {"/EnviaCorreo"})
-public class EnviaCorreo extends HttpServlet {    
+public class EnviaConsejo extends HttpServlet {
+
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -39,6 +35,9 @@ public class EnviaCorreo extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        RequestDispatcher rd = request.getRequestDispatcher("./jsp/MISOBRAS/MisObras.jsp");
+                rd.forward(request, response);
         
     }
 
@@ -54,49 +53,37 @@ public class EnviaCorreo extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
+        
+        String consejo = "";
+        String idUsuario = "";
+        String categoria = "";
+        String idObra = "";
+        
+        consejo = request.getParameter("consejo");
+        idUsuario = request.getParameter("idUs");
+        categoria = request.getParameter("categoria");
+        idObra = request.getParameter("idObra");
+        
+        
+        //Insertar en BD 
+        
         DataBase db = new DataBase();
-        ResultSet rs;
-        AdminSello asello = new AdminSello();
-        
-        String password = request.getParameter("password");
-        String emai = request.getParameter("email");
-        String clave = "";
-        String guarda = "";
-        
-        try {
-            //asello.generaLlaves();//Comentar después de iniciar sistema
-            clave = asello.cifra(emai);
-            //clave = generar(password, emai, "registro", "VALIDADO");
-        } catch (Exception ex) {
-            Logger.getLogger(EnviaCorreo.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        System.out.println(clave);
-        
-        
-        //Quitando + a clave 
-        for(int k = 0; k < clave.length();k++){
-            if(clave.charAt(k)!='+'){
-                guarda = guarda + clave.charAt(k);
-            }
-        }
-        
-        clave = guarda;
-        System.out.println(clave);
+        ResultSet rs = null;
         
         try{
             db.connect();
-            db.update("insert into usuarioNR(pass,correo,clave) values ('"+password+"','"+emai+"','"+clave+"');");
+            db.update("INSERT INTO consejo(consejo,categoria,idUsuarioC,idObraC) "
+                    + "VALUES('"+consejo+"','"+categoria+"',"+idUsuario+","+idObra+");");
             db.closeConnection();
         }catch(Exception e){ 
             System.out.println(e.getMessage());
         }
         
-        cEmail cmail = new cEmail();
-        cmail.mandaMAil(emai, "VERIFICA TU CUENTA EN REWRITE "+emai+". ", "Te enviamos este mensaje para que confirmes tu registro en ReWrite,\n"
-                            + "para hacerlo, ingresa al siguiente link e inicia sesión. ¡Bienvenido! \n\n"
-                            + "http://localhost:8080/ReWrite9/Registroo?cv="+clave);
         
-        RequestDispatcher rd = request.getRequestDispatcher("./jsp/RegistroPendiente.jsp");
+        
+        
+        RequestDispatcher rd = request.getRequestDispatcher("./jsp/MISOBRAS/MisObras.jsp");
         rd.forward(request, response);
     }
 
@@ -109,9 +96,5 @@ public class EnviaCorreo extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
-
-
-
 
 }

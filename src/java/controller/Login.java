@@ -39,8 +39,60 @@ public class Login extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        RequestDispatcher rd = request.getRequestDispatcher("./jsp/Login.jsp");
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
+        DataBase db = new DataBase();
+        String usuario = request.getParameter("username");
+        String contrasena = request.getParameter("password");//En esta parte se quitó el método de cifrado
+        String Usu = "";
+        HttpSession sesi = request.getSession();
+        Generar gen = new Generar();
+        
+        try{
+            db.connect();
+            ResultSet rs = db.query("Select * from usuario where (correo = '"+usuario+"' or usuario='"+usuario+"') and pass = '"+contrasena+"';");
+            response.setContentType("text/html;charset=UTF-8");
+            if (rs.next()){
+                String username = rs.getString("usuario");
+                String correo = rs.getString("correo");
+                String id = rs.getString("idUsuario");
+                String pass = rs.getString("pass");
+                String date = Long.toString(sesi.getLastAccessedTime());
+                
+                try{
+                     Login l = new Login();
+                sesi.setAttribute("ID", gen.generar(correo,id,username, date));
+                sesi.setAttribute("Email", correo);
+                sesi.setAttribute("username", username);
+                sesi.setAttribute("pass", pass);
+                sesi.setAttribute("idUsuario", id);
+                    System.out.println("id: " + sesi.getAttribute("ID").toString());
+                    System.out.println("usuario: " + sesi.getAttribute("username").toString());
+                }
+                catch (Exception e){
+                    System.out.println(e);
+                }
+                
+                String regreso = "";
+                
+                if(request.getParameter("cp").equals("")){
+                    regreso = "./jsp/MISOBRAS/MisObras.jsp";
+                }else{
+                    regreso = "./Compartir";
+                    request.setAttribute("cp", request.getParameter("cp"));
+                }
+                RequestDispatcher rd = request.getRequestDispatcher(regreso);
                 rd.forward(request, response);
+            }
+            else{
+                System.out.println("No esta el usuario registrado");
+                RequestDispatcher rd = request.getRequestDispatcher("./jsp/Login.jsp");
+                rd.forward(request, response);
+            }
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
         
     }
 
@@ -88,7 +140,16 @@ public class Login extends HttpServlet {
                 catch (Exception e){
                     System.out.println(e);
                 }
-                RequestDispatcher rd = request.getRequestDispatcher("./jsp/MISOBRAS/MisObras.jsp");
+                
+                String regreso = "";
+                
+                if(request.getParameter("cp").equals("")){
+                    regreso = "./jsp/MISOBRAS/MisObras.jsp";
+                }else{
+                    regreso = "./Compartir";
+                    request.setAttribute("cp", request.getParameter("cp"));
+                }
+                RequestDispatcher rd = request.getRequestDispatcher(regreso);
                 rd.forward(request, response);
             }
             else{
