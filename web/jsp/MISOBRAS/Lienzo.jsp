@@ -4,6 +4,9 @@
     Author     : Axolotech
 --%>
 
+<%@page import="controller.AdminConsejos"%>
+<%@page import="model.Consejo"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="controller.AdminObras"%>
 <%@page import="model.Lienzo"%>
 <%@page import="model.Obra"%>
@@ -26,7 +29,14 @@
     AdminObras ao = new AdminObras();
     String titulo = "";
     String cont = "";
-  
+    ArrayList<Consejo> consC = new ArrayList();
+    ArrayList<Consejo> consE = new ArrayList();
+    ArrayList<Consejo> consO = new ArrayList();
+    ArrayList<Consejo> consG = new ArrayList();
+    AdminConsejos ac = new AdminConsejos();
+    Consejo consX = null;
+    String consejo = "";
+    String usCons = "";
     String idObra = "";
 
     if(request.getParameter("idObra") != null ||request.getAttribute("idObra")!= null ){
@@ -43,6 +53,11 @@
         lie = ao.getLie();
         titulo = obraX.getTitulo();
         cont = lie.getContenido();
+        
+        consC = ac.traePorCategoria(Integer.parseInt(idObra), "claridad");
+        consO = ac.traePorCategoria(Integer.parseInt(idObra), "otros");
+        consG = ac.traePorCategoria(Integer.parseInt(idObra), "ortografia");
+        consE = ac.traePorCategoria(Integer.parseInt(idObra), "estructura");
         
     }
 %>
@@ -96,21 +111,53 @@
           <li>
             <div class="collapsible-header"><i class="material-icons">assignment_turned_in</i>Ortografía y gramática</div>
             <div class="collapsible-body">
-              <span class="white-text">consejo</span><!--aquí va el consejo-->
+                <%for(int h = 0; h < consG.size();h++){
+                    consX = consG.get(h);
+                    consejo = consX.getConsejo();
+                    usCons = consX.getUsuario();
+                %>
+                <span class="white-text"><%=consejo%></span><br/><!--aquí va el consejo-->
+                <span class="grey-text">- <%=usCons%></span><br/><br/>
+                <%}%>
             </div>
           </li>
           <li>
             <div class="collapsible-header"><i class="material-icons">photo_filter</i>Claridad</div>
             <div class="collapsible-body">
-              <span class="white-text">consejo</span><!--aquí va el consejo-->
+                <%for(int h = 0; h < consC.size();h++){
+                    consX = consC.get(h);
+                    consejo = consX.getConsejo();
+                    usCons = consX.getUsuario();
+                %>
+                <span class="white-text"><%=consejo%></span><br/><!--aquí va el consejo-->
+                <span class="grey-text">- <%=usCons%></span><br/><br/>
+                <%}%>
             </div>
           </li>
           <li>
             <div class="collapsible-header"><i class="material-icons">description</i>Estructura</div>
             <div class="collapsible-body"><!--aquí va el consejo-->
-              <ul>
-                
-              </ul>
+              <%for(int h = 0; h < consE.size();h++){
+                    consX = consE.get(h);
+                    consejo = consX.getConsejo();
+                    usCons = consX.getUsuario();
+                %>
+                <span class="white-text"><%=consejo%></span><br/><!--aquí va el consejo-->
+                <span class="grey-text">- <%=usCons%></span><br/><br/>
+                <%}%>
+            </div>
+          </li>
+          <li>
+            <div class="collapsible-header"><i class="material-icons">flag</i>Otros</div>
+            <div class="collapsible-body"><!--aquí va el consejo-->
+              <%for(int h = 0; h < consO.size();h++){
+                    consX = consO.get(h);
+                    consejo = consX.getConsejo();
+                    usCons = consX.getUsuario();
+                %>
+                <span class="white-text"><%=consejo%></span><br/><!--aquí va el consejo-->
+                <span class="grey-text">- <%=usCons%></span><br/><br/>
+                <%}%>
             </div>
           </li>
         </ul>
@@ -124,9 +171,8 @@
           <i class="material-icons">person_add</i>
         </button><label class="white-text" for="compartir">&nbsp;&nbsp;Compartir Obra</label>
         <div class="" style="overflow: hidden;" id="share" name="share" hidden ><!--aparece sólo cuando se da clic en compartir-->
-          <a class="truncate white-text" href="http://127.0.0.1:8084/ReWrite8/jsp/CREAR/Lienzo.jsp">
-              http://127.0.0.1:8084/ReWrite8/jsp/CREAR/Lienzo.jsp
-          </a>
+          <a class="truncate" href="${pageContext.request.contextPath}/jsp/Login.jsp?cp=<%=idObra%>">
+                             ${pageContext.request.contextPath}/jsp/Login.jsp?cp=<%=idObra%></a>
         </div>
       </div>
     </div>

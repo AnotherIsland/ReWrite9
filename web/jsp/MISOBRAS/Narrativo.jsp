@@ -4,6 +4,9 @@
     Author     : Axolotech
 --%>
 
+<%@page import="controller.AdminConsejos"%>
+<%@page import="model.Consejo"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="controller.AdminObras"%>
 <%@page import="model.Narrativo"%>
 <%@page import="model.Obra"%>
@@ -30,6 +33,15 @@
     String dese = "";
     int num = 0;
     String idObra = "";
+    ArrayList<Consejo> consC = new ArrayList();
+    ArrayList<Consejo> consE = new ArrayList();
+    ArrayList<Consejo> consO = new ArrayList();
+    ArrayList<Consejo> consG = new ArrayList();
+    ArrayList<Consejo> consT = new ArrayList();
+    AdminConsejos ac = new AdminConsejos();
+    Consejo consX = null;
+    String consejo = "";
+    String usCons = "";
 
     if(request.getParameter("idObra") != null ||request.getAttribute("idObra")!= null ){
         
@@ -48,7 +60,12 @@
         desa = nar.getDesarrollo();
         clim = nar.getClimax();
         dese = nar.getDesenlace();
-       
+        
+        consC = ac.traePorCategoria(Integer.parseInt(idObra), "claridad");
+        consO = ac.traePorCategoria(Integer.parseInt(idObra), "otros");
+        consG = ac.traePorCategoria(Integer.parseInt(idObra), "ortografia");
+        consE = ac.traePorCategoria(Integer.parseInt(idObra), "estructura");
+        consT = ac.traePorCategoria(Integer.parseInt(idObra), "trama");
     }
 %>
 <!DOCTYPE html>
@@ -102,42 +119,66 @@
                             <li>
                                 <div class="collapsible-header"><i class="material-icons">assignment_turned_in</i>Ortografía y gramática</div>
                                 <div class="collapsible-body">
-                                    <span class="white-text">consejo</span><!--aquí va el consejo-->
+                                    <%for(int h = 0; h < consG.size();h++){
+                                        consX = consG.get(h);
+                                        consejo = consX.getConsejo();
+                                        usCons = consX.getUsuario();
+                                    %>
+                                    <span class="white-text"><%=consejo%></span><br/><!--aquí va el consejo-->
+                                    <span class="grey-text">- <%=usCons%></span><br/><br/>
+                                    <%}%>
                                 </div>
                             </li>
                             <li>
                                 <div class="collapsible-header"><i class="material-icons">photo_filter</i>Claridad</div>
                                 <div class="collapsible-body">
-                                    <span class="white-text">consejo</span><!--aquí va el consejo-->
+                                    <%for(int h = 0; h < consC.size();h++){
+                                        consX = consC.get(h);
+                                        consejo = consX.getConsejo();
+                                        usCons = consX.getUsuario();
+                                    %>
+                                    <span class="white-text"><%=consejo%></span><br/><!--aquí va el consejo-->
+                                    <span class="grey-text">- <%=usCons%></span><br/><br/>
+                                    <%}%>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="collapsible-header"><i class="material-icons">import_contacts</i>Trama</div>
+                                <div class="collapsible-body">
+                                    <%for(int h = 0; h < consT.size();h++){
+                                        consX = consT.get(h);
+                                        consejo = consX.getConsejo();
+                                        usCons = consX.getUsuario();
+                                    %>
+                                    <span class="white-text"><%=consejo%></span><br/><!--aquí va el consejo-->
+                                    <span class="grey-text">- <%=usCons%></span><br/><br/>
+                                    <%}%>
                                 </div>
                             </li>
                             <li>
                                 <div class="collapsible-header"><i class="material-icons">description</i>Estructura</div>
                                 <div class="collapsible-body"><!--aquí va el consejo-->
-                                    <ul>
-                                        <li class="white-text">Introducción</li>
-                                        <li class="white-text">Desarrollo</li>
-                                        <li class="white-text">Conclusión</li>
-                                        <li class="white-text">Referencias</li>
-                                    </ul>
-
-                                    <p class="white-text">Estructura las ideas según:</p>
-                                    <ol>
-                                        <li class="white-text">Idea Principal</li>
-                                        <li class="white-text">Idea secundaria
-                                            <ol>
-                                                <li class="white-text">Sustento</li>
-                                                <li class="white-text">Sustento</li>
-                                            </ol>
-                                        </li>
-                                        <li class="white-text">Idea secundaria
-                                            <ol>
-                                                <li class="white-text">Sustento</li>
-                                                <li class="white-text">Sustento</li>
-                                            </ol>
-                                        </li>
-                                        <li class="white-text">Referencias</li>
-                                    </ol>
+                                  <%for(int h = 0; h < consE.size();h++){
+                                        consX = consE.get(h);
+                                        consejo = consX.getConsejo();
+                                        usCons = consX.getUsuario();
+                                    %>
+                                    <span class="white-text"><%=consejo%></span><br/><!--aquí va el consejo-->
+                                    <span class="grey-text">- <%=usCons%></span><br/><br/>
+                                    <%}%>  
+                                </div>
+                            </li>
+                            <li>
+                                <div class="collapsible-header"><i class="material-icons">flag</i>Otros</div>
+                                <div class="collapsible-body">
+                                    <%for(int h = 0; h < consO.size();h++){
+                                        consX = consO.get(h);
+                                        consejo = consX.getConsejo();
+                                        usCons = consX.getUsuario();
+                                    %>
+                                    <span class="white-text"><%=consejo%></span><br/><!--aquí va el consejo-->
+                                    <span class="grey-text">- <%=usCons%></span><br/><br/>
+                                    <%}%>
                                 </div>
                             </li>
                         </ul>
@@ -150,8 +191,8 @@
                             <i class="material-icons">person_add</i>
                         </button><label class="white-text" for="compartir">&nbsp;&nbsp;Compartir Obra</label>
                         <div class="" style="overflow: hidden;" id="share" name="share" hidden ><!--aparece sólo cuando se da clic en compartir-->
-                            <a class="truncate" href="https://material.io/tools/color/?fbclid=IwAR0W6Dplr3J4E2x6bGo_lqiLd-kJJJijRuk5t9iEXBO4FblTc51Y9mNjaoY#!/?view.left=1&view.right=0&primary.color=212121&secondary.color=64B5F6">https://material.io/tools/color/?fbclid=IwAR0W6Dplr3J4E2x6bGo_lqiLd-kJJJijRuk5t9iEXBO4FblTc51Y9mNjaoY#!/?view.left=1&view.right=0&primary.color=212121&secondary.color=64B5F6
-                            </a>
+                             <a class="truncate" href="${pageContext.request.contextPath}/jsp/Login.jsp?cp=<%=idObra%>">
+                                        ${pageContext.request.contextPath}/jsp/Login.jsp?cp=<%=idObra%></a>
                         </div>
                     </div>
                 </div>

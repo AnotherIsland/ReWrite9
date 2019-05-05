@@ -489,3 +489,15 @@ CREATE TABLE usuarioNR(
     primary key (`idUsuarioNR`)
 );
 
+DROP TABLE IF EXISTS `consejo`;
+CREATE TABLE consejo(
+	`idConsejo` int(11) auto_increment,
+    `consejo` varchar (250),
+    `categoria` varchar (250),
+    `idUsuarioC` int (11),
+    `idObraC` int (11),
+    primary key (`idConsejo`),
+    CONSTRAINT `idUsuarioC` FOREIGN KEY (`idUsuarioC`) REFERENCES `usuario` (`idUsuario`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+    CONSTRAINT `idObraC` FOREIGN KEY (`idObraC`) REFERENCES `obra` (`idObra`) ON DELETE NO ACTION ON UPDATE NO ACTION
+);
+

@@ -127,6 +127,18 @@
             </div>
           </li>
           <li>
+            <div class="collapsible-header"><i class="material-icons">flag</i>Otros</div>
+            <div class="collapsible-body">
+              <form action="${pageContext.request.contextPath}/EnviaConsejo" method="POST">
+                    <input type="text" name="idObra" id="idObra" value="<%=idObra%>" hidden="true">
+                    <input type="text"  name="consejo" onkeypress="vNumyLetras();" class="white-text" placeholder="Escribe aquí..."/>
+                    <input type="text" hidden name="idUs" id="idUs" value="<%=idUs%>" />
+                    <input type="text" hidden name="categoria" value="otros"/>
+                    <input type="submit" value="ENVIAR CONSEJO" class="btn waves-effect waves-light" />
+                </form>
+            </div>
+          </li>
+          <li>
             <div class="collapsible-header"><i class="material-icons">description</i>Palabras clave</div>
             <div class="collapsible-body"><!--aquí va el consejo-->
                 <div name="pClave" id="pClave">

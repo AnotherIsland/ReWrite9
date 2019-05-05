@@ -4,6 +4,9 @@
     Author     : Axolotech
 --%>
 
+<%@page import="controller.AdminConsejos"%>
+<%@page import="model.Consejo"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="controller.AdminObras"%>
 <%@page import="model.Obra"%>
 <%@page import="model.Lirico"%>
@@ -25,7 +28,15 @@
     AdminObras ao = new AdminObras();
     String titulo = "";
     String cont = "";
-     String idObra = "";
+    String idObra = "";
+    ArrayList<Consejo> consM = new ArrayList();
+    ArrayList<Consejo> consR = new ArrayList();
+    ArrayList<Consejo> consO = new ArrayList();
+    ArrayList<Consejo> consG = new ArrayList();
+    AdminConsejos ac = new AdminConsejos();
+    Consejo consX = null;
+    String consejo = "";
+    String usCons = "";
 
     if(request.getParameter("idObra") != null ||request.getAttribute("idObra")!= null ){
         
@@ -41,6 +52,11 @@
         lir = ao.getLir();
         titulo = obraX.getTitulo();
         cont = lir.getContenido();
+        
+        consM = ac.traePorCategoria(Integer.parseInt(idObra), "metrica");
+        consO = ac.traePorCategoria(Integer.parseInt(idObra), "otros");
+        consG = ac.traePorCategoria(Integer.parseInt(idObra), "ortografia");
+        consR = ac.traePorCategoria(Integer.parseInt(idObra), "rima");
         
     }
 %>
@@ -92,19 +108,53 @@
                             <li>
                                 <div class="collapsible-header"><i class="material-icons">assignment_turned_in</i>Ortografía y gramática</div>
                                 <div class="collapsible-body">
-                                    <span class="white-text">consejo</span><!--aquí va el consejo-->
+                                    <%for(int h = 0; h < consG.size();h++){
+                                        consX = consG.get(h);
+                                        consejo = consX.getConsejo();
+                                        usCons = consX.getUsuario();
+                                    %>
+                                    <span class="white-text"><%=consejo%></span><br/><!--aquí va el consejo-->
+                                    <span class="grey-text">- <%=usCons%></span><br/><br/>
+                                    <%}%>
                                 </div>
                             </li>
                             <li>
                                 <div class="collapsible-header"><i class="material-icons">book</i>Rima</div>
                                 <div class="collapsible-body">
-                                    <span class="white-text" >consejo</span><!--aquí va el consejo-->
+                                    <%for(int h = 0; h < consR.size();h++){
+                                        consX = consR.get(h);
+                                        consejo = consX.getConsejo();
+                                        usCons = consX.getUsuario();
+                                    %>
+                                    <span class="white-text"><%=consejo%></span><br/><!--aquí va el consejo-->
+                                    <span class="grey-text">- <%=usCons%></span><br/><br/>
+                                    <%}%>
                                 </div>
                             </li>
                             <li>
                                 <div class="collapsible-header"><i class="material-icons">border_color</i>Métrica</div>
                                 <div class="collapsible-body">
-                                    <span class="white-text">consejo</span><!--aquí va el consejo-->
+                                    <%for(int h = 0; h < consM.size();h++){
+                                        consX = consM.get(h);
+                                        consejo = consX.getConsejo();
+                                        usCons = consX.getUsuario();
+                                    %>
+                                    <span class="white-text"><%=consejo%></span><br/><!--aquí va el consejo-->
+                                    <span class="grey-text">- <%=usCons%></span><br/><br/>
+                                    <%}%>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="collapsible-header"><i class="material-icons">flag</i>Otros</div>
+                                <div class="collapsible-body">
+                                    <%for(int h = 0; h < consO.size();h++){
+                                        consX = consO.get(h);
+                                        consejo = consX.getConsejo();
+                                        usCons = consX.getUsuario();
+                                    %>
+                                    <span class="white-text"><%=consejo%></span><br/><!--aquí va el consejo-->
+                                    <span class="grey-text">- <%=usCons%></span><br/><br/>
+                                    <%}%>
                                 </div>
                             </li>
                         </ul>
@@ -129,8 +179,8 @@
                             <i class="material-icons">person_add</i>
                         </button><label class="white-text" for="compartir">&nbsp;&nbsp;Compartir Obra</label>
                         <div class="" style="overflow: hidden;" id="share" name="share" hidden ><!--aparece sólo cuando se da clic en compartir-->
-                            <a class="truncate" href="https://material.io/tools/color/?fbclid=IwAR0W6Dplr3J4E2x6bGo_lqiLd-kJJJijRuk5t9iEXBO4FblTc51Y9mNjaoY#!/?view.left=1&view.right=0&primary.color=212121&secondary.color=64B5F6">https://material.io/tools/color/?fbclid=IwAR0W6Dplr3J4E2x6bGo_lqiLd-kJJJijRuk5t9iEXBO4FblTc51Y9mNjaoY#!/?view.left=1&view.right=0&primary.color=212121&secondary.color=64B5F6
-                            </a>
+                             <a class="truncate" href="${pageContext.request.contextPath}/jsp/Login.jsp?cp=<%=idObra%>">
+                             ${pageContext.request.contextPath}/jsp/Login.jsp?cp=<%=idObra%></a>
                         </div>
                     </div>
                 </div>
