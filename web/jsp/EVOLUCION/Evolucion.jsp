@@ -4,6 +4,10 @@
     Author     : Axolotech
 --%>
 
+<%@page import="controller.AdminConsejos"%>
+<%@page import="model.Consejo"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="java.sql.SQLException"%>
 <%@page import="Database.DataBase"%>
 <%@page import="java.sql.ResultSet"%>
@@ -33,6 +37,33 @@
         int numLir = 0;
         int numLie = 0;
         int numNar = 0;
+        
+        ArrayList<Consejo> consC = new ArrayList();
+        ArrayList<Consejo> consE = new ArrayList();
+        ArrayList<Consejo> consO = new ArrayList();
+        ArrayList<Consejo> consG = new ArrayList();
+        
+        AdminConsejos ac = new AdminConsejos();
+        
+        int[] numCons = new int[7];
+        int orto = 0;
+        int clar = 0;
+        int estr = 0;
+        int rima = 0;
+        int metr = 0;
+        int tram = 0;
+        int otro = 0;
+        
+        numCons = ac.traeTodosPorCategoria(7);
+        
+        orto = numCons[0];
+        clar = numCons[1];
+        estr = numCons[2];
+        rima = numCons[3];
+        metr = numCons[4];
+        tram = numCons[5];
+        otro = numCons[6];
+
  
         try {
                 db.connect();
@@ -128,9 +159,16 @@
             </div>
           </div>
           <div class="row">
-            <h5 class="white-text">Correciones</h5><hr class="blue lighten-1">
+            <h5 class="white-text">Consejos realizados a tus obras</h5><hr class="blue lighten-1">
             <div class="col s12 m12 l12 xl12 " >
-                <div class="center"><img src="${pageContext.request.contextPath}/img/graph2.png"></div>
+                <canvas id="myChart1" class="white-text"></canvas>
+                <input name="orto" id="orto" value="<%=orto%>" hidden/>
+                <input name="estr" id="estr" value="<%=estr%>" hidden/>
+                <input name="clar" id="clar" value="<%=clar%>" hidden/>
+                <input name="rima" id="rima" value="<%=rima%>" hidden/>
+                <input name="metr" id="metr" value="<%=metr%>" hidden/>
+                <input name="tram" id="tram" value="<%=tram%>" hidden/>
+                <input name="otro" id="otro" value="<%=otro%>" hidden/>
             </div>
           </div>
   </div><br><br>
