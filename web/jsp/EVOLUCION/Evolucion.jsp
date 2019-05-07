@@ -26,7 +26,7 @@
     <% 
         HttpSession sesi = request.getSession();
         String idUs = sesi.getAttribute("idUsuario").toString();
-        /*if (sesi.getAttribute("ID") != null) {*/
+        if (sesi.getAttribute("ID") != null) {
         
         DataBase db = new DataBase();
         ResultSet rs = null;
@@ -178,11 +178,11 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/materialize.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/init.js"></script>
-<% /*} 
+<% } 
     else {
     RequestDispatcher rd = request.getRequestDispatcher("../Login.jsp");
                 rd.forward(request, response);
-}*/%>
+}%>
 </body>
 </html>
 
