@@ -26,6 +26,10 @@ public class creaPDF {
     
     private PDDocument doc = null;
     private PDPage page = null;
+    private float fontSize = 12;
+    private PDFont pdfFont = PDType1Font.TIMES_ROMAN;
+    private float leading = 1.5f * fontSize;
+    private float fontSizeT = 14;
     
     public PDDocument creaPDF(String path) throws IOException {
         doc = new PDDocument();
@@ -51,11 +55,7 @@ public class creaPDF {
             doc.addPage(page);
             PDPageContentStream contentStream = new PDPageContentStream(doc, page);
 
-            PDFont pdfFont = PDType1Font.TIMES_ROMAN;
-            float fontSize = 12;
-            float leading = 1.5f * fontSize;
-            float fontSizeT = 14;
-
+            
             PDRectangle mediabox = page.getMediaBox();
             float margin = 72;
             float width = mediabox.getWidth() - 2 * margin;
@@ -155,11 +155,6 @@ public class creaPDF {
             page = new PDPage();
             doc.addPage(page);
             PDPageContentStream contentStream = new PDPageContentStream(doc, page);
-
-            PDFont pdfFont = PDType1Font.TIMES_ROMAN;
-            float fontSize = 12;
-            float leading = 1.5f * fontSize;
-            float fontSizeT = 14;
 
             PDRectangle mediabox = page.getMediaBox();
             float margin = 72;
@@ -261,10 +256,6 @@ public class creaPDF {
             doc.addPage(page);
             PDPageContentStream contentStream = new PDPageContentStream(doc, page);
 
-            PDFont pdfFont = PDType1Font.TIMES_ROMAN;
-            float fontSize = 12;
-            float leading = 1.5f * fontSize;
-            float fontSizeT = 14;
 
             PDRectangle mediabox = page.getMediaBox();
             float margin = 72;
@@ -349,6 +340,157 @@ public class creaPDF {
             }
         }
         return output;
+    }
+    
+    public  ByteArrayOutputStream resumenPDFJustificado(String titulo, String contenido, String referencias, String path) throws IOException{
+        creaPDF(path);
+        String text = contenido;
+        
+        InputStream inputFront;
+        InputStream inputBack;
+        ByteArrayOutputStream output = new ByteArrayOutputStream(); 
+        
+        try {
+            doc = new PDDocument();
+            page = new PDPage();
+            doc.addPage(page);
+            PDPageContentStream contentStream = new PDPageContentStream(doc, page);
+
+
+            PDRectangle mediabox = page.getMediaBox();
+            
+            float margin = 72;
+            float width = mediabox.getWidth() - 2 * margin;
+            float startX = mediabox.getLowerLeftX() + margin;
+            float startY = mediabox.getUpperRightY() - margin;
+            
+            //Agrega Título
+            contentStream.beginText();
+            contentStream.setFont(pdfFont, fontSizeT);
+            contentStream.newLineAtOffset(startX, startY);
+            contentStream.showText(titulo);
+            contentStream.newLineAtOffset(0, -leading);
+            contentStream.endText();
+            
+            //Agrega contenido  
+            contentStream.beginText();
+            addParagraph(contentStream, width, startX, startY - 150, text, true);
+            //addParagraph(contentStream, width, 0, -fontSize, text);
+            //addParagraph(contentStream, width, 0, -fontSize, text, false);
+            contentStream.endText();
+
+            contentStream.close();
+
+            doc.save(output);
+        } finally {
+            if (doc != null) {
+                doc.close();
+            }
+        }
+        return output;
+    }
+    
+    public  ByteArrayOutputStream liricoPDF(String titulo, String contenido, String path) throws IOException{
+        creaPDF(path);
+        String text = contenido;
+        
+        InputStream inputFront;
+        InputStream inputBack;
+        ByteArrayOutputStream output = new ByteArrayOutputStream(); 
+        
+        try {
+            doc = new PDDocument();
+            page = new PDPage();
+            doc.addPage(page);
+            PDPageContentStream contentStream = new PDPageContentStream(doc, page);
+
+
+            PDRectangle mediabox = page.getMediaBox();
+            
+            float margin = 72;
+            float width = mediabox.getWidth() - 2 * margin;
+            float startX = mediabox.getLowerLeftX() + margin;
+            float startY = mediabox.getUpperRightY() - margin;
+            
+            //Agrega Título
+            contentStream.beginText();
+            contentStream.setFont(pdfFont, fontSizeT);
+            contentStream.newLineAtOffset(startX, startY);
+            contentStream.showText(titulo);
+            contentStream.newLineAtOffset(0, -leading);
+            contentStream.endText();
+            
+            //Agrega contenido  
+            contentStream.beginText();
+            //addParagraph(contentStream, width, startX, startY - 150, text, true);
+            addParagraph(contentStream, width, 0, -fontSize, text);
+            //addParagraph(contentStream, width, 0, -fontSize, text, false);
+            contentStream.endText();
+
+            contentStream.close();
+
+            doc.save(output);
+        } finally {
+            if (doc != null) {
+                doc.close();
+            }
+        }
+        return output;
+    }
+
+    public void addParagraph(PDPageContentStream contentStream, float width, float sx,
+                                      float sy, String text) throws IOException {
+        addParagraph(contentStream, width, sx, sy, text, false);
+    }
+
+    public void addParagraph(PDPageContentStream contentStream, float width, float sx,
+                                      float sy, String text, boolean justify) throws IOException {
+        List<String> lines = parseLines(text, width);
+        contentStream.setFont(pdfFont, fontSize);
+        contentStream.newLineAtOffset(sx, sy);
+        for (String line: lines) {
+            float charSpacing = 0;
+            if (justify){
+                if (line.length() > 1) {
+                    float size = fontSize * pdfFont.getStringWidth(line) / 1000;
+                    float free = width - size;
+                    if (free > 0 && !lines.get(lines.size() - 1).equals(line)) {
+                        charSpacing = free / (line.length() - 1);
+                    }
+                }
+            }
+            contentStream.setCharacterSpacing(charSpacing);
+            contentStream.showText(line);
+            contentStream.newLineAtOffset(0, leading);
+        }
+    }
+    
+    public List<String> parseLines(String text, float width) throws IOException {
+        List<String> lines = new ArrayList<String>();
+        
+        int lastSpace = -1;
+        while (text.length() > 0) {
+            int spaceIndex = text.indexOf(' ', lastSpace + 1);
+            if (spaceIndex < 0)
+                spaceIndex = text.length();
+            String subString = text.substring(0, spaceIndex);
+            float size = fontSize * pdfFont.getStringWidth(subString) / 1000;
+            if (size > width) {
+                if (lastSpace < 0){
+                    lastSpace = spaceIndex;
+                }
+                subString = text.substring(0, lastSpace);
+                lines.add(subString);
+                text = text.substring(lastSpace).trim();
+                lastSpace = -1;
+            } else if (spaceIndex == text.length()) {
+                lines.add(text);
+                text = "";
+            } else {
+                lastSpace = spaceIndex;
+            }
+        }
+        return lines;
     }
     public void modificaPDF(String path, String text) throws IOException {
         
@@ -495,6 +637,8 @@ public class creaPDF {
 
         }
     }
+    
+
     
 }
 

@@ -16,6 +16,12 @@ var tram = document.getElementById('tram').value;
 var otro = document.getElementById('otro').value;
 Chart.defaults.global.defaultFontColor = 'white';
 
+console.log(lie);
+console.log(lir);
+console.log(nar);
+console.log(ens);
+console.log(res);
+
 var chart = new Chart(ctx, {
     // The type of chart we want to create
     type: 'bar',
@@ -35,7 +41,15 @@ var chart = new Chart(ctx, {
     },
 
     // Configuration options go here
-    options: {}
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
 });
 
 var myDoughnutChart = new Chart(ctx1, {

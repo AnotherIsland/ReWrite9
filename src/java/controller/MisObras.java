@@ -118,7 +118,7 @@ public class MisObras extends HttpServlet {
         String contenido = "";
         String claves = "";
         //Crea el pdf de la obra
-        if (request.getParameter("descargaPDF") != null) {
+        if (request.getParameter("descargaPDF") != null || request.getParameter("elimina") != null) {
             titulo = request.getParameter("title");
             idObra = request.getParameter("idObra");
             tipo = request.getParameter("tipo");
@@ -129,43 +129,75 @@ public class MisObras extends HttpServlet {
                 squery = "select * from obra inner join ensayo on idObra = idObra2 where idObra = " + idObra + ";";
             } else if (tipo.equals("2")) {//Resumen
                 squery = "select * from obra inner join resumen on idObra = idObra1 where idObra =" + idObra + ";";
+            } else if (tipo.equals("3")) {//Narrativo
+                squery = "select * from obra inner join narrativo on idObra = idObra4 where idObra =" + idObra + ";";
+            }else if (tipo.equals("4")) {//Lirica
+                squery = "select * from obra inner join lirico on idObra = idObra5 where idObra =" + idObra + ";";
+            }else if (tipo.equals("5")) {//Lienzo
+                squery = "select * from obra inner join lienzo on idObra = idObra7 where idObra =" + idObra + ";";
             }
             
-            crea = new creaPDF();
-            path = "D:/ACIE/respaldo-usb/6° semestre/PA/RW_9/ReWrite_SinWS/ReWrite8/" + titulo + ".pdf";
+            if(request.getParameter("elimina") != null) {
+                try {
+                    db.connect();
+                    db.update("UPDATE obra set tipo = 10 WHERE idObra = "+idObra);
+                    System.out.println("Obra eliminada");
+                    db.closeConnection();
+                } catch (SQLException error) {
+                    System.out.println(error.toString());
+                }
+                
+                RequestDispatcher rd = request.getRequestDispatcher("jsp/MISOBRAS/MisObras.jsp");
+                rd.forward(request, response);
+            } else if(request.getParameter("descargaPDF") != null ){
+                crea = new creaPDF();
+                path = "D:/ACIE/respaldo-usb/6° semestre/PA/RW_9/ReWrite_SinWS/ReWrite8/" + titulo + ".pdf";
 
-            try {
-                db.connect();
-                rs = db.query(squery);
-                while (rs.next()) {
-                    if (tipo.equals("1")) {//Ensayo
-                        intro = rs.getString("intro");
-                        desa = rs.getString("desarrollo");
-                        conclu = rs.getString("conclusion");
-                        refe = rs.getString("refe");
-                        ByteArrayOutputStream output = new ByteArrayOutputStream();
-                        output = crea.ensayoPDF(titulo,intro,desa,conclu,refe,path);                      
-                        response.addHeader("Content-Type", "application/force-download"); 
-                        response.addHeader("Content-Disposition", "attachment; filename="+titulo);
-                        response.getOutputStream().write(output.toByteArray());
-                    } else if (tipo.equals("2")) {//Resumen
-                        contenido = rs.getString("contenido");
-                        refe = rs.getString("refe");
-                        
-                        ByteArrayOutputStream output = new ByteArrayOutputStream();
-                        output = crea.resumenPDF(titulo,contenido,refe,path);                      
+                try {
+                    db.connect();
+                    rs = db.query(squery);
+                    ByteArrayOutputStream output = new ByteArrayOutputStream();
+                    while (rs.next()) {
+                        if (tipo.equals("1")) {//Ensayo
+                            intro = rs.getString("intro");
+                            desa = rs.getString("desarrollo");
+                            conclu = rs.getString("conclusion");
+                            refe = rs.getString("referencias");
+                            output = crea.ensayoPDF(titulo,intro,desa,conclu,refe,path);                      
+
+                        } else if (tipo.equals("2")) {//Resumen
+                            contenido = rs.getString("contenido");
+                            refe = rs.getString("referencias");
+                            //claves = rs.getString("claves");
+
+                            output = crea.resumenPDF(titulo,contenido,refe,path);                      
+
+                        } else if (tipo.equals("3")) {//Narrativo
+                            contenido = rs.getString("contenido");
+                            refe = rs.getString("referencias");
+                            //claves = rs.getString("claves");
+
+
+                            output = crea.resumenPDFJustificado(titulo,contenido,refe,path);                      
+
+                        } else if (tipo.equals("4")) {//Lirica
+                            contenido = rs.getString("contenido");
+                            output = crea.liricoPDF(titulo,contenido,path);      
+                        }else if (tipo.equals("5")) {//Lienzo
+                        }
                         response.addHeader("Content-Type", "application/force-download"); 
                         response.addHeader("Content-Disposition", "attachment; filename="+titulo);
                         response.getOutputStream().write(output.toByteArray());
                     }
+                    db.closeConnection();
+                } catch (SQLException error) {
+                    System.out.println(error.toString());
                 }
-                db.closeConnection();
-            } catch (SQLException error) {
-                System.out.println(error.toString());
             }
+            
+            
         }
-        //RequestDispatcher rd = request.getRequestDispatcher("jsp/MISOBRAS/MisObras.jsp");
-        //rd.forward(request, response);
+        
     }
 
     /**

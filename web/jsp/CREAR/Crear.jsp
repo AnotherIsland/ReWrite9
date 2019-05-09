@@ -141,7 +141,7 @@ and open the template in the editor.
                                     </div>
                                 </div>
                             </div>
-                            <div class="col s10 m4 l3 xl3">
+                            <!--<div class="col s10 m4 l3 xl3">
                                 <div class="card z-depth-3">
                                     <div class="card-image">
                                         <img src="../../img/plantilla.png">
@@ -152,7 +152,7 @@ and open the template in the editor.
                                         <p>Elabora el guión, caracteriza tus pesonajes, añade acotaciones y da vida a tu obra teatral.</p>
                                     </div>
                                 </div>
-                            </div>
+                            </div>-->
                             <div class="col s10 m4 l3 xl3">
                                 <div class="card z-depth-3">
                                     <div class="card-image">

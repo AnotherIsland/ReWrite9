@@ -67,7 +67,7 @@ insert into tipoobra values (2, 'resumen');
 insert into tipoobra values (3, 'narrativo');
 insert into tipoobra values (4, 'lirico');
 insert into tipoobra values (5, 'lienzo');
-
+insert into tipoobra values (10, 'eliminado');
 DROP TABLE IF EXISTS `obra`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;

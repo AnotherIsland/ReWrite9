@@ -97,7 +97,7 @@
                 
                 rs = db.query("select count(*) from obra inner join tipoobra on obra.tipo = tipoobra.idtipoObra "
                         + "inner join relobrausu on relobrausu.idObra = obra.idObra "
-                        + "where tipoobra.tipoObra = 'lirica' and idUsuario = "+idUs+";");
+                        + "where tipoobra.tipoObra = 'lirico' and idUsuario = "+idUs+";");
                 while(rs.next()){
                    numLir = rs.getInt("count(*)");                  
                 }
@@ -156,6 +156,7 @@
                     <input name="lir" id="lir" value="<%=numLir%>" hidden/>
                     <input name="res" id="res" value="<%=numRes%>" hidden/>
                    </div>
+                   <br/><br/><br/><br/>
             </div>
           </div>
           <div class="row">

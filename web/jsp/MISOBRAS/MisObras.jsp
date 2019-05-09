@@ -53,9 +53,13 @@ and open the template in the editor.
                     titulo = rs.getString("titulo");
                     fecha = rs.getString("fecha");
                     tipo = rs.getString("tipo");
+                    
 
                     obraX = new Obra(idObra, titulo, fecha, tipo);
-                    obras.add(obraX);
+                    if(!tipo.equals("10")){
+                        obras.add(obraX);
+                    }
+                    
                 }                      
                 db.closeConnection();
             } catch (SQLException error) {
@@ -151,6 +155,9 @@ and open the template in the editor.
                         <button class="btn-floating halfway-fab waves-effect waves-light">
                             <i class="material-icons">create</i>
                         </button>
+                        <button class="btn-floating halfway-fab waves-effect waves-light">
+                            <i class="material-icons">create</i>
+                        </button>
                     </form>
                   </div>
                   <div class="card-content">
@@ -163,8 +170,15 @@ and open the template in the editor.
                           <input name="fecha" type="text" value="<%=fecha%>" hidden/>
                           <input name="idObra" type="text" value="<%=idObra%>" hidden/>
                           <input name="tipo" type="text" value="<%=tipo%>" hidden/>
-                          <i class="material-icons">file_download</i>
-                          <input class="waves-effect waves-light btn" name="descargaPDF" type="submit" value="Descargar PDF">
+                          
+                          <button class="btnRef" name="descargaPDF" type="submit" value="pdf">
+                            <i class="material-icons">file_download</i>  
+                          </button>
+                          <button class="btnRef" name="elimina" type="submit" value="elimina">
+                            <i class="material-icons">&nbsp;&nbsp;delete</i>  
+                          </button>
+                          
+                         <!-- <input class="waves-effect waves-light btn" name="descargaPDF" type="submit" value="Descargar PDF">-->
                       </form>
                   </div>
                 </div>

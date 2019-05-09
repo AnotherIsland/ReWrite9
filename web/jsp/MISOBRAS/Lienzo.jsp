@@ -106,7 +106,7 @@
       <div class="row">
         <br>
         <h6 class="white-text">Aquí tenemos unos muy buenos consejos para ti. </h6><br>
-        <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">forum</i>&nbsp;Ver el chat</a>
+        <!--<a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">forum</i>&nbsp;Ver el chat</a>-->
         <ul class="collapsible">
           <li>
             <div class="collapsible-header"><i class="material-icons">assignment_turned_in</i>Ortografía y gramática</div>
