@@ -116,6 +116,7 @@ public class MisObras extends HttpServlet {
         String conclu = "";
         String refe = "";
         String contenido = "";
+        String expo, clim, dese = "";
         String claves = "";
         //Crea el pdf de la obra
         if (request.getParameter("descargaPDF") != null || request.getParameter("elimina") != null) {
@@ -163,7 +164,8 @@ public class MisObras extends HttpServlet {
                             desa = rs.getString("desarrollo");
                             conclu = rs.getString("conclusion");
                             refe = rs.getString("referencias");
-                            output = crea.ensayoPDF(titulo,intro,desa,conclu,refe,path);                      
+                            contenido = intro + "\n" +desa+ "\n"+ conclu;
+                            output = crea.resumenPDF(titulo,contenido,refe,path);                      
 
                         } else if (tipo.equals("2")) {//Resumen
                             contenido = rs.getString("contenido");
@@ -173,17 +175,20 @@ public class MisObras extends HttpServlet {
                             output = crea.resumenPDF(titulo,contenido,refe,path);                      
 
                         } else if (tipo.equals("3")) {//Narrativo
-                            contenido = rs.getString("contenido");
-                            refe = rs.getString("referencias");
-                            //claves = rs.getString("claves");
+                            expo = rs.getString("exposicion");
+                            desa = rs.getString("desarrollo");
+                            clim = rs.getString("climax");
+                            dese = rs.getString("descenlace");
+                            contenido = expo + "\n" + desa + "\n" + clim + "\n" + dese;
 
-
-                            output = crea.resumenPDFJustificado(titulo,contenido,refe,path);                      
+                            output = crea.resumenPDF(titulo,contenido,refe,path);                      
 
                         } else if (tipo.equals("4")) {//Lirica
                             contenido = rs.getString("contenido");
                             output = crea.liricoPDF(titulo,contenido,path);      
                         }else if (tipo.equals("5")) {//Lienzo
+                            contenido = rs.getString("contenido");
+                            output = crea.liricoPDF(titulo,contenido,path);
                         }
                         response.addHeader("Content-Type", "application/force-download"); 
                         response.addHeader("Content-Disposition", "attachment; filename="+titulo);

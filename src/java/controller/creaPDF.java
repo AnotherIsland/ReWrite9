@@ -27,6 +27,7 @@ public class creaPDF {
     private PDDocument doc = null;
     private PDPage page = null;
     private float fontSize = 12;
+    private PDFont pdfFontT = PDType1Font.TIMES_BOLD;
     private PDFont pdfFont = PDType1Font.TIMES_ROMAN;
     private float leading = 1.5f * fontSize;
     private float fontSizeT = 14;
@@ -144,7 +145,10 @@ public class creaPDF {
 
     public ByteArrayOutputStream resumenPDF(String titulo, String contenido, String referencias, String path) throws IOException{
         creaPDF(path);
-        String text = contenido;
+        String text1 = contenido;
+        int cuentaP = 0;//Cuenta el número de lineas por párrafo
+        ArrayList<String> numLP = new ArrayList();//Guarda el numero de lineas por parrafo
+        text1 = text1.replace("\n", "&").replace("\r", "&");
         
         InputStream inputFront;
         InputStream inputBack;
@@ -163,47 +167,59 @@ public class creaPDF {
             float startY = mediabox.getUpperRightY() - margin;
 
             List<String> lines = new ArrayList<String>();
-            int lastSpace = -1;
-            while (text.length() > 0) {
-                int spaceIndex = text.indexOf(' ', lastSpace + 1);
-                if (spaceIndex < 0) {
-                    spaceIndex = text.length();
-                }
-                String subString = text.substring(0, spaceIndex);
-                float size = fontSize * pdfFont.getStringWidth(subString) / 1000;
-                System.out.printf("'%s' - %f of %f\n", subString, size, width);
-                if (size > width) {
-                    if (lastSpace < 0) {
+            for (String text : text1.split("&")){
+                int lastSpace = -1;
+                
+                while (text.length() > 0) {
+                    int spaceIndex = text.indexOf(' ', lastSpace + 1);
+                    if (spaceIndex < 0) {
+                        spaceIndex = text.length();
+                    }
+                    String subString = text.substring(0, spaceIndex);
+                    float size = fontSize * pdfFont.getStringWidth(subString) / 1000;
+                    System.out.printf("'%s' - %f of %f\n", subString, size, width);
+                    if (size > width) {
+                        if (lastSpace < 0) {
+                            lastSpace = spaceIndex;
+                        }
+                        subString = text.substring(0, lastSpace);
+                        lines.add(subString);
+                        cuentaP++;
+                        text = text.substring(lastSpace).trim();
+                        System.out.printf("'%s' is line\n", subString);
+                        lastSpace = -1;
+                    } else if (spaceIndex == text.length()) {
+                        lines.add(text);
+                        cuentaP++;
+                        System.out.printf("'%s' is line\n", text);
+                        text = "";
+                    } else {
                         lastSpace = spaceIndex;
                     }
-                    subString = text.substring(0, lastSpace);
-                    lines.add(subString);
-                    text = text.substring(lastSpace).trim();
-                    System.out.printf("'%s' is line\n", subString);
-                    lastSpace = -1;
-                } else if (spaceIndex == text.length()) {
-                    lines.add(text);
-                    System.out.printf("'%s' is line\n", text);
-                    text = "";
-                } else {
-                    lastSpace = spaceIndex;
                 }
+                System.out.println("Parrafo termina en linea numero:"+cuentaP);
+                numLP.add(Integer.toString(cuentaP));
+                //cuentaP = 0;
             }
-
-            contentStream.beginText();
+            
+            
             //Agrega Título
-            contentStream.setFont(pdfFont, fontSizeT);
+            contentStream.beginText();
+            contentStream.setFont(pdfFontT, fontSizeT);
             contentStream.newLineAtOffset(startX, startY);
             contentStream.showText(titulo);
             contentStream.newLineAtOffset(0, -leading);
             contentStream.endText();
+            //Agrega contenido 
             contentStream.beginText();
-            //Agrega contenido            
+                       
             contentStream.setFont(pdfFont, fontSize);
             contentStream.newLineAtOffset((startX), (startY-30));
             float currentY = startY;
-            for (String line : lines) {
+            int cuenta = 0;
+            for (String line: lines) {
                 currentY -= leading;
+                cuenta++;
 
                 if (currentY <= margin) {
 
@@ -225,11 +241,52 @@ public class creaPDF {
                         charSpacing = free / (line.length() - 1);
                     }
                 }
-                contentStream.setCharacterSpacing(charSpacing);
+                
+                for(int k = 0; k < numLP.size();k++){
+                    if(cuenta==Integer.parseInt(numLP.get(k))){
+                        contentStream.setCharacterSpacing(0);
+                        System.out.println("Se cambia espaciado: "+line);
+                        break;
+                    }else {
+                        contentStream.setCharacterSpacing(charSpacing);
+                    }
+                }
+                
                 contentStream.showText(line);
                 contentStream.newLineAtOffset(0, -leading);
             }
             contentStream.endText();
+            
+            //Agrega referencias
+            if(!referencias.equals("")){
+                startY = currentY - 50;
+                contentStream.beginText();
+                contentStream.setFont(pdfFont, fontSize);
+                contentStream.newLineAtOffset((startX), (startY));
+
+            for (String line: referencias.split("&")) {
+                currentY -= leading;
+                cuenta++;
+                line = line.replace("<i>", "").replace("</i>", "");
+                if (currentY <= margin) {
+
+                    contentStream.endText();
+                    contentStream.close();
+                    PDPage new_Page = new PDPage();
+                    doc.addPage(new_Page);
+                    contentStream = new PDPageContentStream(doc, new_Page);
+                    contentStream.beginText();
+                    contentStream.setFont(pdfFont, fontSize);
+                    contentStream.newLineAtOffset(startX, startY);
+                    currentY = startY;
+                }
+                contentStream.setCharacterSpacing(0);
+                contentStream.showText(line);
+                contentStream.newLineAtOffset(0, -leading);
+            }
+            contentStream.endText();
+            }
+            
             contentStream.close();
 
             doc.save(output);
@@ -374,7 +431,7 @@ public class creaPDF {
             
             //Agrega contenido  
             contentStream.beginText();
-            addParagraph(contentStream, width, startX, startY - 150, text, true);
+            addParagraph(contentStream, width, startX, startY, text, true);
             //addParagraph(contentStream, width, 0, -fontSize, text);
             //addParagraph(contentStream, width, 0, -fontSize, text, false);
             contentStream.endText();
@@ -392,7 +449,10 @@ public class creaPDF {
     
     public  ByteArrayOutputStream liricoPDF(String titulo, String contenido, String path) throws IOException{
         creaPDF(path);
-        String text = contenido;
+        String text1 = contenido;
+        int cuentaP = 0;//Cuenta el número de lineas por párrafo
+        ArrayList<String> numLP = new ArrayList();//Guarda el numero de lineas por parrafo
+        text1 = text1.replace("\n", "&").replace("\r", "&");
         
         InputStream inputFront;
         InputStream inputBack;
@@ -404,29 +464,83 @@ public class creaPDF {
             doc.addPage(page);
             PDPageContentStream contentStream = new PDPageContentStream(doc, page);
 
-
             PDRectangle mediabox = page.getMediaBox();
-            
             float margin = 72;
             float width = mediabox.getWidth() - 2 * margin;
             float startX = mediabox.getLowerLeftX() + margin;
             float startY = mediabox.getUpperRightY() - margin;
+
+            List<String> lines = new ArrayList<String>();
+            for (String text : text1.split("&")){
+                int lastSpace = -1;
+                
+                while (text.length() > 0) {
+                    int spaceIndex = text.indexOf(' ', lastSpace + 1);
+                    if (spaceIndex < 0) {
+                        spaceIndex = text.length();
+                    }
+                    String subString = text.substring(0, spaceIndex);
+                    float size = fontSize * pdfFont.getStringWidth(subString) / 1000;
+                    System.out.printf("'%s' - %f of %f\n", subString, size, width);
+                    if (size > width) {
+                        if (lastSpace < 0) {
+                            lastSpace = spaceIndex;
+                        }
+                        subString = text.substring(0, lastSpace);
+                        lines.add(subString);
+                        cuentaP++;
+                        text = text.substring(lastSpace).trim();
+                        System.out.printf("'%s' is line\n", subString);
+                        lastSpace = -1;
+                    } else if (spaceIndex == text.length()) {
+                        lines.add(text);
+                        cuentaP++;
+                        System.out.printf("'%s' is line\n", text);
+                        text = "";
+                    } else {
+                        lastSpace = spaceIndex;
+                    }
+                }
+                System.out.println("Parrafo termina en linea numero:"+cuentaP);
+                numLP.add(Integer.toString(cuentaP));
+                //cuentaP = 0;
+            }
             
-            //Agrega Título
             contentStream.beginText();
-            contentStream.setFont(pdfFont, fontSizeT);
+            //Agrega Título
+            contentStream.setFont(pdfFontT, fontSizeT);
             contentStream.newLineAtOffset(startX, startY);
             contentStream.showText(titulo);
             contentStream.newLineAtOffset(0, -leading);
             contentStream.endText();
-            
-            //Agrega contenido  
+            //Agrega contenido 
             contentStream.beginText();
-            //addParagraph(contentStream, width, startX, startY - 150, text, true);
-            addParagraph(contentStream, width, 0, -fontSize, text);
-            //addParagraph(contentStream, width, 0, -fontSize, text, false);
-            contentStream.endText();
+                       
+            contentStream.setFont(pdfFont, fontSize);
+            contentStream.newLineAtOffset((startX), (startY-30));
+            float currentY = startY;
+            int cuenta = 0;
+            for (String line: lines) {
+                currentY -= leading;
+                cuenta++;
 
+                if (currentY <= margin) {
+
+                    contentStream.endText();
+                    contentStream.close();
+                    PDPage new_Page = new PDPage();
+                    doc.addPage(new_Page);
+                    contentStream = new PDPageContentStream(doc, new_Page);
+                    contentStream.beginText();
+                    contentStream.setFont(pdfFont, fontSize);
+                    contentStream.newLineAtOffset(startX, startY);
+                    currentY = startY;
+                }
+                contentStream.setCharacterSpacing(0);
+                contentStream.showText(line);
+                contentStream.newLineAtOffset(0, -leading);
+            }
+            contentStream.endText();
             contentStream.close();
 
             doc.save(output);
