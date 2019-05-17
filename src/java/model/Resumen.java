@@ -19,7 +19,8 @@ public class Resumen implements Serializable {
     private static final long serialVersionUID = 1L;
     private Integer idResumen;
     private String contenido;
-    private String claves;
+    private String[] claves;
+    private String clavees;
     private String referencias;
 
  
@@ -29,11 +30,20 @@ public class Resumen implements Serializable {
         
     }
 
-    public Resumen(Integer idResumen, String contenido, String claves, String referencias) {
+    public Resumen(Integer idResumen, String contenido, String[] claves,String clavees, String referencias) {
         this.idResumen = idResumen;
         this.contenido = contenido;
         this.claves = claves;
         this.referencias = referencias;
+        this.clavees = clavees;
+    }
+
+    public String getClavees() {
+        return clavees;
+    }
+
+    public void setClavees(String clavees) {
+        this.clavees = clavees;
     }
     
     
@@ -66,11 +76,11 @@ public class Resumen implements Serializable {
         this.contenido = contenido;
     }
 
-    public String getClaves() {
+    public String[] getClaves() {
         return claves;
     }
 
-    public void setClaves(String claves) {
+    public void setClaves(String[] claves) {
         this.claves = claves;
     }
 

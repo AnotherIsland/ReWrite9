@@ -142,7 +142,7 @@ public class GuardarObra extends HttpServlet {
 
             refe = manejaRef(request);
             contenido = request.getParameter("contenido");
-            claves =  manejaClaves(request);
+            claves =  request.getParameter("claves");
             regreso = "jsp/MISOBRAS/Resumen.jsp";
 
             try {//Da de alta la resumen 
@@ -275,31 +275,5 @@ public class GuardarObra extends HttpServlet {
         return refes;
     }
     
-    private String manejaClaves(HttpServletRequest request){
-        
-        boolean sigue = false;
-        int cuenta = 1;
-        String refes = "";
-        String param = "";
-        
-        
-        if(request.getParameter("pClaveI1")!= null){
-            sigue = true;
-        }
-        
-        while(sigue){
-            param = "pClaveI" + cuenta;
-            if(request.getParameter(param)!=null){
-                refes = refes + request.getParameter("pClaveI"+cuenta) + "&" ;
-                cuenta++;
-                System.out.println("Claves: "+refes);
-            }else {
-                sigue = false;
-            }   
-        }
-        return refes;
-    }
-
- 
 
 }

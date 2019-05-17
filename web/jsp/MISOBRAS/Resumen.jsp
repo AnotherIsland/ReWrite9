@@ -27,9 +27,9 @@
     AdminObras ao = new AdminObras();
     String titulo = "";
     String cont = "";
-    String clav = "";
+    String clav = null;
     String refe = "";
-    ArrayList<String> clavs = new ArrayList();
+    String clavs[] = null;
     ArrayList<String> refs = new ArrayList();
     int num = 0;
     String idObra = "";
@@ -54,10 +54,11 @@
         res = ao.getRes();
         titulo = obraX.getTitulo();
         cont = res.getContenido();
-        clav = res.getClaves();
+        //clavs = res.getClaves();
+        clavs = res.getClavees().split(",");
         refe = res.getReferencias();
         
-        clavs = ao.traeClaves(clav);
+        System.out.println("Claves que trae: "+clavs);
         refs = ao.traeRefes(refe);
         
         consO = ac.traePorCategoria(Integer.parseInt(idObra), "otros");
@@ -159,10 +160,14 @@
                 <div name="pClave" id="pClave">
                     <ul id="listaClaves">
                         <li class="white-text">
-                        <input type="text" class="white-text" onkeypress="validap();" placeholder="Añade una palabra" onblur="agregaPalabra(this);">
+                        <input type="text" id="word" class="white-text left" onkeypress="validap();" placeholder="Añade una palabra" onblur="agregaPalabra();">
+                        <button class="btn-floating btn-small" name="haceP" type="submit" value="haceP" onclick="agregaPalabra();">
+                            <i class="material-icons">check</i>
+                        </button>&nbsp;&nbsp;Agregar
                         </li>
-                        <% for(int p = 0; p < clavs.size(); p++){
-                            clav = clavs.get(p);
+                        <br/> 
+                        <% for(int p = 0; p < clavs.length; p++){
+                            clav = clavs[p];
                             num = p + 1;
                         %>
                         <li class="white-text">
@@ -231,17 +236,13 @@
             <input value="<%=refe%>" hidden="true" name="vRef<%=num%>"/>
                 <%}%>
           </div>
-          <% for(int p = 0; p < clavs.size(); p++){
-                clav = clavs.get(p);
-            %>
-            <input value="<%=clav%>" hidden="true" name="pClaveI<%=num%>"/> 
-            <%}%>
+          
           <div class="oculto" id="sello" name="sello" >
               <hr>
                             <label for=""><h6>Sello</h6></label>
               <input type="text" name="selloF" id="selloF" class="input-field oculto" disabled="true" value="<%=sello%>">
                             </div>
-          <input type="submit" class="btn waves-effect waves-light" name="guardar" id="guardar" value="Guardar"><br><br>
+                            <input type="submit" class="btn waves-effect waves-light" name="guardar" id="guardar" onclick="guardaResumen();" value="Guardar"><br><br>
         </form>
     </div>
 

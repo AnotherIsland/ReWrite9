@@ -11,6 +11,7 @@ import java.io.PrintWriter;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -130,12 +131,12 @@ public class ActualizarObra extends HttpServlet {
 
             refe = manejaRef(request);
             contenido = request.getParameter("contenido");
-            claves =  manejaClaves(request);
+            claves =  request.getParameter("claves");
             regreso = "jsp/MISOBRAS/Resumen.jsp";
             
             idObraTipo = ao.buscaObraPorTipo("resumen", "idObra1", idObra, 2);
 
-            try {//Actualiza  la resumen 
+            try {//Actualiza  resumen 
                 db.connect();
                 db.update("UPDATE resumen SET contenido = '"+contenido+"',"
                         + " claves= '"+claves+"', referencias= '"+refe+"'"
@@ -261,29 +262,16 @@ public class ActualizarObra extends HttpServlet {
         return refes;
     }
     
-    private String manejaClaves(HttpServletRequest request){
+    private String haceStringClaves(String[] claveees){
         
-        boolean sigue = false;
-        int cuenta = 1;
-        String refes = "";
-        String param = "";
+        String guarda = "";
         
-        
-        if(request.getParameter("pClaveI1")!= null){
-            sigue = true;
-        }
-        
-        while(sigue){
-            param = "pClaveI" + cuenta;
-            if(request.getParameter(param)!=null){
-                refes = refes + request.getParameter("pClaveI"+cuenta) + "&" ;
-                cuenta++;
-                System.out.println("Claves: "+refes);
-            }else {
-                sigue = false;
-            }   
-        }
-        return refes;
+        for (int i = 0; i < claveees.length; i++) {
+            guarda = guarda +","+ claveees[i];
+        }System.out.println("Claves que se van a guardar: "+guarda);
+        return guarda;
     }
+    
+    
 
 }

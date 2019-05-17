@@ -49,14 +49,36 @@ function cuentaPalabras(texto) {
 
     span.innerHTML = ' ' + numPalabra;
     span.id = 'spanNumP';
-    console.log(numPalabra);
+    //console.log(numPalabra);
     if (document.getElementById('spanNumP')) {
         h6.removeChild(document.getElementById('spanNumP'));
 
     }
     document.getElementById('numP').appendChild(span);
 }
-function agregaPalabra(pal) {
+function guardaResumen(){
+    var lista = document.getElementsByClassName('palabra');
+    var lista1 = [];//Palabras clave en lista
+    var inputP = document.createElement('input');
+    var form = document.getElementById('form1');
+    var valor = '';
+    
+    //Extrae palabras de la lista de palabras clave
+    for (i = 0; i < lista.length; i++) {
+        lista1[i] = lista[i].innerHTML;
+        valor = valor +lista1[i]+ ",";
+        
+    }console.log("se guardarán: "+ valor);
+    
+    inputP.setAttribute('hidden','true');
+    //inputP.value = lista1;
+    inputP.value = valor;
+    inputP.id = 'claves';
+    inputP.setAttribute('name','claves');
+    
+    form.appendChild(inputP);
+}
+function agregaPalabra() {
     var palabra = null;
     var icon = null;
     var span = null;
@@ -65,6 +87,8 @@ function agregaPalabra(pal) {
     var bandera = 0;
     var inputP = null;
     var numP = 1;
+    var pal = '';
+    pal = document.getElementById('word');
     if (pal.value !== '') {
         palabra = document.createElement('li');
         icon = document.createElement('i');
@@ -73,7 +97,7 @@ function agregaPalabra(pal) {
         
         if (document.getElementsByClassName('palabra').length !== 0) {
             numP = document.getElementsByClassName('palabra').length + 1 ;
-            console.log(numP);
+            //console.log(numP);
         }
 
         palabra.setAttribute('class', 'white-text');
@@ -99,16 +123,17 @@ function agregaPalabra(pal) {
         palabra.appendChild(icon);
         palabra.appendChild(span);
         document.getElementById('listaClaves').appendChild(palabra);
-        document.getElementById('form1').appendChild(inputP);
+        //document.getElementById('form1').appendChild(inputP);
         pal.value = '';
     } else {
         return false;
     }
 }
-function pClaves() {
+function pClaves() { //Revisa la palabras claves del contenido y muestra las que no están
     var contenido = document.getElementById('contenido');
     var lista = document.getElementsByClassName('palabra');
     var inputP = document.createElement('input');
+    var form = document.getElementById('form1');
     var lista1 = [];//Palabras clave en lista
     var lista2 = [];//Palabras en todo texto
     var lista3 = [];//Palabras clave en texto
@@ -127,8 +152,8 @@ function pClaves() {
     //Extrae palabras de la lista de palabras clave
     for (i = 0; i < lista.length; i++) {
         lista1[i] = lista[i].innerHTML;
-        inputP.value =  "," +lista1[i];
-        console.log(inputP.value);
+        inputP.value =  lista1[i];
+        console.log("Busca: "+inputP.value);
     }
 
     //Extrae palabras del texto y las mete en arreglo lista2
@@ -140,10 +165,11 @@ function pClaves() {
     }
     //Comparando palabras de lista1 y lista2, agregando a lista 3 las que están, 
     //a lista4 las que faltan
-
+    console.log(lista1 +"-"+lista2);
     for (i = 0; i < lista1.length; i++) {
         for (j = 0; j < lista2.length; j++) {
             if (lista1[i] === lista2[j]) {
+                //console.log(lista1[i] +" - "+lista2[j]);
                 lista3[numPalabra] = lista1[i];
                 numPalabra++;
                 noHay = 1;
@@ -153,10 +179,11 @@ function pClaves() {
 
             lista4[numPalabra1] = lista1[i];
             numPalabra1++;
-            console.log(lista4[numPalabra1]);
+            console.log("Falta: "+lista4[numPalabra1]);
         }
+        noHay = 0;
     }
-    console.log(lista4);
+    console.log("Faltan: "+ lista4);
 
     //Despliega las palabras que faltan 
     var palabra = null;
@@ -188,7 +215,7 @@ function pClaves() {
         document.getElementById('faltanClaves').appendChild(palabra);
     }
     
-    document.getElementById('pClave').appendChild(inputP);
+    //document.getElementById('form1').appendChild(inputP);
 }
 //Revisión por módulos
 function revEnsayo() {
@@ -213,6 +240,7 @@ function revEnsayo() {
     inputNRef.setAttribute('name','numRef');
     inputNRef.setAttribute('hidden','true');
     document.getElementById('referencias').appendChild(inputNRef);
+    
 
 }
 function revResumen() {

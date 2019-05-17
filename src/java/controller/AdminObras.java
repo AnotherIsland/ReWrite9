@@ -9,6 +9,7 @@ import Database.DataBase;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.servlet.http.HttpServletRequest;
 import model.Ensayo;
 import model.Lienzo;
 import model.Lirico;
@@ -176,7 +177,8 @@ public class AdminObras {
         String conclu = "";
         String refe = " ";
         String contenido = "";
-        String claves = "";
+        String [] claves = null;
+        String clavees = "";
         String expo = "";
         String dese = "";
         String clim = "";
@@ -201,10 +203,11 @@ public class AdminObras {
                     System.out.println("Ensayo"+rs.getInt("idensayo")+"_intro: "+intro+"_Desa: "+desa+"_Con: "+conclu+"_Ref: "+refe );
                 }else if(type == 2){//Resumen
                     contenido = rs.getString("contenido");
-                    claves = rs.getString("claves");
+                    claves = manejaClaves(rs.getString("claves"));
+                    clavees = rs.getString("claves");
                     refe = rs.getString("referencias");
-                    _res = new Resumen(rs.getInt("idresumen"),contenido,claves,refe);
-                    System.out.println("Resumen"+rs.getInt("idresumen")+"_cont: "+contenido+"_claves: "+claves );
+                    _res = new Resumen(rs.getInt("idresumen"),contenido,claves,clavees,refe);
+                    System.out.println("Resumen"+rs.getInt("idresumen")+"_cont: "+contenido+"_claves: "+clavees );
                 }else if(type == 3){//Narrativo
                     expo = rs.getString("exposicion");
                     desa = rs.getString("desarrollo");
@@ -230,21 +233,6 @@ public class AdminObras {
             System.out.println(error.toString());
         }
         return _idObraTipo;
-    }
-    
-    public ArrayList<String> traeClaves(String claves){
-        ArrayList<String> clavs = new ArrayList();
-        String guarda = "";
-        
-        for(int y = 0; y < claves.length();y++){ 
-            if(claves.charAt(y)!='&'){
-                guarda = guarda + claves.charAt(y);
-            } else {
-                clavs.add(guarda);
-                guarda = "";
-            }
-        }
-        return clavs;
     }
     
     public ArrayList<String> traeRefes(String refes){
@@ -295,6 +283,18 @@ public class AdminObras {
         
     }
     
-    
+    private String[] manejaClaves(String claves){
+
+        String[] clavs = null;
+        
+        if(claves!= null||!claves.equals("")){
+            clavs = claves.split(",");
+            
+            for (int i = 0; i < clavs.length; i++) {
+                System.out.println("Palabra clave: "+clavs[i]);
+            }
+        }
+        return clavs;
+    }
     
 }

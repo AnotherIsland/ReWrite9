@@ -83,8 +83,12 @@
                 <div name="pClave" id="pClave">
                     <ul id="listaClaves">
                         <li class="white-text">
-                        <input type="text" class="white-text" onkeypress="validap();" placeholder="Añade una palabra" onblur="agregaPalabra(this);">
+                        <input type="text" id="word" class="white-text left" onkeypress="validap();" placeholder="Añade una palabra" onblur="agregaPalabra();">
+                        <button class="btn-floating btn-small" name="haceP" type="submit" value="haceP" onclick="agregaPalabra();">
+                            <i class="material-icons">check</i>
+                        </button>&nbsp;&nbsp;Agregar
                         </li>
+                        <br/>
                     </ul>
                 </div>
                 <br>
@@ -142,7 +146,7 @@
                             <label for=""><h6>Sello</h6></label>
               <input type="text" name="selloF" id="selloF" class="input-field oculto" disabled="true" value="<%=sello%>">
                             </div>
-          <input type="submit" class="btn waves-effect waves-light" name="guardar" id="guardar" value="Guardar"><br><br>
+          <input type="submit" class="btn waves-effect waves-light" name="guardar" id="guardar" onclick="guardaResumen();" value="Guardar"><br><br>
         </form>
     </div>
 
